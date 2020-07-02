@@ -4,14 +4,10 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 
-public class room_generator : MonoBehaviour
+public class RoomGenerator
 {
 
-    public RectInt roomBase = new RectInt()
+    public RectInt roomBase = new RectInt();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
