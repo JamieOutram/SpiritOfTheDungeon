@@ -16,9 +16,9 @@ public class Unit_Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = gameObject.GetComponent<Unit_Statistics>().unit_stats[UnitStatType.Spd];
+        speed = gameObject.GetComponent<Unit_Statistics>().GetStat(UnitStatType.Spd);
         //TODO add stat with proper update function for turnrate
-        turnRate = gameObject.GetComponent<Unit_Statistics>().unit_stats[UnitStatType.Spd]; 
+        turnRate = gameObject.GetComponent<Unit_Statistics>().GetStat(UnitStatType.Spd); 
         ctr = gameObject.GetComponent<Unit_Control_Base>();
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
