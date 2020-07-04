@@ -1134,6 +1134,7 @@ GameObject:
   - component: {fileID: 234405474}
   - component: {fileID: 234405473}
   - component: {fileID: 234405476}
+  - component: {fileID: 234405478}
   - component: {fileID: 234405477}
   m_Layer: 0
   m_Name: enemy
@@ -1252,10 +1253,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 234405472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 618d8aab9f683134684b0e3c67c7aca5, type: 3}
+  m_Script: {fileID: 11500000, guid: e62f0c043587b78418a8324cd908b235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMagnitude: -200
+  speed: 3
+  turnRate: 200
+--- !u!114 &234405478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234405472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3513eb824ab87ab41af390bf287e6948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalMove: 0
+  horizontalMove: 0
+  turnMove: 0
 --- !u!1 &321582967
 GameObject:
   m_ObjectHideFlags: 0

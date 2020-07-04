@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Control_Test : Unit_Movement_Control_Base
+public class Control_Test : Unit_Control_Base
 {
     
     // Start is called before the first frame update
