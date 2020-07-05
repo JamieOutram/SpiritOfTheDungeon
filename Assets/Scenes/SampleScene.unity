@@ -1134,6 +1134,7 @@ GameObject:
   - component: {fileID: 234405474}
   - component: {fileID: 234405473}
   - component: {fileID: 234405476}
+  - component: {fileID: 234405479}
   - component: {fileID: 234405478}
   - component: {fileID: 234405477}
   m_Layer: 0
@@ -1256,8 +1257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62f0c043587b78418a8324cd908b235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  turnRate: 200
 --- !u!114 &234405478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,6 +1272,18 @@ MonoBehaviour:
   verticalMove: 0
   horizontalMove: 0
   turnMove: 0
+--- !u!114 &234405479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234405472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9c9a46edce25c47a83e5b66cc56994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &321582967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,8 +4945,6 @@ GameObject:
   - component: {fileID: 1657464772}
   - component: {fileID: 1657464775}
   - component: {fileID: 1657464774}
-  - component: {fileID: 1657464777}
-  - component: {fileID: 1657464776}
   m_Layer: 0
   m_Name: Hero_tank
   m_TagString: Untagged
@@ -5044,35 +5053,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
---- !u!114 &1657464776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657464771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62f0c043587b78418a8324cd908b235, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  turnRate: 200
---- !u!114 &1657464777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657464771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3513eb824ab87ab41af390bf287e6948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verticalMove: 0
-  horizontalMove: 0
-  turnMove: 0
 --- !u!1 &2078860246
 GameObject:
   m_ObjectHideFlags: 0
