@@ -26,6 +26,7 @@ public class Unit_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (speed == null || turnRate == null) Start();
         //set speed of character to direction pressed
         rb.velocity = new Vector2(ctr.horizontalMove * speed.Value * 2, ctr.verticalMove * speed.Value * 2);
 

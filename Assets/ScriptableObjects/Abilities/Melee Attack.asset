@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b549357c774384fae1f87bf832af1b, type: 3}
+  m_Name: Melee Attack
+  m_EditorClassIdentifier: 
+  aName: Melee Attack
+  aSprite: {fileID: 21300000, guid: 15f5ef4eae2b7d24aaf120d92395bcdc, type: 3}
+  aSound: {fileID: 0}
+  aBaseCoolDown: 1
+  damageMultiplier: 1
+  baseDelay: 0
+  baseDuration: 3
+  baseRange: 3
+  abilityEffect: {fileID: 4760703138918049388, guid: fe8b7266b1645054aa35ab9f3e6a4eae,
+    type: 3}
+  isTrackPlayer: 1

@@ -23,14 +23,24 @@ public class Unit_Statistics : MonoBehaviour
 
     private Dictionary<UnitStatType, UnitTrackedStat> unit_resources = new Dictionary<UnitStatType, UnitTrackedStat>();
 
+    private bool _intialised = false;
+
     //Get and set functions here obscures the dictionary structure (easy to change later)  
     public UnitStat GetStat(UnitStatType statType)
     {
+
+        if (_intialised == false)
+        {
+            Debug.LogWarning("GetStat called before Stats initialised in Unit_Statistics.");
+            return null;
+        }
+
         return unit_stats[statType];
     }
 
     public UnitTrackedStat GetTrackedStat(UnitStatType statType)
     {
+        if (_intialised == false) return null;
         return unit_resources[statType];
     }
 
@@ -50,6 +60,7 @@ public class Unit_Statistics : MonoBehaviour
 
     protected virtual void PopulateStats()
     {
+        _intialised = true;
         //Base Stats
         AddStat(UnitStatType.Vit, 10f);
         AddStat(UnitStatType.Int, 10f);
@@ -67,7 +78,7 @@ public class Unit_Statistics : MonoBehaviour
         AddTrackedStat(UnitStatType.Ammo, 0);
     }
     
-    public void Start()
+    public void Awake()
     {
         PopulateStats();
     }

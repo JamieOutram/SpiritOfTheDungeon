@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Control_Test : Unit_Control_Base
 {
+
+    public Animator animator;
+    [SerializeField] private Ability ability;
+
+    private bool isHeld = false;
     
     // Start is called before the first frame update
     void Start()
     {
-       
+        ability.Initialize(gameObject);
     }
 
 
@@ -27,7 +32,22 @@ public class Control_Test : Unit_Control_Base
         if (Input.GetKey("e")) turnMove = 1;
         else if (Input.GetKey("q")) turnMove = -1;
         else turnMove = 0;
+
+        if (isHeld)
+        {
+            animator.SetBool("Attack", false);
+            isHeld = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        {
+            animator.SetBool("Attack", true);
+            isHeld = true;
+
+            ability.TriggerAbility();
+            //Debug.Log("KeyDownDetected");
+        }
         
+
 
     }
 }
