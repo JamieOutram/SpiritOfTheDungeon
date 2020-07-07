@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1b859564317b040806ce9a2d5cc4dc, type: 3}
   m_Name: TileSetDungeonV1
   m_EditorClassIdentifier: 
-  floorTile: {fileID: 0}
-  wallTile: {fileID: 0}
+  floorTile: {fileID: 11400000, guid: b2067363ac95dd34c84f36f34f39ae97, type: 2}
+  wallTile: {fileID: 11400000, guid: f341c08d1fe3c3f4384e8fbac6777697, type: 2}
+  graphicMap: {fileID: 0}
+  collideMap: {fileID: 0}
