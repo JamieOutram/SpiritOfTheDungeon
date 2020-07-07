@@ -5,10 +5,16 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 using System;
 
-public class RoomGenerator
+public class RoomGenerator : MonoBehaviour
 {
 
     private List<RectInt> roomRects;
+    [HideInInspector] public Tile floorTile;
+    [HideInInspector] public Tile wallTile;
+    public Tilemap graphicMap;
+    public Tilemap collideMap;
+    [SerializeField] private int width = 10;
+    [SerializeField] private int height = 16;
 
     public enum RoomType
     {
@@ -20,23 +26,22 @@ public class RoomGenerator
     public RoomGenerator()
     {
         roomRects = new List<RectInt>();
-
-        CreateRoom(RoomType.middleGap);
-        DrawRoom();
-
     }
 
-    private void DrawRoom()
+    public void DrawRoom()
     {
+        Debug.Log("Draw Room Has Been Called My Dood");
+        graphicMap.BoxFill(new Vector3Int(0, 0, 0), floorTile, (int)Math.Floor((decimal)(- width / 2)), (int)Math.Floor((decimal)(- height / 2)), (int)Math.Floor((decimal)(width / 2)), (int)Math.Floor((decimal)(height / 2)));
 
+        foreach (RectInt rect in roomRects)
+        {
+            graphicMap.BoxFill(new Vector3Int(0, 0, 0), null, rect.xMin, rect.yMin, rect.xMax, rect.yMax);
+        }
     }
 
-    private void CreateRoom(RoomType roomCase)
+    public void CreateRoom(RoomType roomCase)
     {
-
-        int width = 10;
-        int height = 15;
-        roomRects.Add(new RectInt(0, 0, width, height));
+        Debug.Log("Create Room Has Been Called My Dood");
         var rnd = new System.Random();
 
         switch (roomCase)
