@@ -19,10 +19,7 @@ public class Melee_Attack_Effect_Script : MonoBehaviour
     {
        
     }
-    private void OnTriggerExit2D()
-    {
-        Debug.Log("OnTriggerExit Called");
-    }
+
     private void OnTriggerEnter2D(Collider2D otherObj)
     {
         Debug.Log("OnTriggerEnter2D called");
