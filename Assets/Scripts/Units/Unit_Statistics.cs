@@ -34,7 +34,6 @@ public class Unit_Statistics : MonoBehaviour
             Debug.LogWarning("GetStat called before Stats initialised in Unit_Statistics.");
             return null;
         }
-
         return unit_stats[statType];
     }
 

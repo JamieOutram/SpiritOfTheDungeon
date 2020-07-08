@@ -5,8 +5,8 @@ using UnityEngine;
 //This is where the attack can damage enemies and the like.
 public class Melee_Attack_Effect_Script : MonoBehaviour
 {
-   
-    
+
+    int damage = 3; //TEMP
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +18,18 @@ public class Melee_Attack_Effect_Script : MonoBehaviour
     void Update()
     {
        
+    }
+    private void OnTriggerExit2D()
+    {
+        Debug.Log("OnTriggerExit Called");
+    }
+    private void OnTriggerEnter2D(Collider2D otherObj)
+    {
+        Debug.Log("OnTriggerEnter2D called");
+
+        if (otherObj.CompareTag("HitableEnemy")) 
+        {
+            otherObj.GetComponent<Unit_Actions>().Damage(damage);
+        }
     }
 }
