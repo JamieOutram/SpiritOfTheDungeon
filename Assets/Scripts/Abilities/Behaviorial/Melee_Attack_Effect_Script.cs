@@ -6,7 +6,7 @@ using UnityEngine;
 public class Melee_Attack_Effect_Script : MonoBehaviour
 {
 
-    int damage = 3; //TEMP
+    int damage = 50; //TEMP
     // Start is called before the first frame update
     void Start()
     {
