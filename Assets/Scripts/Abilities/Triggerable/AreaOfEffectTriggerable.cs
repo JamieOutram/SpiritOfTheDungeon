@@ -16,7 +16,7 @@ public class AreaOfEffectTriggerable : MonoBehaviour
     {
         
         
-        Debug.Log("AoE Fired!");
+        //Debug.Log("AoE Fired!");
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
         
     }

@@ -22,7 +22,7 @@ public class Melee_Attack_Effect_Script : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D otherObj)
     {
-        Debug.Log("OnTriggerEnter2D called");
+        //Debug.Log("OnTriggerEnter2D called");
 
         if (otherObj.CompareTag("HitableEnemy")) 
         {

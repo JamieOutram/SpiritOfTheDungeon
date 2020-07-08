@@ -35,7 +35,6 @@ public class Control_Test : Unit_Control_Base
 
         if (isHeld)
         {
-            animator.SetBool("Attack", false);
             isHeld = false;
         }
         if (Input.GetKeyDown(KeyCode.Space)) 
