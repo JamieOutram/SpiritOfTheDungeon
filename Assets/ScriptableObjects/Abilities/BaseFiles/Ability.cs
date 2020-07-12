@@ -9,7 +9,16 @@ public abstract class Ability : ScriptableObject
     public Sprite aSprite;
     public AudioClip aSound;
     public float aBaseCoolDown = 1f;
+    public float aRange = 3f;
 
     public abstract void Initialize(GameObject obj);
-    public abstract void TriggerAbility();
+    public virtual void TriggerAbility(){
+        throw new System.Exception("No Override for TriggerAbility variant in Ability.cs");
+    }
+
+    public virtual void TriggerAbility(GameObject target)
+    {
+        throw new System.Exception("No Override for TriggerAbility variant in Ability.cs");
+    }
+
 }

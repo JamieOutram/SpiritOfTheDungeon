@@ -7,6 +7,7 @@ public class Control_Test : Unit_Control_Base
 
     public Animator animator;
     [SerializeField] private Ability ability;
+    public bool isUnitTarget = false;
 
     private bool isHeld = false;
     
@@ -41,8 +42,45 @@ public class Control_Test : Unit_Control_Base
         {
             animator.SetBool("Attack", true);
             isHeld = true;
+            if (isUnitTarget)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange);
+                if (colliders.Length > 0)
+                {
+                    Debug.Log(colliders.Length);
+                    Collider2D closestCollider = colliders[0];
 
-            ability.TriggerAbility();
+                    float magnitude = (gameObject.transform.position - closestCollider.transform.position).magnitude;
+                    float lowestMagnitude = magnitude;
+
+                    foreach (var collider in colliders)
+                    {
+                        magnitude = (gameObject.transform.position - collider.transform.position).magnitude;
+                        if (collider.gameObject != gameObject)
+                        {
+                            if ((magnitude < lowestMagnitude))
+                            {
+                                closestCollider = collider;
+                                lowestMagnitude = magnitude;
+                            }
+                            Debug.Log(string.Format("Magnitude = {0}", magnitude));
+                            Debug.Log(string.Format("Evaluation = {0}", magnitude < lowestMagnitude));
+                        }
+                    }
+                    Debug.Log(string.Format("lowestMagnitude = {0}",lowestMagnitude));
+                    ability.TriggerAbility(closestCollider.gameObject);
+                }
+                else
+                {
+                    Debug.Log("No target in range");
+                }
+            }
+            else
+            {
+                ability.TriggerAbility();
+            }
+            
+            
             //Debug.Log("KeyDownDetected");
         }
         
