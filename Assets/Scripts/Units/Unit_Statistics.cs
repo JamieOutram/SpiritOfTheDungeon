@@ -21,7 +21,7 @@ public class Unit_Statistics : MonoBehaviour
 {
     private Dictionary<UnitStatType, UnitStat> unit_stats = new Dictionary<UnitStatType, UnitStat>();
 
-    private Dictionary<UnitStatType, UnitTrackedStat> unit_resources = new Dictionary<UnitStatType, UnitTrackedStat>();
+    private Dictionary<UnitStatType, UnitResource> unit_resources = new Dictionary<UnitStatType, UnitResource>();
 
     private bool _intialised = false;
 
@@ -37,9 +37,13 @@ public class Unit_Statistics : MonoBehaviour
         return unit_stats[statType];
     }
 
-    public UnitTrackedStat GetTrackedStat(UnitStatType statType)
+    public UnitResource GetResource(UnitStatType statType)
     {
-        if (_intialised == false) return null;
+        if (_intialised == false)
+        {
+            Debug.LogWarning("GetTrackedStat called before Stats initialised in Unit_Statistics.");
+            return null;
+        }
         return unit_resources[statType];
     }
 
@@ -49,17 +53,24 @@ public class Unit_Statistics : MonoBehaviour
     }
     private void AddStat(UnitStatType type, float bValue, UnitStatType linkedType)
     {
-        
         unit_stats.Add(type, new DerivedUnitStat(bValue, type, GetStat(linkedType)));
     }
-    private void AddTrackedStat(UnitStatType type, int baseValue)
+    private void AddResource(UnitStatType type, UnitStatType linkedType)
     {
-        unit_resources.Add(type, new UnitTrackedStat(baseValue, type));
+        UnitResource newStat = new UnitResource(GetStat(linkedType).Value, type);
+        newStat.UpdateLimits(GetStat(linkedType).Value);
+        unit_resources.Add(type, newStat);
     }
+    private void AddResource(UnitStatType type, int baseValue)
+    {
+        UnitResource newStat = new UnitResource(baseValue, type);
+        unit_resources.Add(type, newStat);
+    }
+
 
     protected virtual void PopulateStats()
     {
-        _intialised = true;
+        //Debug.Log("PopulateStats Called");
         //Base Stats
         AddStat(UnitStatType.Vit, 10f);
         AddStat(UnitStatType.Int, 10f);
@@ -67,14 +78,18 @@ public class Unit_Statistics : MonoBehaviour
         AddStat(UnitStatType.Def, 0f);
         AddStat(UnitStatType.Spd, 3f);
 
+        _intialised = true;
+
         //Add Derived Stats
         AddStat(UnitStatType.MaxHealth, 100f, UnitStatType.Vit);
         AddStat(UnitStatType.MaxMana, 10f, UnitStatType.Int);
 
         //Add Tracked Stats
-        AddTrackedStat(UnitStatType.Health, GetStat(UnitStatType.MaxHealth).Value);
-        AddTrackedStat(UnitStatType.Mana, GetStat(UnitStatType.MaxMana).Value);
-        AddTrackedStat(UnitStatType.Ammo, 0);
+        AddResource(UnitStatType.Health, UnitStatType.MaxHealth);
+        AddResource(UnitStatType.Mana, UnitStatType.MaxMana);
+        AddResource(UnitStatType.Ammo, 0);
+        
+        
     }
     
     public void Awake()

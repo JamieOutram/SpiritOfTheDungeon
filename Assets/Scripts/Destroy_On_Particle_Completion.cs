@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Destroy_On_Particle_Completion : MonoBehaviour
 {
-    ParticleSystem particleSystem;
+    ParticleSystem pSystem;
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = gameObject.GetComponent<ParticleSystem>();
+        pSystem = gameObject.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!(particleSystem.IsAlive()))
+        if (!(pSystem.IsAlive()))
         {
             Destroy(gameObject);
         }

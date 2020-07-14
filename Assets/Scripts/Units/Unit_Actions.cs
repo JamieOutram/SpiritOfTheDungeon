@@ -21,12 +21,12 @@ public class Unit_Actions : MonoBehaviour
 
     public void Damage(int damage)
     {
-        UnitTrackedStat currentHealth = unit_Stats.GetTrackedStat(UnitStatType.Health);
-        currentHealth.value -= (int)damage;
+        UnitResource currentHealth = unit_Stats.GetResource(UnitStatType.Health);
+        currentHealth.Value -= (int)damage;
         anim.SetBool("Hit", true);
-        Debug.Log(string.Format("{0} damaged for {1}, current health {2}", gameObject.name, damage, currentHealth.value));
+        Debug.Log(string.Format("{0} damaged for {1}, current health {2}", gameObject.name, damage, currentHealth.Value));
         
-        if (currentHealth.value <= 0)
+        if (currentHealth.Value <= 0)
         {
             Kill();
         }

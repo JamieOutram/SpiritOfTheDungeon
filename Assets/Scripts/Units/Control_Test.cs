@@ -47,7 +47,6 @@ public class Control_Test : Unit_Control_Base
                 Collider2D[] colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange);
                 if (colliders.Length > 0)
                 {
-                    Debug.Log(colliders.Length);
                     Collider2D closestCollider = colliders[0];
 
                     float magnitude = (gameObject.transform.position - closestCollider.transform.position).magnitude;
@@ -63,11 +62,9 @@ public class Control_Test : Unit_Control_Base
                                 closestCollider = collider;
                                 lowestMagnitude = magnitude;
                             }
-                            Debug.Log(string.Format("Magnitude = {0}", magnitude));
-                            Debug.Log(string.Format("Evaluation = {0}", magnitude < lowestMagnitude));
                         }
                     }
-                    Debug.Log(string.Format("lowestMagnitude = {0}",lowestMagnitude));
+                   
                     ability.TriggerAbility(closestCollider.gameObject);
                 }
                 else
