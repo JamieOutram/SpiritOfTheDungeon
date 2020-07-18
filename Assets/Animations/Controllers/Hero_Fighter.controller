@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_Tank_Attack
+  m_Name: Hero_Fighter_Attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7e83dbfa85e339a46ac0c9fc2598eb86, type: 2}
+  m_Motion: {fileID: 7400000, guid: d16817ce21b9c474190d5450a856ca57, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -85,7 +85,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_tank
+  m_Name: Hero_Fighter
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -142,7 +142,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero_Tank_Idle
+  m_Name: Hero_Fighter_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -156,7 +156,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dd47ab85342fdea49ad1999719047621, type: 2}
+  m_Motion: {fileID: 7400000, guid: bd9347bb6462b194686e1df2000013f7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

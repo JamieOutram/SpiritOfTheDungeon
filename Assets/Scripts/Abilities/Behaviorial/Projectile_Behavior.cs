@@ -34,7 +34,7 @@ public class Projectile_Behavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D otherObj)
     {
-        Debug.Log("OnTriggerEnter2D called");
+        //Debug.Log("OnTriggerEnter2D called");
         
         switch(otherObj.tag)
         {

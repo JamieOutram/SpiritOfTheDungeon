@@ -1521,7 +1521,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 788239780}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &321582970
 Rigidbody2D:
@@ -1578,6 +1578,7 @@ MonoBehaviour:
   animator: {fileID: 321582975}
   ability: {fileID: 11400000, guid: d373d68d6cae6aa4ba8b4e4945de74b1, type: 2}
   isUnitTarget: 1
+  attackButton: 32
 --- !u!114 &321582973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2396,9 +2397,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1625907697}
-  - {fileID: 1038570823}
   - {fileID: 1657464773}
   - {fileID: 321582969}
+  - {fileID: 1038570823}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2426,6 +2427,11 @@ GameObject:
   - component: {fileID: 1038570822}
   - component: {fileID: 1038570825}
   - component: {fileID: 1038570824}
+  - component: {fileID: 1038570830}
+  - component: {fileID: 1038570829}
+  - component: {fileID: 1038570828}
+  - component: {fileID: 1038570827}
+  - component: {fileID: 1038570826}
   m_Layer: 0
   m_Name: Hero_Fighter
   m_TagString: Team
@@ -2472,7 +2478,8 @@ SpriteRenderer:
   m_SortingLayerID: -118227665
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1aee0c82ba98f15419f3093ec9c39545, type: 3}
+  m_Sprite: {fileID: -6243618177158535422, guid: 6e2336c5bc9127e42b9410a6e735478a,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2491,11 +2498,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038570821}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -0.66, z: 0}
+  m_LocalPosition: {x: -0.01999998, y: -0.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 788239780}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1038570824
 Rigidbody2D:
@@ -2534,6 +2541,85 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!114 &1038570826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038570821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac28b28cef253624eab8426194d51e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDelay: 0
+  damageModifier: 0
+  baseRange: 0
+  abilityEffect: {fileID: 0}
+  isInstantiateInWorldSpace: 0
+--- !u!114 &1038570827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038570821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62f0c043587b78418a8324cd908b235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1038570828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038570821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3513eb824ab87ab41af390bf287e6948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalMove: 0
+  horizontalMove: 0
+  turnMove: 0
+  animator: {fileID: 1038570830}
+  ability: {fileID: 11400000, guid: 498fa8374504cf0439f78fdad3ac43c4, type: 2}
+  isUnitTarget: 0
+  attackButton: 102
+--- !u!114 &1038570829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038570821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9c9a46edce25c47a83e5b66cc56994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1038570830
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038570821}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 160c301a6d9c8d1469c033627595e1c4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1108157007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3210356134518472126, guid: 1ec3139522ec40d44ba344f8b67f69f4,
@@ -4476,6 +4562,7 @@ MonoBehaviour:
   animator: {fileID: 1625907700}
   ability: {fileID: 11400000, guid: a2a6bb033946c894493fdd32b1c7eb3a, type: 2}
   isUnitTarget: 0
+  attackButton: 32
 --- !u!114 &1625907703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4587,7 +4674,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 788239780}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1657464774
 Rigidbody2D:
@@ -4668,6 +4755,7 @@ MonoBehaviour:
   animator: {fileID: 1657464779}
   ability: {fileID: 11400000, guid: 498fa8374504cf0439f78fdad3ac43c4, type: 2}
   isUnitTarget: 0
+  attackButton: 32
 --- !u!95 &1657464779
 Animator:
   serializedVersion: 3

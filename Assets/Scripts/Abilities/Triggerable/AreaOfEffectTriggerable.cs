@@ -14,15 +14,15 @@ public class AreaOfEffectTriggerable : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log(string.Format("This Object is {0}!", gameObject));
+        Debug.Log(string.Format("This Object is {0}!", gameObject.name));
+
     }
 
-
+    
     public void Fire()
     {
-        
-        
-        Debug.Log(string.Format("AoE Fired by {0}!", gameObject));
+
+        Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
         
     }

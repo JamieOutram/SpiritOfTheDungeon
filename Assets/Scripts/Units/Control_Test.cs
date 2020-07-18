@@ -8,12 +8,15 @@ public class Control_Test : Unit_Control_Base
     public Animator animator;
     [SerializeField] private Ability ability;
     public bool isUnitTarget = false;
-
+    public KeyCode attackButton = KeyCode.Space;
     private bool isHeld = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        /*Instantiating a clone of the ability allows multiple instances 
+         *of the same scriptable object in the scene */
+        ability = Instantiate(ability); 
         ability.Initialize(gameObject);
     }
 
@@ -38,7 +41,7 @@ public class Control_Test : Unit_Control_Base
         {
             isHeld = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(attackButton)) 
         {
             animator.SetBool("Attack", true);
             isHeld = true;
