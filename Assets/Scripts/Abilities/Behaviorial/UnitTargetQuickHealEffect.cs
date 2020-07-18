@@ -12,8 +12,9 @@ public class UnitTargetQuickHealEffect : UnitTargetEffect
         if (target.GetComponent<Unit_Statistics>() != null)
         {
             UnitResource currentHealth = target.GetComponent<Unit_Statistics>().GetResource(UnitStatType.Health);
-
+            
             currentHealth.Value += damage;
+            Debug.Log(string.Format("{0} unitTarget hit for {1}, current health: {2}", target.name, damage, currentHealth.Value));
         }
         else
         {

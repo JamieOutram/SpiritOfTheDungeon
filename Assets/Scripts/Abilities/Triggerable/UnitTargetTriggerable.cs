@@ -17,6 +17,5 @@ public class UnitTargetTriggerable : MonoBehaviour
         GameObject effectObj = Instantiate(particleEffect, target.transform, false);
         effectObj.GetComponent<UnitTargetEffect>().target = target;
         effectObj.GetComponent<UnitTargetEffect>().damage = (int)Math.Round(damageModifier);
-        Debug.Log("UnitTarget Fired!");
     }
 }
