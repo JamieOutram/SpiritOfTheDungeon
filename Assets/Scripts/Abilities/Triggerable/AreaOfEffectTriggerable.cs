@@ -12,11 +12,17 @@ public class AreaOfEffectTriggerable : MonoBehaviour
     [HideInInspector] public GameObject abilityEffect; //collider representing AoE
     [HideInInspector] public bool isInstantiateInWorldSpace;
 
+    public void Start()
+    {
+        Debug.Log(string.Format("This Object is {0}!", gameObject));
+    }
+
+
     public void Fire()
     {
         
         
-        //Debug.Log("AoE Fired!");
+        Debug.Log(string.Format("AoE Fired by {0}!", gameObject));
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
         
     }
