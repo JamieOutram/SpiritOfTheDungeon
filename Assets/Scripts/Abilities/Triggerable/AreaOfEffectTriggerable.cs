@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ public class AreaOfEffectTriggerable : MonoBehaviour
 
         Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
-        
+        AoeBehaviour behaviourScript = effectObj.GetComponent<AoeBehaviour>();
+        behaviourScript.damage = (int)Math.Round(gameObject.GetComponent<Unit_Statistics>().GetStat(UnitStatType.Dmg).Value * damageModifier);
+        behaviourScript.casterObj = gameObject;
     }
 }

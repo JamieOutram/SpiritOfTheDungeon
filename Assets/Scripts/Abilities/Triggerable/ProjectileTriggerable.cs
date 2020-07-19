@@ -30,6 +30,7 @@ public class ProjectileTriggerable : MonoBehaviour
         objScript.speed = baseSpeed;
         objScript.damage = 50; //temp
         objScript.initialized = true;
+        objScript.casterObj = gameObject;
 
         if (baseRange == 0)
         {

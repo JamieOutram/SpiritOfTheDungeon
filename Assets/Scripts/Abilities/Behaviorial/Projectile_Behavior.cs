@@ -10,8 +10,9 @@ public class Projectile_Behavior : MonoBehaviour
     public float speed;
     public float range;
     public bool initialized;
+    public GameObject casterObj;
 
-    [SerializeField] private float distanceTraveled;
+    private float distanceTraveled;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,19 +36,20 @@ public class Projectile_Behavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D otherObj)
     {
         //Debug.Log("OnTriggerEnter2D called");
-        
-        switch(otherObj.tag)
+        if (GameObject.ReferenceEquals(casterObj, null))
         {
-            case "HitableEnemy": 
-                otherObj.GetComponent<Unit_Actions>().Damage(damage);
-                Destroy(gameObject);
-                break;
-            case "Wall":
-                Destroy(gameObject);
-                break;
-            default:
-                break;
+            Debug.LogError(string.Format("Ability {0} has no assigned caster, Destroying Object.", gameObject.name));
+            Destroy(gameObject);
+            return;
         }
-        
+        else if (InteractionManager.IsDamaged(casterObj, otherObj.gameObject))
+        {
+            otherObj.GetComponent<Unit_Actions>().Damage(damage);
+            Destroy(gameObject);
+        }
+        else if(InteractionManager.IsBlocked(casterObj, otherObj.gameObject))
+        {
+            Destroy(gameObject);
+        }
     }
 }

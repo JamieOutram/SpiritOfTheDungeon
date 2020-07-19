@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - HitableEnemy
-  - enemy
   - Wall
   - Team
+  - Enemy
   layers:
   - Default
   - TransparentFX
