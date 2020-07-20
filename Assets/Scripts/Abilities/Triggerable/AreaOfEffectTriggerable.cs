@@ -15,7 +15,7 @@ public class AreaOfEffectTriggerable : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log(string.Format("This Object is {0}!", gameObject.name));
+        //Debug.Log(string.Format("This Object is {0}!", gameObject.name));
 
     }
 
@@ -23,7 +23,7 @@ public class AreaOfEffectTriggerable : MonoBehaviour
     public void Fire()
     {
 
-        Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
+        //Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
         AoeBehaviour behaviourScript = effectObj.GetComponent<AoeBehaviour>();
         behaviourScript.damage = (int)Math.Round(gameObject.GetComponent<Unit_Statistics>().GetStat(UnitStatType.Dmg).Value * damageModifier);

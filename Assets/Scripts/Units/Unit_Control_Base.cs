@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ProjectileTriggerable))]
+[RequireComponent(typeof(UnitTargetTriggerable))]
+[RequireComponent(typeof(AreaOfEffectTriggerable))]
 public class Unit_Control_Base : MonoBehaviour
 {
     public int verticalMove = 0;

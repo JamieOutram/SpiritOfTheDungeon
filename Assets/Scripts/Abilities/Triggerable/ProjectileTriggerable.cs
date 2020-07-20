@@ -19,7 +19,7 @@ public class ProjectileTriggerable : MonoBehaviour
 
     public void Fire()
     {
-        Debug.Log("Projectile Fired!");
+        //Debug.Log("Projectile Fired!");
         GameObject projectileObj = Instantiate(abilityProjectile) as GameObject;
         projectileObj.transform.position = gameObject.transform.position;
         projectileObj.transform.rotation = gameObject.transform.rotation;

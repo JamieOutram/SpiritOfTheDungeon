@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Unit_Statistics))]
+[RequireComponent(typeof(Animator))]
 public class Unit_Actions : MonoBehaviour
 {
     private Unit_Statistics unit_Stats;

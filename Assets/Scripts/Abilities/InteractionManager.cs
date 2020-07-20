@@ -25,6 +25,14 @@ public static class InteractionManager
         Tuple.Create("EnvironmentEffect", "Wall"),
     };
 
+    private static List<Tuple<string, string>> HealInteractions = new List<Tuple<string, string>>()
+    {
+        Tuple.Create("Enemy", "Team"),
+        Tuple.Create("Enemy", "Enemy"),
+        Tuple.Create("Team", "Enemy"),
+        Tuple.Create("Team", "Team"),
+    };
+
     public static bool IsDamaged(GameObject casterObject, GameObject targetObject, 
         bool isFreindlyFire = false, bool isSelfTarget = false)
     {   
@@ -64,6 +72,23 @@ public static class InteractionManager
             
         }
         //do not block by defalt
+        return false;
+    }
+
+    public static bool IsHealed(GameObject casterObject, GameObject targetObject, bool isSelfHeal = true)
+    {
+        if (ReferenceEquals(casterObject, targetObject))
+        {
+            //If objects are same instance; allow heal if self healing
+            if (isSelfHeal) return true; 
+        }
+        else
+        {
+            //If objects are not the same instance check interaction list and allow if found
+            if (HealInteractions.Contains(Tuple.Create(casterObject.tag, targetObject.tag))) return true;
+
+        }
+        //do not heal by defalt
         return false;
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Control_Test : Unit_Control_Base
@@ -47,18 +48,34 @@ public class Control_Test : Unit_Control_Base
             isHeld = true;
             if (isUnitTarget)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange);
-                if (colliders.Length > 0)
-                {
-                    Collider2D closestCollider = colliders[0];
+                //might be causing memory leak, see OverlapCircleNonAlloc
+                List<Collider2D> colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange).ToList();
 
+                //filter valid colliders only, reverse itteration to avoid indexing errors
+                for (int i = colliders.Count - 1; i > -1; i--)
+                {
+                    if (!InteractionManager.IsHealed(this.gameObject, colliders[i].gameObject))
+                    {
+                        colliders.RemoveAt(i);
+                    }
+                }
+
+                if (colliders.Count > 0)
+                {
+                    
+                    Collider2D closestCollider = colliders[0];
+                    Debug.Log(closestCollider.name);
                     float magnitude = (gameObject.transform.position - closestCollider.transform.position).magnitude;
                     float lowestMagnitude = magnitude;
+                    if (ReferenceEquals(this.gameObject, closestCollider.gameObject))
+                    {
+                        lowestMagnitude = 999;
+                    }
 
                     foreach (var collider in colliders)
                     {
                         magnitude = (gameObject.transform.position - collider.transform.position).magnitude;
-                        if (collider.gameObject != gameObject)
+                        if (!ReferenceEquals(this.gameObject, collider.gameObject))
                         {
                             if ((magnitude < lowestMagnitude))
                             {
