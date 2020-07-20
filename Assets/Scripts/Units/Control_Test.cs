@@ -64,7 +64,7 @@ public class Control_Test : Unit_Control_Base
                 {
                     
                     Collider2D closestCollider = colliders[0];
-                    Debug.Log(closestCollider.name);
+                    
                     float magnitude = (gameObject.transform.position - closestCollider.transform.position).magnitude;
                     float lowestMagnitude = magnitude;
                     if (ReferenceEquals(this.gameObject, closestCollider.gameObject))
