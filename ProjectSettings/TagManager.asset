@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Team
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -40,4 +43,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 1434499563
+    locked: 0
+  - name: Characters
+    uniqueID: 4176739631
+    locked: 0
+  - name: Walls
+    uniqueID: 4226924027
+    locked: 0
+  - name: Lights
+    uniqueID: 1522445221
     locked: 0
