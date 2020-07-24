@@ -2315,7 +2315,7 @@ MonoBehaviour:
   verticalMove: 0
   horizontalMove: 0
   turnMove: 0
-  lookRadius: 0
+  lookRadius: 3.99
   speed: 200
   attackRange: 1
   attackInterval: 2

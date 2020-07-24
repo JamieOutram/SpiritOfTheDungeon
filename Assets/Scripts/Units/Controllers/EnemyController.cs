@@ -1,15 +1,16 @@
 ﻿using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : Unit_Control_Base
 {
-    public float lookRadius;
+    public float lookRadius = 4f;
     public float speed = 500f;
     public float attackRange = 1.5f;
     public float attackInterval = 2f;
-    public float turnRate = 0.01f;
+    public float turnRate = 30f;
     public float pathUpdateRate = 0.5f;
     public Transform target;
 
@@ -35,7 +36,58 @@ public class EnemyController : Unit_Control_Base
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            target = GetClosestOpposition();
+            if(target != null) { 
+                seeker.StartPath(rb.position, target.position, OnPathComplete);
+            }
+        }
+    }
+
+    Transform GetClosestOpposition()
+    {
+        //might be causing memory leak, see OverlapCircleNonAlloc
+        List<Collider2D> colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange).ToList();
+
+        //filter valid colliders only, reverse itteration to avoid indexing errors
+        for (int i = colliders.Count - 1; i > -1; i--)
+        {
+            if (!InteractionManager.IsDamaged(this.gameObject, colliders[i].gameObject))
+            {
+                colliders.RemoveAt(i);
+            }
+        }
+
+        if (colliders.Count > 0)
+        {
+
+            Collider2D closestCollider = colliders[0];
+
+            float magnitude = (gameObject.transform.position - closestCollider.transform.position).magnitude;
+            float lowestMagnitude = magnitude;
+            if (ReferenceEquals(this.gameObject, closestCollider.gameObject))
+            {
+                lowestMagnitude = 999;
+            }
+
+            foreach (var collider in colliders)
+            {
+                magnitude = (gameObject.transform.position - collider.transform.position).magnitude;
+                if (!ReferenceEquals(this.gameObject, collider.gameObject))
+                {
+                    if ((magnitude < lowestMagnitude))
+                    {
+                        closestCollider = collider;
+                        lowestMagnitude = magnitude;
+                    }
+                }
+            }
+
+            return closestCollider.transform;
+        }
+        else
+        {
+            Debug.Log("No target in range");
+            return null;
         }
     }
 
@@ -88,18 +140,21 @@ public class EnemyController : Unit_Control_Base
         ability.TriggerAbility();
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        FollowPath();
-
-        //Check whether in attack range 
-        float distanceToTarget = Vector2.Distance(rb.position, target.position);
-        if (distanceToTarget < attackRange && !IsInvoking("Attack"))
+        if (target != null)
         {
-            Invoke("Attack", attackInterval);
-        }
+            FollowPath();
 
+            //Check whether in attack range 
+            float distanceToTarget = Vector2.Distance(rb.position, target.position);
+            if (distanceToTarget < attackRange && !IsInvoking("Attack"))
+            {
+                Invoke("Attack", attackInterval);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
