@@ -74,7 +74,7 @@ public class Unit_Statistics : MonoBehaviour
         //Base Stats
         AddStat(UnitStatType.Vit, 10f);
         AddStat(UnitStatType.Int, 10f);
-        AddStat(UnitStatType.Dmg, 1f);
+        AddStat(UnitStatType.Dmg, 50f);
         AddStat(UnitStatType.Def, 0f);
         AddStat(UnitStatType.Spd, 3f);
 
