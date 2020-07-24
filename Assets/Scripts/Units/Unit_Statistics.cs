@@ -76,7 +76,7 @@ public class Unit_Statistics : MonoBehaviour
         AddStat(UnitStatType.Int, 10f);
         AddStat(UnitStatType.Dmg, 50f);
         AddStat(UnitStatType.Def, 0f);
-        AddStat(UnitStatType.Spd, 3f);
+        AddStat(UnitStatType.Spd, 300f);
 
         _intialised = true;
 
