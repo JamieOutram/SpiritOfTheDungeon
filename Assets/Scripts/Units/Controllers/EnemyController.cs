@@ -137,7 +137,7 @@ public class EnemyController : Unit_Control_Base
 
     void Attack()
     {
-        ability.TriggerAbility();
+        ability.TriggerAbilityWithCooldown();
     }
 
 

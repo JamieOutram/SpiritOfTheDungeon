@@ -34,7 +34,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421863162652032661}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 1
-  m_AngularDrag: 1
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -199,8 +199,8 @@ MonoBehaviour:
   verticalMove: 0
   horizontalMove: 0
   turnMove: 0
-  animator: {fileID: 0}
-  ability: {fileID: 0}
+  animator: {fileID: 6421863162652032654}
+  ability: {fileID: 11400000, guid: a2a6bb033946c894493fdd32b1c7eb3a, type: 2}
   isUnitTarget: 0
   attackButton: 32
 --- !u!114 &6421863162652032653
