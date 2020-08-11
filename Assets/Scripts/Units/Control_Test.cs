@@ -44,6 +44,7 @@ public class Control_Test : Unit_Control_Base
 
         if (Input.GetKeyDown(attackButton)) 
         {
+            //Debug.Log(string.Format("Using {0}", abilities.GetAbility(count).aName));
             actions.Attack(abilities.GetAbility(count));
             count++;
             if(count == abilities.Count)

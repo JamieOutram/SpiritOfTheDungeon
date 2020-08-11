@@ -17,7 +17,6 @@ MonoBehaviour:
   aSound: {fileID: 0}
   baseCooldown: 10
   aRange: 3
-  cooldownLeft: 0
   damageMultiplier: 1
   baseDelay: 0
   baseDuration: 3

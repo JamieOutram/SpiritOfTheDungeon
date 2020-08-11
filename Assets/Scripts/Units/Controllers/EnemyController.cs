@@ -18,18 +18,18 @@ public class EnemyController : Unit_Control_Base
     private Path path;
     private Seeker seeker;
     [SerializeField] private float nextWaypointDistance = 0.3f;
-    [SerializeField] private Ability ability;
+    private Unit_Abilities abilities;
     private int currentWaypoint = 0;
     private bool isReachedEndOfPath = false;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        abilities = GetComponent<Unit_Abilities>();
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, pathUpdateRate);
-        ability.Initialize(gameObject);
     }
 
     void UpdatePath()
@@ -46,7 +46,7 @@ public class EnemyController : Unit_Control_Base
     Transform GetClosestOpposition()
     {
         //might be causing memory leak, see OverlapCircleNonAlloc
-        List<Collider2D> colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, ability.aRange).ToList();
+        List<Collider2D> colliders = Physics2D.OverlapCircleAll((Vector2)this.transform.position, lookRadius).ToList();
 
         //filter valid colliders only, reverse itteration to avoid indexing errors
         for (int i = colliders.Count - 1; i > -1; i--)
@@ -86,7 +86,7 @@ public class EnemyController : Unit_Control_Base
         }
         else
         {
-            Debug.Log("No target in range");
+            //Debug.Log("No target in range");
             return null;
         }
     }
@@ -137,7 +137,7 @@ public class EnemyController : Unit_Control_Base
 
     void Attack()
     {
-        ability.TriggerAbilityWithCooldown();
+        abilities.TryUseAbility(0);
     }
 
 

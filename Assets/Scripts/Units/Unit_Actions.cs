@@ -8,23 +8,19 @@ using UnityEngine;
 public class Unit_Actions : MonoBehaviour
 {
     private Unit_Statistics unit_Stats;
+    private Unit_Abilities unit_Abilities;
     private Animator anim;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         unit_Stats = GetComponent<Unit_Statistics>();
+        unit_Abilities = GetComponent<Unit_Abilities>();
         anim = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Attack(Ability ability)
     {
-        if (ability.GetCooldownLeftSeconds() == 0f)
+        if (unit_Abilities.GetCooldownLeftSeconds(ability.aName) == 0f)
         {
             anim.SetBool("Attack", true);
             if (ability.GetType() == typeof(UnitTargetAbility))
@@ -65,7 +61,8 @@ public class Unit_Actions : MonoBehaviour
                             }
                         }
                     }
-                    ability.TriggerAbilityWithCooldown(closestCollider.gameObject);
+                    //Debug.Log(string.Format("Using {0}", ability.aName));
+                    unit_Abilities.TryUseAbility(ability.aName, closestCollider.gameObject);
                 }
                 else
                 {
@@ -74,7 +71,7 @@ public class Unit_Actions : MonoBehaviour
             }
             else
             {
-                ability.TriggerAbilityWithCooldown();
+                unit_Abilities.TryUseAbility(ability.aName);
             }
         }
     }

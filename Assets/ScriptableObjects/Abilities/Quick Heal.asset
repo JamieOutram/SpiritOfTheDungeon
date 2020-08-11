@@ -16,7 +16,7 @@ MonoBehaviour:
   aSprite: {fileID: -7456276070652971970, guid: 4a72ac63aa6b41340b2ec572256a2993,
     type: 3}
   aSound: {fileID: 0}
-  aBaseCoolDown: 1
+  baseCooldown: 1
   aRange: 30
   damageMultiplier: 1
   baseDelay: 0
