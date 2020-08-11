@@ -23,9 +23,9 @@ public class Projectile_Behavior : MonoBehaviour
     {
         if(initialized)
         {
-            gameObject.transform.position += speed * gameObject.transform.right;
+            gameObject.transform.position += speed * gameObject.transform.right * Time.deltaTime;
             //TODO: add range limit destroy
-            distanceTraveled += speed;
+            distanceTraveled += speed * Time.deltaTime;
             if(distanceTraveled > range)
             {
                 Destroy(gameObject);
