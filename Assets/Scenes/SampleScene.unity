@@ -2643,7 +2643,7 @@ GameObject:
   - component: {fileID: 1070042457}
   - component: {fileID: 1070042458}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
