@@ -26,14 +26,14 @@ public class Item_Shield_Behaviour : MonoBehaviour
 
     public int ApplyModifier(int damage, Transform source)
     {
-        Debug.Log("Shield called");
+        //Debug.Log("Shield called");
         float tempDamage = damage;
         Debug.Log(string.Format("Relative angle:{0}", CalcRelativeAngleFromRight(parentTransform, source)));
         if (Math.Abs(CalcRelativeAngleFromRight(parentTransform, source)) <= protectionArc)
         {
             tempDamage -= flatReduction;
             tempDamage *= (1 - percentReduction/100);
-            Debug.Log("Damage Reduced by Shield");
+            //Debug.Log("Damage Reduced by Shield");
         }
         
         return (int)tempDamage;
@@ -41,8 +41,8 @@ public class Item_Shield_Behaviour : MonoBehaviour
 
     private float CalcRelativeAngleFromRight(Transform A, Transform B)
     {
-        Debug.Log(string.Format("A:({0},{2}), B:({1},{3})", A.position.x, B.position.x, A.position.y, B.position.y));
-        Debug.Log(string.Format("A-B:({0},{1})", B.position.x - A.position.x, B.position.y - A.position.y));
+        //Debug.Log(string.Format("A:({0},{2}), B:({1},{3})", A.position.x, B.position.x, A.position.y, B.position.y));
+        //Debug.Log(string.Format("A-B:({0},{1})", B.position.x - A.position.x, B.position.y - A.position.y));
         float adj = B.position.x - A.position.x;
         float angleFromX;
         if (adj==0) 
@@ -64,22 +64,17 @@ public class Item_Shield_Behaviour : MonoBehaviour
                 angleFromX = angleFromX + 180;
         }
 
-        Debug.Log(string.Format("angleFromX:{0}", angleFromX));
+        //Debug.Log(string.Format("angleFromX:{0}", angleFromX));
 
         if (B.position.y < A.position.y) 
         {
-            Debug.Log(string.Format("correction:{0}", -Vector3.Angle(A.right, Vector3.right)));
+            //Debug.Log(string.Format("correction:{0}", -Vector3.Angle(A.right, Vector3.right)));
             return angleFromX - (-Vector3.Angle(Vector3.right, A.right)); 
         }
         else
         {
-            Debug.Log(string.Format("correction:{0}", Vector3.Angle(A.right, Vector3.right)));
+            //Debug.Log(string.Format("correction:{0}", Vector3.Angle(A.right, Vector3.right)));
             return angleFromX - Vector3.Angle(Vector3.right, A.right);
         }
-            
-
-        Debug.Log(string.Format("angleFromX:{0}", angleFromX));
-        Debug.Log(string.Format("correction:{0}", Vector3.Angle(A.right, Vector3.right)));
-        
     }
 }

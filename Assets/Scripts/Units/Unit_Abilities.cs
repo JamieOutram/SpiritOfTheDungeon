@@ -103,7 +103,7 @@ public class Unit_Abilities : MonoBehaviour
     {
         cooldowns[name].lastUpdateTime = Time.time;
         cooldowns[name].cooldownLeft = cooldowns[name].baseCooldown;
-        Debug.Log(string.Format("baseCooldown: {0}", cooldowns[name].baseCooldown));
+        //Debug.Log(string.Format("baseCooldown: {0}", cooldowns[name].baseCooldown));
     }
 
     public float GetCooldownLeftSeconds(string name)
