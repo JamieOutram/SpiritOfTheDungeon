@@ -3,6 +3,14 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DamageType
+{
+    Point,
+    Directional,
+    Area,
+    Pure,
+}
+
 [RequireComponent(typeof(Unit_Statistics))]
 [RequireComponent(typeof(Animator))]
 public class Unit_Actions : MonoBehaviour
@@ -76,10 +84,22 @@ public class Unit_Actions : MonoBehaviour
         }
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, Transform source = null, GameObject casterObj = null)
     {
         UnitResource currentHealth = unit_Stats.GetResource(UnitStatType.Health);
-        currentHealth.Value -= (int)damage;
+        //Check or apply target effects here. Basic modifiers from source object should be applied through damage.
+        //Directional Damage
+        if (!Transform.ReferenceEquals(source, null))
+        {
+            Item_Shield_Behaviour shield = GetComponentInChildren<Item_Shield_Behaviour>();
+            if (!Item_Shield_Behaviour.ReferenceEquals(shield, null))
+            {
+                damage = shield.ApplyModifier(damage, source);
+            }
+        }
+
+
+        currentHealth.Value -= damage;
         anim.SetBool("Hit", true);
         Debug.Log(string.Format("{0} damaged for {1}, current health {2}", gameObject.name, damage, currentHealth.Value));
         

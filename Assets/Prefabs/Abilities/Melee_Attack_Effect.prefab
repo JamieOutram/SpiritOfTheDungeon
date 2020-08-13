@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6294520772428020068}
   - component: {fileID: 4760703138918049376}
   - component: {fileID: 813780231956983999}
-  - component: {fileID: 3724985856038978233}
   - component: {fileID: -2975010595879788963}
+  - component: {fileID: -929874320663882592}
   m_Layer: 0
   m_Name: Melee_Attack_Effect
   m_TagString: Untagged
@@ -137,20 +137,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3724985856038978233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4760703138918049388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 366fc78fe89fcb84193efa8306065791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  casterObj: {fileID: 0}
 --- !u!50 &-2975010595879788963
 Rigidbody2D:
   serializedVersion: 4
@@ -172,3 +158,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-929874320663882592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760703138918049388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464fd0933f153264ba67656cf8ea38e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 50
+  casterObj: {fileID: 0}

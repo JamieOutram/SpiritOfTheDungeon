@@ -22,6 +22,8 @@ public class EnemyController : Unit_Control_Base
     private int currentWaypoint = 0;
     private bool isReachedEndOfPath = false;
 
+    private float distanceToTarget = 999f;
+    private bool isInRange = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,7 +39,8 @@ public class EnemyController : Unit_Control_Base
         if (seeker.IsDone())
         {
             target = GetClosestOpposition();
-            if(target != null) { 
+            if (target != null)
+            {
                 seeker.StartPath(rb.position, target.position, OnPathComplete);
             }
         }
@@ -118,12 +121,12 @@ public class EnemyController : Unit_Control_Base
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
 
-        Vector3 newDirRight = Vector3.RotateTowards(transform.right, direction, turnRate*Time.deltaTime, 0f);
+        Vector3 newDirRight = Vector3.RotateTowards(transform.right, direction, turnRate * Time.deltaTime, 0f);
         //rotate 90 degrees to get vertical rotation
-        Vector3 newDirUp = Quaternion.Euler(0,0,90) * newDirRight ;
-        
+        Vector3 newDirUp = Quaternion.Euler(0, 0, 90) * newDirRight;
+
         rb.SetRotation(Quaternion.LookRotation(Vector3.forward, newDirUp));
-        
+
 
         rb.AddForce(force);
 
@@ -135,9 +138,9 @@ public class EnemyController : Unit_Control_Base
         }
     }
 
-    void Attack()
+    void Attack(int index)
     {
-        abilities.TryUseAbility(0);
+        abilities.TryUseAbility(index);
     }
 
 
@@ -149,10 +152,15 @@ public class EnemyController : Unit_Control_Base
             FollowPath();
 
             //Check whether in attack range 
-            float distanceToTarget = Vector2.Distance(rb.position, target.position);
-            if (distanceToTarget < attackRange && !IsInvoking("Attack"))
+            distanceToTarget = Vector2.Distance(rb.position, target.position);
+            isInRange = distanceToTarget < attackRange;
+            
+            //attack when in range and off cooldown
+            //could be optimised with on enter and on exit events and invoke commands
+            if (isInRange)
             {
-                Invoke("Attack", attackInterval);
+                if (abilities.IsOffCooldown(0))
+                    Attack(0);
             }
         }
     }

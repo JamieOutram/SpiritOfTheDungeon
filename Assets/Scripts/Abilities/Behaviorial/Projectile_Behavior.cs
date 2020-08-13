@@ -21,12 +21,12 @@ public class Projectile_Behavior : MonoBehaviour
 
     private void Update()
     {
-        if(initialized)
+        if (initialized)
         {
             gameObject.transform.position += speed * gameObject.transform.right * Time.deltaTime;
             //TODO: add range limit destroy
             distanceTraveled += speed * Time.deltaTime;
-            if(distanceTraveled > range)
+            if (distanceTraveled > range)
             {
                 Destroy(gameObject);
             }
@@ -44,10 +44,10 @@ public class Projectile_Behavior : MonoBehaviour
         }
         else if (InteractionManager.IsDamaged(casterObj, otherObj.gameObject))
         {
-            otherObj.GetComponent<Unit_Actions>().Damage(damage);
+            otherObj.GetComponent<Unit_Actions>().Damage(damage, casterObj.transform);
             Destroy(gameObject);
         }
-        else if(InteractionManager.IsBlocked(casterObj, otherObj.gameObject))
+        else if (InteractionManager.IsBlocked(casterObj, otherObj.gameObject))
         {
             Destroy(gameObject);
         }

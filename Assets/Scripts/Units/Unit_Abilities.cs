@@ -115,9 +115,20 @@ public class Unit_Abilities : MonoBehaviour
             cooldowns[name].lastUpdateTime = currentTime;
             if (cooldowns[name].cooldownLeft < 0f) cooldowns[name].cooldownLeft = 0f;
         }
-        Debug.Log(string.Format("{0} On Cooldown, {1} seconds left.", name, cooldowns[name].cooldownLeft));
+        //Debug.Log(string.Format("{0} On Cooldown, {1} seconds left.", name, cooldowns[name].cooldownLeft));
         return cooldowns[name].cooldownLeft;
     }
+
+    public float GetCooldownLeftSeconds(int index)
+    {
+        return GetCooldownLeftSeconds(GetAbility(index).aName);
+    }
+
+    public bool IsOffCooldown(int index)
+    {
+        return GetCooldownLeftSeconds(GetAbility(index).aName) == 0f;
+    }
+
 
     public void TryUseAbility(string name, GameObject target = null)
     {
