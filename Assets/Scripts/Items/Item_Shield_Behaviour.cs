@@ -41,40 +41,12 @@ public class Item_Shield_Behaviour : MonoBehaviour
 
     private float CalcRelativeAngleFromRight(Transform A, Transform B)
     {
-        //Debug.Log(string.Format("A:({0},{2}), B:({1},{3})", A.position.x, B.position.x, A.position.y, B.position.y));
-        //Debug.Log(string.Format("A-B:({0},{1})", B.position.x - A.position.x, B.position.y - A.position.y));
-        float adj = B.position.x - A.position.x;
-        float angleFromX;
-        if (adj==0) 
-        {
-            angleFromX = (float)Math.Atan((B.position.y - A.position.y) / 0.00001f);
-        }
-        else
-        {
-            angleFromX = (float)Math.Atan((B.position.y - A.position.y) / adj);
-        }
-        //convert to degrees
-        angleFromX *= (float)(180/Math.PI);
-        //convert to angle from x positive
-        if (B.position.x < A.position.x) 
-        {
-            if (angleFromX > 0) 
-                angleFromX = angleFromX - 180;
-            else 
-                angleFromX = angleFromX + 180;
-        }
-
-        //Debug.Log(string.Format("angleFromX:{0}", angleFromX));
-
-        if (B.position.y < A.position.y) 
-        {
-            //Debug.Log(string.Format("correction:{0}", -Vector3.Angle(A.right, Vector3.right)));
-            return angleFromX - (-Vector3.Angle(Vector3.right, A.right)); 
-        }
-        else
-        {
-            //Debug.Log(string.Format("correction:{0}", Vector3.Angle(A.right, Vector3.right)));
-            return angleFromX - Vector3.Angle(Vector3.right, A.right);
-        }
+        Vector2 toTarget = B.position - A.position;
+        Vector2 facing = A.right;
+        //Debug.Log(string.Format("Name:{0}", A.gameObject.name));
+        //Debug.Log(string.Format("to target:{0}", toTarget));
+        //Debug.Log(string.Format("facing:{0}", facing));
+        //Debug.Log(string.Format("angle between:{0}", Vector2.SignedAngle(toTarget, facing)));
+        return Vector2.SignedAngle(toTarget, facing);
     }
 }
