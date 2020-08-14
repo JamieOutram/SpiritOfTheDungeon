@@ -17,6 +17,7 @@ public class Unit_Movement : MonoBehaviour
     void Start()
     {
         speed = gameObject.GetComponent<Unit_Statistics>().GetStat(UnitStatType.Spd);
+        
         //TODO: add stat with proper update function for turnrate
         turnRate = 300;
         
@@ -27,9 +28,14 @@ public class Unit_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (speed == null) Start();
+        if (speed == null) 
+        {
+            Debug.Log("Movement waiting for speed");
+            Invoke("Start", 1f);
+        }
+
         //set speed of character to direction pressed
-        rb.AddForce(new Vector2(ctr.horizontalMove * speed.Value * Time.deltaTime, ctr.verticalMove * speed.Value * Time.deltaTime));
+        rb.AddForce(new Vector2(ctr.horizontalMove * speed.value * Time.deltaTime, ctr.verticalMove * speed.value * Time.deltaTime));
 
         //rotate character in direction pressed
         rb.AddTorque(-ctr.turnMove * turnRate * Time.deltaTime);

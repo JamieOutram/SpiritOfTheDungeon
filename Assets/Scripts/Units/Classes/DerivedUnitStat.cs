@@ -6,18 +6,15 @@ using UnityEngine.PlayerLoop;
 
 public class DerivedUnitStat : UnitStat
 {
-    
-    public DerivedUnitStat(float bValue, UnitStatType sType, UnitStat linkedUnitStat ) : base(bValue,sType)
-    {
-        UpdateValue(linkedUnitStat, true);
-    }
+    private bool _isInitial = true;
+
+    public DerivedUnitStat(float bValue, UnitStatType sType, UnitResource lRes = null) : base(bValue, sType, null, lRes) {}
 
     private StatModifier baseModifier;
-    public void UpdateValue(UnitStat unitStat, bool _isInitial = false)
+    public void UpdateValue(UnitStat unitStat)
     {
-
-
-        if(_isInitial == false) base.RemoveModifier(baseModifier);
+        if (_isInitial == false) base.RemoveModifier(baseModifier);
+        else _isInitial = false;
 
         //Base class constructor is run first
         switch (base.statType)
@@ -30,7 +27,7 @@ public class DerivedUnitStat : UnitStat
                 }
 
                 //Maximum Health formula
-                baseModifier = new StatModifier(unitStat.Value * 10, StatModType.Flat);
+                baseModifier = new StatModifier(unitStat.value * 10, StatModType.Flat);
                 base.AddModifier(baseModifier);
                 break;
             case UnitStatType.MaxMana:
@@ -41,7 +38,7 @@ public class DerivedUnitStat : UnitStat
                 }
 
                 //Maximum Mana formula
-                baseModifier = new StatModifier(unitStat.Value * 10, StatModType.Flat);
+                baseModifier = new StatModifier(unitStat.value * 10, StatModType.Flat);
                 base.AddModifier(baseModifier);
                 break;
             default:

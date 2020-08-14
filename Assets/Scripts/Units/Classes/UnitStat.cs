@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using UnityEngine;
 
 public enum StatModType
@@ -12,37 +13,70 @@ public enum StatModType
 
 public class UnitStat
 {
-    public float baseValue;
+    private UnitResource _linkedResource;
+    public UnitResource LinkedResource 
+    {
+        get
+        {
+            return _linkedResource;
+        }
+        set
+        {
+            _linkedResource = value;
+            if (value != null)
+                _linkedResource.UpdateLimits(this.value);
+        }
+    }
+    public DerivedUnitStat _linkedDerivedStat;
+    public DerivedUnitStat LinkedDerivedStat
+    {
+        get
+        {
+            return _linkedDerivedStat;
+        }
+        set
+        {
+            _linkedDerivedStat = value;
+            if (value != null)  
+                _linkedDerivedStat.UpdateValue(this);
+        }
+    }
+
     public readonly UnitStatType statType;
     protected readonly List<StatModifier> statModifiers;
 
-    public UnitStat(float bValue, UnitStatType sType)
+    public UnitStat(float bValue, UnitStatType sType, DerivedUnitStat lDer = null, UnitResource lRes = null)
     {
-        baseValue = bValue;
+        _baseValue = bValue;
         statType = sType;
         statModifiers = new List<StatModifier>();
+        if (lDer != null) LinkedDerivedStat = lDer;
+        if (lRes != null) LinkedResource = lRes;
+        UpdateValues();
     }
     // public UnitStat() : this(10f) { }
 
+    private float _baseValue;
 
-    private bool _isDirty = true;
-    private int _value;
-
-    public int Value { 
-        get {
-            if (_isDirty) {
-                _value = CalculateFinalValue();
-                _isDirty = false;
-            }
-            return _value;
-        } 
+    public float BaseValue
+    {
+        get 
+        {
+            return _baseValue;
+        }
+        set 
+        {
+            _baseValue = value;
+            UpdateValues();
+        }
     }
+    public int value { get; private set; }
 
     public void AddModifier(StatModifier mod)
     {
-        _isDirty = true;
         statModifiers.Add(mod);
         statModifiers.Sort(CompareModifierOrder);
+        UpdateValues();
     }
 
     // Add this method to the CharacterStat class
@@ -57,13 +91,14 @@ public class UnitStat
 
     public bool RemoveModifier(StatModifier mod)
     {
-        _isDirty = true;
-        return statModifiers.Remove(mod);
+        var result = statModifiers.Remove(mod);
+        UpdateValues();
+        return result;
     }
 
     private int CalculateFinalValue()
     {
-        float finalValue = baseValue;
+        float finalValue = _baseValue;
         float sumPercentAdd = 0;
 
         for (int i = 0; i < statModifiers.Count; i++)
@@ -94,5 +129,21 @@ public class UnitStat
         // Rounding gets around float calculation errors and 
         return (int)Math.Round(finalValue);
     }
+
+    private void UpdateValues()
+    {
+        value = CalculateFinalValue();
+        if(_linkedDerivedStat != null)
+        {
+            _linkedDerivedStat.UpdateValue(this);
+        }
+        if (_linkedResource != null)
+        {
+            _linkedResource.UpdateLimits(this.value);
+        }
+        //Debug.Log(string.Format("Stat {0} updated to {1}", statType, value));
+    }
+
+    
 
 }

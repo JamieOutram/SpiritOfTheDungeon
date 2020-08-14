@@ -14,14 +14,16 @@ public enum UnitStatType
     MaxMana,
     Health,
     Mana,
-    Ammo
+    Ammo,
+    CarryWeight,
+    AmmoCapcity,
 }
 
 public class Unit_Statistics : MonoBehaviour
 {
-    private Dictionary<UnitStatType, UnitStat> unit_stats = new Dictionary<UnitStatType, UnitStat>();
+    private Dictionary<UnitStatType, UnitStat> unit_stats;
 
-    private Dictionary<UnitStatType, UnitResource> unit_resources = new Dictionary<UnitStatType, UnitResource>();
+    private Dictionary<UnitStatType, UnitResource> unit_resources;
 
     private bool _intialised = false;
 
@@ -51,49 +53,63 @@ public class Unit_Statistics : MonoBehaviour
     {
         unit_stats.Add(type, new UnitStat(bValue, type));
     }
-    private void AddStat(UnitStatType type, float bValue, UnitStatType linkedType)
+    private void AddLinkedStats(UnitStatType type, float bValue, 
+        UnitStatType derivedType, float dBaseValue)
     {
-        unit_stats.Add(type, new DerivedUnitStat(bValue, type, GetStat(linkedType)));
-    }
-    private void AddResource(UnitStatType type, UnitStatType linkedType)
-    {
-        UnitResource newStat = new UnitResource(GetStat(linkedType).Value, type);
-        newStat.UpdateLimits(GetStat(linkedType).Value);
-        unit_resources.Add(type, newStat);
-    }
-    private void AddResource(UnitStatType type, int baseValue)
-    {
-        UnitResource newStat = new UnitResource(baseValue, type);
-        unit_resources.Add(type, newStat);
+        AddStat(type, bValue);
+        //Accociate derived stat and add reference to list, values updated by assignment
+        unit_stats[type].LinkedDerivedStat = new DerivedUnitStat(dBaseValue, derivedType);
+        unit_stats.Add(derivedType, unit_stats[type].LinkedDerivedStat);
     }
 
+    private void AddLinkedStats(UnitStatType type, float bValue,
+    UnitStatType resourceType)
+    {
+        AddStat(type, bValue);
+        //link the new resource to the base stat, limits updated by assignment
+        unit_stats[type].LinkedResource = new UnitResource(resourceType);
+        unit_resources.Add(resourceType, unit_stats[type].LinkedResource);
+    }
+
+    private void AddLinkedStats(UnitStatType type, float bValue,
+        UnitStatType derivedType, float dBaseValue,
+        UnitStatType resourceType, bool isDerivedLinksResource)
+    {
+        AddLinkedStats(type, bValue, derivedType, dBaseValue);
+        //if the resource specified is linked to the derived stat
+        if (isDerivedLinksResource)
+        {
+            //Link new resource to derived stat, limits updated by assignment
+            unit_stats[derivedType].LinkedResource = new UnitResource(resourceType);
+            unit_resources.Add(resourceType, unit_stats[derivedType].LinkedResource);
+        }
+        else
+        {
+            //otherwise link the new resource to the base stat, limits updated by assignment
+            unit_stats[type].LinkedResource = new UnitResource(resourceType);
+            unit_resources.Add(resourceType, unit_stats[type].LinkedResource);
+        }
+        
+    }
 
     protected virtual void PopulateStats()
     {
         //Debug.Log("PopulateStats Called");
         //Base Stats
-        AddStat(UnitStatType.Vit, 10f);
-        AddStat(UnitStatType.Int, 10f);
+        AddLinkedStats(UnitStatType.Vit, 10f, UnitStatType.MaxHealth, 100f, UnitStatType.Health, true);
+        AddLinkedStats(UnitStatType.Int, 10f, UnitStatType.MaxMana, 100f, UnitStatType.Mana, true);
         AddStat(UnitStatType.Dmg, 50f);
         AddStat(UnitStatType.Def, 0f);
         AddStat(UnitStatType.Spd, 300f);
-
-        _intialised = true;
-
-        //Add Derived Stats
-        AddStat(UnitStatType.MaxHealth, 100f, UnitStatType.Vit);
-        AddStat(UnitStatType.MaxMana, 10f, UnitStatType.Int);
-
-        //Add Tracked Stats
-        AddResource(UnitStatType.Health, UnitStatType.MaxHealth);
-        AddResource(UnitStatType.Mana, UnitStatType.MaxMana);
-        AddResource(UnitStatType.Ammo, 0);
-        
-        
+        AddLinkedStats(UnitStatType.AmmoCapcity, 10f, UnitStatType.Ammo);
+        //Debug.Log(unit_stats.Count);
+        _intialised = true; 
     }
     
     public void Awake()
     {
+        unit_stats = new Dictionary<UnitStatType, UnitStat>();
+        unit_resources = new Dictionary<UnitStatType, UnitResource>();
         PopulateStats();
     }
 

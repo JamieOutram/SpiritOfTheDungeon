@@ -15,6 +15,14 @@ public class UnitResource
 
     public readonly UnitStatType type;
 
+    public UnitResource(UnitStatType type)
+    {
+        this._value = 999;
+        this.type = type;
+        this._maxValue = 999;
+        this._minValue = 0;
+    }
+
     public UnitResource(int Value, UnitStatType type)
     {
         this._value = Value;
@@ -26,7 +34,9 @@ public class UnitResource
     public void UpdateLimits(int max, int min = 0)
     {
         _maxValue = max;
+        if (Value > max) Value = max;
         _minValue = min;
+        if (Value < min) Value = min;
     }
 
     private void SetStat(int value)
