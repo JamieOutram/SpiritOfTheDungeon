@@ -84,25 +84,29 @@ public class Unit_Actions : MonoBehaviour
         }
     }
 
-    public void Damage(int damage, Transform source = null, GameObject casterObj = null)
+    public void Damage(int damage, Transform source = null, bool isBlockable = true)
     {
         UnitResource currentHealth = unit_Stats.GetResource(UnitStatType.Health);
         //Check or apply target effects here. Basic modifiers from source object should be applied through damage.
         //Directional Damage
-        if (!Transform.ReferenceEquals(source, null))
+        if (!ReferenceEquals(source, null))
         {
-            Item_Shield_Behaviour shield = GetComponentInChildren<Item_Shield_Behaviour>();
-            if (!Item_Shield_Behaviour.ReferenceEquals(shield, null))
+            if (isBlockable)
             {
-                damage = shield.ApplyModifier(damage, source);
+                Item_Shield_Behaviour shield = GetComponentInChildren<Item_Shield_Behaviour>(); //SLOW
+                if (!ReferenceEquals(shield, null))
+                {
+                    damage = shield.ApplyModifier(damage, source);
+                }
             }
         }
+
 
 
         currentHealth.Value -= damage;
         anim.SetBool("Hit", true);
         Debug.Log(string.Format("{0} damaged for {1}, current health {2}", gameObject.name, damage, currentHealth.Value));
-        
+
         if (currentHealth.Value <= 0)
         {
             Kill();

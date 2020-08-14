@@ -44,7 +44,7 @@ public class Projectile_Behavior : MonoBehaviour
         }
         else if (InteractionManager.IsDamaged(casterObj, otherObj.gameObject))
         {
-            otherObj.GetComponent<Unit_Actions>().Damage(damage, casterObj.transform);
+            otherObj.GetComponent<Unit_Actions>().Damage(damage, transform);
             Destroy(gameObject);
         }
         else if (InteractionManager.IsBlocked(casterObj, otherObj.gameObject))

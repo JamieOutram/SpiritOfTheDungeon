@@ -10,12 +10,16 @@ public class Item_Shield_Behaviour : MonoBehaviour
     public float flatReduction;
     public float percentReduction;
     public float protectionArc;
-    public Collider2D projectileBlockArea;
-    public Transform parentTransform;
+
+    //private Collider2D projectileBlockArea;
+    private Transform parentTransform;
+    //private Unit_Actions unitActions;
 
     void Awake()
     {
         parentTransform = gameObject.transform.parent;
+        //unitActions = parentTransform.gameObject.GetComponent<Unit_Actions>();
+        //projectileBlockArea = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame

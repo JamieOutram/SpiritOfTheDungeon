@@ -30,7 +30,7 @@ public class StatSetter : MonoBehaviour
             {
                 UnitStat unitStat = unit_Statistics.GetStat(unitStatTypes[i]);
                 unitStat.BaseValue = newBaseStats[i];
-                Debug.Log(string.Format("{0} {1} set to {2}",gameObject.name, unitStatTypes[i].ToString(), unit_Statistics.GetStat(unitStatTypes[i]).BaseValue));
+                Debug.Log(string.Format("{0} {1} base value set to {2}",gameObject.name, unitStatTypes[i].ToString(), unit_Statistics.GetStat(unitStatTypes[i]).BaseValue));
             }
         }
     }
