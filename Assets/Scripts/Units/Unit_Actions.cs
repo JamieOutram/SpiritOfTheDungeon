@@ -28,6 +28,9 @@ public class Unit_Actions : MonoBehaviour
 
     public void Attack(Ability ability)
     {
+        if(ability == null)
+            return;
+        
         if (unit_Abilities.GetCooldownLeftSeconds(ability.aName) == 0f)
         {
             anim.SetBool("Attack", true);

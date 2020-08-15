@@ -2,101 +2,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
-public class Unit_Abilities : MonoBehaviour
+public class Unit_Abilities : ScriptableObjectManager<Ability>
 {
     public class Cooldown
     {
         public float cooldownLeft;
         public float lastUpdateTime;
         public float baseCooldown;
-        public Cooldown(float cdl, float lut, float bcd)
+        public Cooldown(float cLeft, float bcd)
         {
-            cooldownLeft = cdl;
-            lastUpdateTime = lut;
+            cooldownLeft = cLeft;
+            lastUpdateTime = Time.time;
             baseCooldown = bcd;
         }
     }
     
-    public int Count { get; private set; }
-
-    [SerializeField] private List<Ability> editorAbilities;
-    private Dictionary<string, Ability> abilities;
     private Dictionary<string, Cooldown> cooldowns;
-
-
 
     void Awake()
     {
-        abilities = new Dictionary<string, Ability>();
         cooldowns = new Dictionary<string, Cooldown>();
-        Count = 0;
-        InstantiateAllAbilities();
+        InitializeObjects();
+        InitializeCooldowns();
     }
+
+    
 
     //Member functions for editing dictionary
     public void AddAbility(Ability ability)
     {
-        if (!abilities.Keys.Contains(ability.aName))
+        if (AddElement(ability))
         {
-            ability = InstantiateAbility(ability);
-            abilities.Add(ability.aName, ability);
-            cooldowns.Add(ability.aName, new Cooldown(0f, Time.time, ability.baseCooldown));
-            Count++;
-        }
-        else
-        {
-            Debug.LogWarning(string.Format("Duplicate ability on {0}", gameObject.name));
+            cooldowns.Add(ability.aName, new Cooldown(0f, ability.baseCooldown));
         }
     }
     public void RemoveAbility(string ability)
     {
-        if (!abilities.Keys.Contains(ability))
+        if (RemoveElement(ability))
         {
-            Destroy(abilities[ability]);
-            abilities.Remove(ability);
             cooldowns.Remove(ability);
-            Count--;
-        }
-        else
-        {
-            Debug.LogWarning(string.Format("Ability could not be removed as it does not exsist", gameObject.name));
         }
     }
 
     //Member functions for accessing dictionary
     public Ability GetAbility(string name)
     {
-        return abilities[name];
+        return GetElement(name);
     }
     public Ability GetAbility(int index)
     {
-        return abilities[abilities.Keys.ToList()[index]];
+        return GetElement(index);
     }
 
-    //Converts serialisable list from editor into dictionary of instantiated abilities
-    private void InstantiateAllAbilities()
+    private void InitializeCooldowns()
     {
-        for(int i = 0; i<editorAbilities.Count; i++)
+        for(int i = 0; i<Count; i++)
         {
-            Ability ability = editorAbilities[i];
-            AddAbility(ability);
+            cooldowns.Add(GetElement(i).aName, new Cooldown(0f, GetElement(i).baseCooldown));
         }
-        editorAbilities.Clear();
-        
-    }
-
-    //Instantiates and returns the reference to an instance of the ability passed
-    private Ability InstantiateAbility(Ability ability) 
-    {
-        /*Instantiating a clone of the ability allows multiple instances 
-         *of the same scriptable object in the scene */
-        ability = Instantiate(ability);
-        ability.Initialize(gameObject);
-        return ability;
     }
 
     public void StartCooldown(string name)
@@ -108,15 +73,22 @@ public class Unit_Abilities : MonoBehaviour
 
     public float GetCooldownLeftSeconds(string name)
     {
-        if (cooldowns[name].cooldownLeft > 0f)
+        if (cooldowns.ContainsKey(name))
         {
-            float currentTime = Time.time;
-            cooldowns[name].cooldownLeft -= (currentTime - cooldowns[name].lastUpdateTime);
-            cooldowns[name].lastUpdateTime = currentTime;
-            if (cooldowns[name].cooldownLeft < 0f) cooldowns[name].cooldownLeft = 0f;
+            if (cooldowns[name].cooldownLeft > 0f)
+            {
+                float currentTime = Time.time;
+                cooldowns[name].cooldownLeft -= (currentTime - cooldowns[name].lastUpdateTime);
+                cooldowns[name].lastUpdateTime = currentTime;
+                if (cooldowns[name].cooldownLeft < 0f) cooldowns[name].cooldownLeft = 0f;
+            }
+            //Debug.Log(string.Format("{0} On Cooldown, {1} seconds left.", name, cooldowns[name].cooldownLeft));
+            return cooldowns[name].cooldownLeft;
         }
-        //Debug.Log(string.Format("{0} On Cooldown, {1} seconds left.", name, cooldowns[name].cooldownLeft));
-        return cooldowns[name].cooldownLeft;
+        else
+        {
+            return -1; //Error code: No key of name 
+        }
     }
 
     public float GetCooldownLeftSeconds(int index)
@@ -132,17 +104,18 @@ public class Unit_Abilities : MonoBehaviour
 
     public void TryUseAbility(string name, GameObject target = null)
     {
+        Ability ability = GetElement(name);
         if(GetCooldownLeftSeconds(name) == 0f)
         {
             StartCooldown(name);
             if (target == null)
             {
                 //Debug.Log(string.Format("Using {0}", abilities[name].aName));
-                abilities[name].TriggerAbility();
+                ability.TriggerAbility();
             }
             else
             {
-                abilities[name].TriggerAbility(target);
+                ability.TriggerAbility(target);
             }
         }
     }
