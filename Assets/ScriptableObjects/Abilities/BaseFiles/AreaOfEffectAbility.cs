@@ -11,7 +11,7 @@ public class AreaOfEffectAbility : Ability
     public float baseDelay = 0f;
     public float baseDuration = 3f;
     public float baseRange = 3f;
-    public GameObject abilityEffect;
+    public GameObject abilityEffectPrefab;
     public bool isTrackPlayer;
 
     private AreaOfEffectTriggerable aoeHit;
@@ -22,7 +22,7 @@ public class AreaOfEffectAbility : Ability
         aoeHit = obj.GetComponent<AreaOfEffectTriggerable>();
 
         aoeHit.isInstantiateInWorldSpace = !isTrackPlayer;
-        aoeHit.abilityEffect = abilityEffect;
+        aoeHit.abilityEffect = abilityEffectPrefab;
         //Pass custom values required for Fire()
         aoeHit.baseDelay = baseDelay;
         aoeHit.damageModifier = damageMultiplier;

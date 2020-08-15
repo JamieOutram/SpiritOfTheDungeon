@@ -2,33 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.XR.WSA;
 
-public class Item_Shield_Behaviour : MonoBehaviour
+public class ShieldEffectTriggerable : MonoBehaviour
 {
-    public float flatReduction;
-    public float percentReduction;
-    public float protectionArc;
-
-    //private Collider2D projectileBlockArea;
+    [HideInInspector] public float flatReduction;
+    [HideInInspector] public float percentReduction;
+    [HideInInspector] public float protectionArc;
+    
     private Transform parentTransform;
-    //private Unit_Actions unitActions;
 
     void Awake()
     {
         parentTransform = gameObject.transform.parent;
-        //unitActions = parentTransform.gameObject.GetComponent<Unit_Actions>();
-        //projectileBlockArea = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public int ApplyModifier(int damage, Transform source)
+    public int ArcBlockEffect(int damage, Transform source)
     {
         //Debug.Log("Shield called");
         float tempDamage = damage;
@@ -36,13 +24,12 @@ public class Item_Shield_Behaviour : MonoBehaviour
         if (Math.Abs(CalcRelativeAngleFromRight(parentTransform, source)) <= protectionArc)
         {
             tempDamage -= flatReduction;
-            tempDamage *= (1 - percentReduction/100);
+            tempDamage *= (1 - percentReduction / 100);
             //Debug.Log("Damage Reduced by Shield");
         }
-        
+
         return (int)tempDamage;
     }
-
     private float CalcRelativeAngleFromRight(Transform A, Transform B)
     {
         Vector2 toTarget = B.position - A.position;

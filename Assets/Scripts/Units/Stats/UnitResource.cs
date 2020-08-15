@@ -3,8 +3,8 @@
 public class UnitResource
 {
     private int _value;
-    private int _maxValue;
-    private int _minValue;
+    public int minValue { get; private set; }
+    public int maxValue { get; private set; }
 
     public int Value
     {
@@ -19,35 +19,35 @@ public class UnitResource
     {
         this._value = 999;
         this.type = type;
-        this._maxValue = 999;
-        this._minValue = 0;
+        this.maxValue = 999;
+        this.minValue = 0;
     }
 
     public UnitResource(int Value, UnitStatType type)
     {
         this._value = Value;
         this.type = type;
-        this._maxValue = 999;
-        this._minValue = 0;
+        this.maxValue = 999;
+        this.minValue = 0;
     }
 
     public void UpdateLimits(int max, int min = 0)
     {
-        _maxValue = max;
+        maxValue = max;
         if (Value > max) Value = max;
-        _minValue = min;
+        minValue = min;
         if (Value < min) Value = min;
     }
 
     private void SetStat(int value)
     {
-        if (value > _maxValue)
+        if (value > maxValue)
         {
-            _value = _maxValue;
+            _value = maxValue;
         }
-        else if (value < _minValue)
+        else if (value < minValue)
         {
-            _value = _minValue;
+            _value = minValue;
         }
         else
         {

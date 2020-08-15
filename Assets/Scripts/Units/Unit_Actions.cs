@@ -17,20 +17,22 @@ public class Unit_Actions : MonoBehaviour
 {
     private Unit_Statistics unit_Stats;
     private Unit_Abilities unit_Abilities;
+    private Unit_Items unit_Items;
     private Animator anim;
     // Start is called before the first frame update
     void Awake()
     {
         unit_Stats = GetComponent<Unit_Statistics>();
         unit_Abilities = GetComponent<Unit_Abilities>();
+        unit_Items = GetComponent<Unit_Items>();
         anim = GetComponent<Animator>();
     }
 
     public void Attack(Ability ability)
     {
-        if(ability == null)
+        if (ability == null)
             return;
-        
+
         if (unit_Abilities.GetCooldownLeftSeconds(ability.aName) == 0f)
         {
             anim.SetBool("Attack", true);
@@ -96,10 +98,10 @@ public class Unit_Actions : MonoBehaviour
         {
             if (isBlockable)
             {
-                Item_Shield_Behaviour shield = GetComponentInChildren<Item_Shield_Behaviour>(); //SLOW
-                if (!ReferenceEquals(shield, null))
+                EquipableItem item = unit_Items.GetItemOfType(EquipableItemType.Shield);
+                if (!ReferenceEquals(item, null))
                 {
-                    damage = shield.ApplyModifier(damage, source);
+                    damage = item.DamageModTrigger(damage, source);
                 }
             }
         }
