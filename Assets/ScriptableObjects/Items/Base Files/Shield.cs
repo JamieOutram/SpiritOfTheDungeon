@@ -14,9 +14,15 @@ public class Shield : EquipableItem
 
     private ShieldEffectTriggerable itemTrigger;
 
+    public override EquipableItemType itemType { 
+        get
+        {
+            return EquipableItemType.Shield;
+        } 
+    }
+
     public override void Initialize(GameObject obj)
     {
-        itemType = EquipableItemType.Shield;
         itemTrigger = obj.GetComponentInChildren<ShieldEffectTriggerable>();
         itemTrigger.flatReduction = flatReduction;
         itemTrigger.percentReduction = percentReduction;
