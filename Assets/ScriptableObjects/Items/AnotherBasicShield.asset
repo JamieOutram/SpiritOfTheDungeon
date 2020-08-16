@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bdf6be8d8234aa4d96d767e278240bd, type: 3}
-  m_Name: BasicShield
+  m_Name: AnotherBasicShield
   m_EditorClassIdentifier: 
-  aName: Basic Shield
+  aName: AnotherBasicShield
   aIcon: {fileID: 0}
   aDescription: 
-  flatReduction: 50
-  percentReduction: 0
-  protectionArc: 45
+  flatReduction: 0
+  percentReduction: 50
+  protectionArc: 90

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Threading;
 using UnityEngine;
 
 public enum UnitStatType
@@ -21,6 +23,24 @@ public enum UnitStatType
 
 public class Unit_Statistics : MonoBehaviour
 {
+    
+    public int StatCount
+    {
+        get
+        {
+            return unit_stats.Count;
+        }
+    }
+    public int ResourceCount
+    {
+        get
+        {
+            return unit_resources.Count;
+        }
+    }
+
+    public List<UnitStatType> hiddenTypes;
+
     private Dictionary<UnitStatType, UnitStat> unit_stats;
 
     private Dictionary<UnitStatType, UnitResource> unit_resources;
@@ -47,6 +67,25 @@ public class Unit_Statistics : MonoBehaviour
             return null;
         }
         return unit_resources[statType];
+    }
+
+    public List<Tuple<UnitStatType, int>> GetAllStatValues() 
+    {
+        List<Tuple<UnitStatType, int>> statValues = new List<Tuple<UnitStatType, int>>();
+        foreach(UnitStatType key in unit_stats.Keys)
+        {
+            statValues.Add(Tuple.Create(key, GetStat(key).value));
+        }
+        return statValues;
+    }
+    public List<Tuple<UnitStatType, int>> GetAllResourceValues()
+    {
+        List<Tuple<UnitStatType, int>> resourceValues = new List<Tuple<UnitStatType, int>>();
+        foreach (UnitStatType key in unit_resources.Keys)
+        {
+            resourceValues.Add(Tuple.Create(key, GetResource(key).Value));
+        }
+        return resourceValues;
     }
 
     private void AddStat(UnitStatType type, float bValue)

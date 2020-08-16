@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class NamedScriptableObject : ScriptableObject
 {
-    public readonly string aName = "New Ability";
+    public string aName = "New Ability";
 
     public abstract void Initialize(GameObject obj);
 }

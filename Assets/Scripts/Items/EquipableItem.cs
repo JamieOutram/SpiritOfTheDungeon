@@ -5,9 +5,9 @@ using UnityEngine;
 
 public abstract class EquipableItem : NamedScriptableObject
 {
-    public float aFlatDamageMod = 0f;
-    public float aMulDamageMod = 1f;
-    
+    public Sprite aIcon;
+    public string aDescription;
+
     public EquipableItemType itemType {get; protected set;}
 
 
