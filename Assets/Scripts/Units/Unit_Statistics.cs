@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 
@@ -67,6 +68,15 @@ public class Unit_Statistics : MonoBehaviour
             return null;
         }
         return unit_resources[statType];
+    }
+
+    public List<UnitStat> GetAllStats()
+    {
+        return unit_stats.Values.ToList();
+    }
+    public List<UnitResource> GetAllResources()
+    {
+        return unit_resources.Values.ToList();
     }
 
     public List<Tuple<UnitStatType, int>> GetAllStatValues() 
