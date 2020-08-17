@@ -58,6 +58,6 @@ public class UIManager : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         HideUnitInfoPopup();
-        Debug.Log("OnMouseDown called");
+        //Debug.Log("OnMouseDown called");
     }
 }

@@ -57,8 +57,7 @@ public class PopupInfoBox
 
         prefabInstances = new List<GameObject>();
         target = unitObj;
-        items = target.GetComponent<Unit_Items>();
-        stats = target.GetComponent<Unit_Statistics>();
+        
         
         UpdateContents();
         UpdatePosition();
@@ -68,7 +67,7 @@ public class PopupInfoBox
 
     public void ChangeTarget(GameObject newTargetObj, bool forceUpdate = false)
     {
-        if (!ReferenceEquals(newTargetObj, target)||forceUpdate)
+        if (!ReferenceEquals(newTargetObj, target) || forceUpdate)
         {
             target = newTargetObj;
             UpdateContents();
@@ -88,8 +87,9 @@ public class PopupInfoBox
     }
     private void UpdatePosition()
     {
-        //set position to object location
+        //set position to mouse location
         infoBox.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //TODO: add logic to prevent displaying outside canvas space
     }
 
     private void InvalidTarget()
@@ -100,8 +100,9 @@ public class PopupInfoBox
 
     private void UpdateContents() 
     {
-        
-        
+
+        items = target.GetComponent<Unit_Items>();
+        stats = target.GetComponent<Unit_Statistics>();
         if (ReferenceEquals(items, null) || ReferenceEquals(stats, null))
         {
             InvalidTarget();
@@ -178,17 +179,18 @@ public class PopupInfoBox
         }
     }
 
-    private void DestroyExcessClones(GameObject prefab, int destroyIndex) 
-    {
-        string cloneName = prefab.name + "(Clone)";
-        Debug.Log(string.Format("Checking for {0} at {1}", cloneName, destroyIndex));
-        while (cloneName == prefabInstances[destroyIndex].name)
-        {
-            Debug.Log("Destroying clone");
-            GameObject.Destroy(prefabInstances[destroyIndex]);
-            prefabInstances.RemoveAt(destroyIndex);
-        }
-    }
+
+    //private void DestroyExcessClones(GameObject prefab, int destroyIndex) 
+    //{
+    //    string cloneName = prefab.name + "(Clone)";
+    //    Debug.Log(string.Format("Checking for {0} at {1}", cloneName, destroyIndex));
+    //    while (cloneName == prefabInstances[destroyIndex].name)
+    //    {
+    //        Debug.Log("Destroying clone");
+    //        GameObject.Destroy(prefabInstances[destroyIndex]);
+    //        prefabInstances.RemoveAt(destroyIndex);
+    //    }
+    //}
 
     private void ClearClones() 
     { 
