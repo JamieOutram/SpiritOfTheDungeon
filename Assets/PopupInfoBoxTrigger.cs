@@ -7,10 +7,6 @@ public class PopupInfoBoxTrigger : MonoBehaviour
 {
     private void OnMouseUpAsButton()
     {
-        if (PopupInfoBox.isLoaded)
-        {
-            UIManager.infoBox.ChangeTarget(gameObject, true);
-            UIManager.infoBox.ShowBox();
-        }
+        UIManager.infoBox.ShowBox(gameObject, true);
     }
 }

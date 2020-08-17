@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BasicShield
   m_EditorClassIdentifier: 
   aName: Basic Shield
-  aIcon: {fileID: 0}
-  aDescription: 
+  aIcon: {fileID: 21300000, guid: 70ec7afab10892e45b641df3ee308b9f, type: 3}
+  aDescription: A Basic Shield
   flatReduction: 50
   percentReduction: 0
   protectionArc: 45

@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour, IPointerDownHandler
     void Start()
     {
         infoBox = new PopupInfoBox(targetObj, gameObject.transform);
-        Debug.Log(infoBox);
     }
 
     // Update is called once per frame
@@ -30,34 +29,9 @@ public class UIManager : MonoBehaviour, IPointerDownHandler
         
     }
 
-    //Displays Popup with passed object info
-    public static void ShowUnitInfoPopup(GameObject target)
-    {
-        if (PopupInfoBox.isLoaded)
-        {
-            infoBox.ChangeTarget(target, true);
-            infoBox.ShowBox();
-        }
-    }
-    private void OnMouseUpAsButton()
-    {
-        ShowUnitInfoPopup(targetObj);
-        Debug.Log("OnMouseUpAsButton called");
-    }
-
-    //Hides the onclick popup
-    public static void HideUnitInfoPopup()
-    {
-        if (PopupInfoBox.isLoaded)
-        {
-            infoBox.HideBox();
-            
-        }
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
-        HideUnitInfoPopup();
+        infoBox.HideBox();
         //Debug.Log("OnMouseDown called");
     }
 }

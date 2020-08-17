@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf6be8d8234aa4d96d767e278240bd, type: 3}
   m_Name: AnotherBasicShield
   m_EditorClassIdentifier: 
-  aName: AnotherBasicShield
-  aIcon: {fileID: 0}
-  aDescription: 
+  aName: Another Basic Shield
+  aIcon: {fileID: 1847457535474682672, guid: 4a72ac63aa6b41340b2ec572256a2993, type: 3}
+  aDescription: Another Shield with some basic effects
   flatReduction: 0
   percentReduction: 50
   protectionArc: 90
