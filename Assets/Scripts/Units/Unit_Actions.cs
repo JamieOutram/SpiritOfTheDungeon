@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum DamageType
 {
@@ -11,10 +12,25 @@ public enum DamageType
     Pure,
 }
 
+// Define a class to hold custom event info
+public class OnDamageArgs : EventArgs
+{
+    public OnDamageArgs(UnitResource health, int damage)
+    {
+        Health = health;
+        Damage = damage;
+    }
+
+    public UnitResource Health { get; set; }
+    public int Damage { get; set; }
+}
+
 [RequireComponent(typeof(Unit_Statistics))]
 [RequireComponent(typeof(Animator))]
 public class Unit_Actions : MonoBehaviour
 {
+    public event EventHandler<OnDamageArgs> OnDamageHandler;
+    private HealthBarBehaviour healthBar;
     private Unit_Statistics unit_Stats;
     private Unit_Abilities unit_Abilities;
     private Unit_Items unit_Items;
@@ -22,6 +38,7 @@ public class Unit_Actions : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
         unit_Stats = GetComponent<Unit_Statistics>();
         unit_Abilities = GetComponent<Unit_Abilities>();
         unit_Items = GetComponent<Unit_Items>();
@@ -109,8 +126,14 @@ public class Unit_Actions : MonoBehaviour
 
 
         currentHealth.Value -= damage;
+        //Trigger any subscribed events (null if none)
+        if (OnDamageHandler != null) {
+            OnDamageHandler.Invoke(gameObject, new OnDamageArgs(currentHealth, damage));
+        }
+
         anim.SetBool("Hit", true);
         Debug.Log(string.Format("{0} damaged for {1}, current health {2}", gameObject.name, damage, currentHealth.Value));
+        
 
         if (currentHealth.Value <= 0)
         {
