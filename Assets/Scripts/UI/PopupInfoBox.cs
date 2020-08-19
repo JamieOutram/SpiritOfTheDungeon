@@ -56,10 +56,7 @@ public class PopupInfoBox
         prefabInstances = new List<GameObject>();
         target = unitObj;
 
-
-        UpdateContents();
-        UpdatePosition();
-        ShowBox();
+        HideBox();
 
     }
 
