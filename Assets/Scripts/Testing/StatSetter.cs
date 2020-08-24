@@ -34,8 +34,8 @@ public class StatSetter : MonoBehaviour
                     if (unitStat.LinkedResource != null)
                         unitStat.LinkedResource.Value = unitStat.LinkedResource.maxValue;
                 
-                Debug.Log(string.Format("{0} {1} base value set to {2}",gameObject.name, unitStatTypes[i].ToString(), unit_Statistics.GetStat(unitStatTypes[i]).BaseValue));
-                Debug.Log(string.Format("New Total Value : {0}", unit_Statistics.GetStat(unitStatTypes[i]).value));
+                //Debug.Log(string.Format("{0} {1} base value set to {2}",gameObject.name, unitStatTypes[i].ToString(), unit_Statistics.GetStat(unitStatTypes[i]).BaseValue));
+                //Debug.Log(string.Format("New Total Value : {0}", unit_Statistics.GetStat(unitStatTypes[i]).value));
             }
         }
     }

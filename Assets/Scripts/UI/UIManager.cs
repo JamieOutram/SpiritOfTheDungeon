@@ -4,18 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour, IPointerDownHandler
+public class UIManager : MonoBehaviour
 {
     
     public GameObject targetObj;
     //public Transform parent;
-
+    private Image screenOverlay;
     
     public static PopupInfoBox infoBox;
 
     void Awake()
     {
         PopupInfoBox.LoadResources();
+        screenOverlay = GetComponent<Image>();
     }
     // Start is called before the first frame update
     void Start()
@@ -29,9 +30,14 @@ public class UIManager : MonoBehaviour, IPointerDownHandler
         
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void PauseGame()
     {
-        infoBox.HideBox();
-        //Debug.Log("OnMouseDown called");
+        PauseControl.PauseGame(true);
     }
+
+    public void ResumeGame()
+    {
+        PauseControl.PauseGame(false);
+    }
+
 }

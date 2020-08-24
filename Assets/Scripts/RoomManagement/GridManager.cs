@@ -36,7 +36,7 @@ public class GridManager : MonoBehaviour
         //Spawn rooms
         GenerateGrid();
 
-        //Calling imediatly after resizing does not scan properly.
+        //Calling imediatly after resizing performs scan first.
         Invoke("AStarScan", 0.0001f);
 
     }
@@ -79,7 +79,7 @@ public class GridManager : MonoBehaviour
     {
         float middleX = posX + transform.position.x - (cols-1) * tileWidth/2;
         float middleY = posY + transform.position.x + (rows-1) * tileHeight/2;
-        Debug.Log(string.Format("{0}, {1} converted to {2}, {3}",posX,posY,middleX,middleY));
+        //Debug.Log(string.Format("{0}, {1} converted to {2}, {3}",posX,posY,middleX,middleY));
         return new Vector2(middleX, middleY);
     }
 
@@ -88,7 +88,7 @@ public class GridManager : MonoBehaviour
         //TODO: Cell Selection Code
         Debug.Log(string.Format("{0} selected at {1}",obj.name, index));
         
-        PauseControl.PauseGame((index.x % 2)==0);
+        
      
     }
 
