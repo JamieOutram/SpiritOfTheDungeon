@@ -29,11 +29,11 @@ public class HealthBarBehaviour : MonoBehaviour
         //Calculate mask scale from max health and current health. 
         Vector3 newScale = startScale;
         float healthRatio = (float)e.Health.Value / e.Health.maxValue;
-        Debug.Log(string.Format("Scale is {0}", newScale));
-        Debug.Log(string.Format("Health is {0}/{1}", e.Health.Value, e.Health.maxValue));
-        Debug.Log(string.Format("Health is {0}, {1}", e.Health.Value/e.Health.maxValue, startScale.x));
+        //Debug.Log(string.Format("Scale is {0}", newScale));
+        //Debug.Log(string.Format("Health is {0}/{1}", e.Health.Value, e.Health.maxValue));
+        //Debug.Log(string.Format("Health is {0}, {1}", e.Health.Value/e.Health.maxValue, startScale.x));
         newScale.x = startScale.x * healthRatio;
-        Debug.Log(string.Format("Setting scale to {0}", newScale));
+        //Debug.Log(string.Format("Setting scale to {0}", newScale));
         mask.transform.localScale = newScale;
 
         barRenderer.material.SetFloat("_Color", healthRatio);
