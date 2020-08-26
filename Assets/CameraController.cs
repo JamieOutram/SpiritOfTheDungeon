@@ -7,10 +7,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    //Place the camera to be moved in here
     public Camera selectedCamera;
 
-    // Start is called before the first frame update
+    //Flag showing that the camera is moving
     public bool isCameraZooming { get; private set; }
+    
+    //All the information required to calculate the position and zoom
     private float originalSize;
     private float targetSize;
     private Vector2 originalPivot;
@@ -19,16 +22,19 @@ public class CameraController : MonoBehaviour
     private float remainingTime;
     private float rampTime;
 
+    //Max speed values do not need to be calculated each frame
     private Vector2 _pivotVmax;
     private float _sizeVmax;
 
     private void Awake()
     {
+        //Ensure the flag is initialized correctly
         isCameraZooming = false;
     }
 
     void Start()
     {
+        //Example Zoom Trigger
         ZoomCameraWithRampUpDown(new Vector2(9, -9), 5f, 1f,0.5f);
     }
 
@@ -41,7 +47,8 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void ZoomCameraWithRampUpDown(Vector2 pivot, float size, float time, float rampTime)
+    //Trigger for the camera movement
+    public void ZoomCameraWithRampUpDown(Vector2 pivot, float size, float time, float rampTime)
     {
         if (isCameraZooming)
         {
@@ -59,16 +66,19 @@ public class CameraController : MonoBehaviour
         this.rampTime = rampTime;
         this.isCameraZooming = true;
 
-        //calculate Max speed
+        //Calculate Max speed
         this._pivotVmax = CalcMaxSpeed(targetPivot - originalPivot, rampTime, transitionTime);
         this._sizeVmax = CalcMaxSpeed(targetSize - originalSize, rampTime, transitionTime);
 
     }
 
-    float CalcMaxSpeed(float distance, float rampT, float transT)
+    //Calculates the peak velocity of the camera
+    private float CalcMaxSpeed(float distance, float rampT, float transT)
     {
         if (transT <= 2 * rampT)
         {
+            //If the ramp time is too large there is no middle platau
+            //in this case the maximum speed reached is based on the total transition time i.e. rampTime = transitionTime/2
             return (2 * distance / transT);
         }
         else
@@ -76,67 +86,76 @@ public class CameraController : MonoBehaviour
             return (distance / (transT - rampT));
         }
     }
-    Vector2 CalcMaxSpeed(Vector2 distance, float rampT, float transT)
+    private Vector2 CalcMaxSpeed(Vector2 distance, float rampT, float transT)
     {
         return new Vector2(CalcMaxSpeed(distance.x, rampT, transT), CalcMaxSpeed(distance.y, rampT, transT));
     }
 
-
-    void UpdateZoom()
+    //Method called every frame during zoom/movement
+    private void UpdateZoom()
     {
+        //Calculate new time independant of framerate
         remainingTime -= Time.deltaTime;
         float time = transitionTime - remainingTime;
 
-        selectedCamera.orthographicSize = CustomCurve(originalSize, time, _sizeVmax);
-        selectedCamera.transform.position = CustomCurve(originalPivot, time, _pivotVmax);
-
         if(remainingTime<=0)
         {
+            //if at the end of transition skip calculations
+            selectedCamera.orthographicSize = targetSize;
+            selectedCamera.transform.position = new Vector3(targetPivot.x, targetPivot.y, -10);
+            //set flag at end of transition
             isCameraZooming = false;
         }
+        
+        //Calculate the new zoom and position values
+        selectedCamera.orthographicSize = CalcRampedValue(originalSize, time, _sizeVmax);
+        selectedCamera.transform.position = CalcRampedValue(originalPivot, time, _pivotVmax);
     }
     
     //Controls distance curve of zoom and position (t = 0 to transitiontime)
-    float CustomCurve(float startPoint, float t, float Vmax, float transT, float rampT)
+    private float CalcRampedValue(float startPoint, float t, float Vmax, float transT, float rampT)
     {
+        //Ensure time given is within valid range
         t = Mathf.Clamp(t, 0, transT);
-        double d = 0;
+        
+        
+        double d = 0; //holds distance traveled
+        //Depending on the given time select the correct calculations for distance
         if (t <= rampT)
         {
-            //Ramp Up
+            //Ramp Up distance formula
             d = 0.5 / rampT * t * t;
         }
         else 
         {
-            d += 0.5 * rampT;
+            //Add Ramp Up total distance
+            d += 0.5 * rampT; 
             if (t < transT - rampT)
             {
-                //Middle
+                //Platau distance formula
                 d += (t - rampT);
             }
             else
             {
-                //add constant speed distance
-                d += transT - 2 * rampT;
-
-                //Ramp Down
+                //Add Platau total distance
+                d += transT - 2 * rampT; 
+                //Ramp Down distance formula (Could optimise by finding distance from end and minusing?)
                 d += 0.5 * (rampT - (transT - t)*(transT - t) / rampT);
             }
         }
+        //Scale According to Max Velocity
         d *= Vmax;
-
-        d += startPoint;
+        //Add starting Offset
+        d += startPoint; 
         return (float)d;
     }
-    float CustomCurve(float startPoint, float t, float Vmax)
+    float CalcRampedValue(float startPoint, float t, float Vmax)
     {
-        return CustomCurve(startPoint, t, Vmax, transitionTime, rampTime);
+        return CalcRampedValue(startPoint, t, Vmax, transitionTime, rampTime);
     }
-
-    //Vector2 wrapper for customcurve
-    Vector3 CustomCurve(Vector2 startPoint, float t , Vector2 Vmax)
+    Vector3 CalcRampedValue(Vector2 startPoint, float t , Vector2 Vmax)
     {
-        return new Vector3(CustomCurve(startPoint.x, t, Vmax.x), CustomCurve(startPoint.y, t, Vmax.y), -10);
+        return new Vector3(CalcRampedValue(startPoint.x, t, Vmax.x), CalcRampedValue(startPoint.y, t, Vmax.y), -10);
     }
 
 }
