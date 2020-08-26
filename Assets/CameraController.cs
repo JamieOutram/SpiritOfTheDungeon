@@ -5,37 +5,40 @@ using System.Security.Cryptography;
 using UnityEditorInternal;
 using UnityEngine;
 
+//ensure only one in scene
 public class CameraController : MonoBehaviour
 {
     //Place the camera to be moved in here
-    public Camera selectedCamera;
+    public static Camera selectedCamera { get; private set; }
 
     //Flag showing that the camera is moving
-    public bool isCameraZooming { get; private set; }
+    public static bool isCameraZooming { get; private set; }
     
     //All the information required to calculate the position and zoom
-    private float originalSize;
-    private float targetSize;
-    private Vector2 originalPivot;
-    private Vector2 targetPivot;
-    private float transitionTime;
-    private float remainingTime;
-    private float rampTime;
+    private static float originalSize;
+    private static float targetSize;
+    private static Vector2 originalPivot;
+    private static Vector2 targetPivot;
+    private static float transitionTime;
+    private static float remainingTime;
+    private static float rampTime;
 
     //Max speed values do not need to be calculated each frame
-    private Vector2 _pivotVmax;
-    private float _sizeVmax;
+    private static Vector2 _pivotVmax;
+    private static float _sizeVmax;
 
     private void Awake()
     {
         //Ensure the flag is initialized correctly
         isCameraZooming = false;
+        SelectCamera(GetComponent<Camera>());
     }
 
     void Start()
     {
         //Example Zoom Trigger
-        ZoomCameraWithRampUpDown(new Vector2(9, -9), 5f, 1f,0.5f);
+        
+        //ZoomCameraWithRampUpDown(new Vector2(9, -9), 5f, 1f,0.5f);
     }
 
     // Update is called once per frame
@@ -47,9 +50,18 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    //Trigger for the camera movement
-    public void ZoomCameraWithRampUpDown(Vector2 pivot, float size, float time, float rampTime)
+    public static void SelectCamera(Camera c)
     {
+        if (!isCameraZooming)
+        {
+            selectedCamera = c;
+        }
+    }
+
+    //Trigger for the camera movement
+    public static void ZoomCameraWithRampUpDown(Vector2 pivot, float size, float time, float rampT)
+    {
+        //Another solution could be to find new points along line and linear interpolate between them.
         if (isCameraZooming)
         {
             Debug.LogWarning("Camera already zooming");
@@ -57,23 +69,23 @@ public class CameraController : MonoBehaviour
         }
 
         //Set Values and Flags for zoom 
-        this.originalSize = selectedCamera.orthographicSize;
-        this.originalPivot = selectedCamera.transform.position;
-        this.targetPivot = pivot;
-        this.targetSize = size;
-        this.transitionTime = time;
-        this.remainingTime = time;
-        this.rampTime = rampTime;
-        this.isCameraZooming = true;
+        originalSize = selectedCamera.orthographicSize;
+        originalPivot = selectedCamera.transform.position;
+        targetPivot = pivot;
+        targetSize = size;
+        transitionTime = time;
+        remainingTime = time;
+        rampTime = rampT;
+        isCameraZooming = true;
 
         //Calculate Max speed
-        this._pivotVmax = CalcMaxSpeed(targetPivot - originalPivot, rampTime, transitionTime);
-        this._sizeVmax = CalcMaxSpeed(targetSize - originalSize, rampTime, transitionTime);
+        _pivotVmax = CalcMaxSpeed(targetPivot - originalPivot, rampTime, transitionTime);
+        _sizeVmax = CalcMaxSpeed(targetSize - originalSize, rampTime, transitionTime);
 
     }
 
     //Calculates the peak velocity of the camera
-    private float CalcMaxSpeed(float distance, float rampT, float transT)
+    private static float CalcMaxSpeed(float distance, float rampT, float transT)
     {
         if (transT <= 2 * rampT)
         {
@@ -86,7 +98,7 @@ public class CameraController : MonoBehaviour
             return (distance / (transT - rampT));
         }
     }
-    private Vector2 CalcMaxSpeed(Vector2 distance, float rampT, float transT)
+    private static Vector2 CalcMaxSpeed(Vector2 distance, float rampT, float transT)
     {
         return new Vector2(CalcMaxSpeed(distance.x, rampT, transT), CalcMaxSpeed(distance.y, rampT, transT));
     }

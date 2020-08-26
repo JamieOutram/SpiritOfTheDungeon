@@ -8,9 +8,13 @@ using System.IO;
 public class GridManager : MonoBehaviour
 {
     public GameObject RefObject;
+    
+
     private RoomBehaviour RefInfo;
     [SerializeField] private int rows = 3;
     [SerializeField] private int cols = 3;
+    [SerializeField] private int padding = 3;
+    
     private int tileWidth = 24;
     private int tileHeight = 12;
     private GridGraph pathGraph;
@@ -83,13 +87,22 @@ public class GridManager : MonoBehaviour
         return new Vector2(middleX, middleY);
     }
 
-    public static void SelectCell(GameObject obj, Vector2 index)
+    public void SelectCell(GameObject obj, Vector2 index)
     {
         //TODO: Cell Selection Code
         Debug.Log(string.Format("{0} selected at {1}",obj.name, index));
-        
-        
-     
+        if (!CameraController.isCameraZooming)
+        {
+            float size = obj.GetComponent<Collider2D>().bounds.size.y / 2;
+            CameraController.ZoomCameraWithRampUpDown(obj.transform.position, size, 1.5f, 0.5f);
+        }
     }
+    
+    public void DeselectCell()
+    {
+        CameraController.ZoomCameraWithRampUpDown(transform.position, rows*tileHeight/2+padding, 1.5f, 0.5f);
+    }
+    
+    
 
 }

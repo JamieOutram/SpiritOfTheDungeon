@@ -9,10 +9,11 @@ public class RoomBehaviour : MonoBehaviour
     public Vector2 index;
     public Vector2 cellSize;
     private BoxCollider2D cellBox;
-     
+    private GridManager grid;
 
     private void Awake()
     {
+        grid = GameObject.Find("Grid Manager").GetComponent<GridManager>();
         cellBox = GetComponent<BoxCollider2D>();
         cellBox.size = cellSize;
     }
@@ -23,7 +24,7 @@ public class RoomBehaviour : MonoBehaviour
         UIManager.infoBox.HideBox();
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            GridManager.SelectCell(gameObject, index);
+            grid.SelectCell(gameObject, index);
         }
         else
         {

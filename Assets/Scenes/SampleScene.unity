@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 348354699}
   - component: {fileID: 348354700}
   m_Layer: 0
-  m_Name: RoomGrid
+  m_Name: Grid Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +261,6 @@ GameObject:
   - component: {fileID: 481327793}
   - component: {fileID: 481327797}
   - component: {fileID: 481327799}
-  - component: {fileID: 481327798}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -365,19 +364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObj: {fileID: 0}
   pauseObject: {fileID: 1588099834}
---- !u!114 &481327798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481327792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3369397178310fd49976e74a48f37fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedCamera: {fileID: 519420031}
 --- !u!222 &481327799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -398,6 +384,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -501,6 +488,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3369397178310fd49976e74a48f37fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &615864336
 GameObject:
   m_ObjectHideFlags: 0
