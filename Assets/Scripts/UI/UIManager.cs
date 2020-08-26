@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     
-    public GameObject targetObj;
+    [HideInInspector] public GameObject targetObj;
     //public Transform parent;
     private Image screenOverlay;
+    [SerializeField] private GameObject pauseObject;
     
     public static PopupInfoBox infoBox;
 
@@ -33,11 +34,13 @@ public class UIManager : MonoBehaviour
     public void PauseGame()
     {
         PauseControl.PauseGame(true);
+        pauseObject.SetActive(true);
     }
 
     public void ResumeGame()
     {
         PauseControl.PauseGame(false);
+        pauseObject.SetActive(false);
     }
 
 }

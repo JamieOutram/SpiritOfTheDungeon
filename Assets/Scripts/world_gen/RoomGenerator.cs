@@ -108,15 +108,16 @@ public class RoomGenerator : MonoBehaviour
                 roomRects.Add(gap);
 
                 roomVertices.Add(new Corner(-width-1, -height-1, CornerType.topLeft));
-                roomVertices.Add(new Vector3Int(width+1, -height-1, 2));
+                /*roomVertices.Add(new Vector3Int(width+1, -height-1, 2));
                 roomVertices.Add(new Vector3Int(width+1, height+1, 3));
                 roomVertices.Add(new Vector3Int(-width-1, height+1, 4));
                 roomVertices.Add(new Vector3Int(gap.xMin+1, gap.yMin+1, 1));
                 roomVertices.Add(new Vector3Int(gap.xMax-1, gap.yMin+1, 2));
                 roomVertices.Add(new Vector3Int(gap.xMax-1, gap.yMax-1, 3));
                 roomVertices.Add(new Vector3Int(gap.xMin+1, gap.yMax-1, 4));
-
+                
                 roomEdges.Add();
+                */
                 break;
                 
             case RoomType.cornerGapsEqual:
