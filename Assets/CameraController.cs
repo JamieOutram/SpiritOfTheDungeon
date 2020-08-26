@@ -84,6 +84,11 @@ public class CameraController : MonoBehaviour
 
     }
 
+    public static void SnapCamera(Vector2 pivot, float size)
+    {
+        ZoomCameraWithRampUpDown(pivot, size, 0, 0);
+    }
+
     //Calculates the peak velocity of the camera
     private static float CalcMaxSpeed(float distance, float rampT, float transT)
     {

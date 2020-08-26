@@ -14,18 +14,30 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int rows = 3;
     [SerializeField] private int cols = 3;
     [SerializeField] private int padding = 3;
-    
-    private int tileWidth = 24;
-    private int tileHeight = 12;
+
+    public int Rows { get => rows; }
+    public int Cols { get => cols; }
+    public int Padding { get => padding; }
+    public int TileWidth { get; private set; }
+    public int TileHeight { get; private set; }
+
+    public int ViewHeightIndex { get; private set; } = 3;
+    public int ViewHeight { get { return TileHeight * ViewHeightIndex / 2 + padding; } }
+    public int ViewWidthIndex { get; private set; } = 3;
+    public int ViewWidth { get { return TileWidth * ViewWidthIndex / 2 + padding; } }
+
+
+
     private GridGraph pathGraph;
+
     //private Bounds gridBounds;
 
     // Start is called before the first frame update
     void Awake()
     {
         RefInfo = GetBehaviour(RefObject);
-        tileWidth = (int)RefInfo.cellSize.x;
-        tileHeight = (int)RefInfo.cellSize.y;
+        TileWidth = (int)RefInfo.cellSize.x;
+        TileHeight = (int)RefInfo.cellSize.y;
     }
 
     private void Start()
@@ -35,7 +47,7 @@ public class GridManager : MonoBehaviour
         AstarData data = AstarPath.active.data;
         pathGraph = (GridGraph)data.graphs[0];
         //gridBounds = new Bounds(pathGraph.center, new Vector2(cols * tileWidth, rows * tileHeight));
-        pathGraph.SetDimensions(cols * tileWidth, rows * tileHeight, 1);
+        pathGraph.SetDimensions(cols * TileWidth, rows * TileHeight, 1);
 
         //Spawn rooms
         GenerateGrid();
@@ -60,8 +72,8 @@ public class GridManager : MonoBehaviour
                 RoomBehaviour info = GetBehaviour(obj);
                 info.index = new Vector2(col, row);
 
-                float posX = col * tileWidth;
-                float posY = row * -tileHeight;
+                float posX = col * TileWidth;
+                float posY = row * -TileHeight;
                 obj.transform.position = GetWorldPosition(posX, posY);
             } 
         }
@@ -81,8 +93,8 @@ public class GridManager : MonoBehaviour
 
     private Vector2 GetWorldPosition(float posX, float posY)
     {
-        float middleX = posX + transform.position.x - (cols-1) * tileWidth/2;
-        float middleY = posY + transform.position.x + (rows-1) * tileHeight/2;
+        float middleX = posX + transform.position.x - (cols-1) * TileWidth/2;
+        float middleY = posY + transform.position.x + (rows-1) * TileHeight/2;
         //Debug.Log(string.Format("{0}, {1} converted to {2}, {3}",posX,posY,middleX,middleY));
         return new Vector2(middleX, middleY);
     }
@@ -100,7 +112,8 @@ public class GridManager : MonoBehaviour
     
     public void DeselectCell()
     {
-        CameraController.ZoomCameraWithRampUpDown(transform.position, rows*tileHeight/2+padding, 1.5f, 0.5f);
+        ViewHeightIndex = 3;
+        CameraController.ZoomCameraWithRampUpDown(transform.position, ViewHeight, 1.5f, 0.5f);
     }
     
     

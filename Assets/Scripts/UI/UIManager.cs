@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,4 +44,8 @@ public class UIManager : MonoBehaviour
         pauseObject.SetActive(false);
     }
 
+    internal void ShowScroll(bool v1, bool v2)
+    {
+        throw new NotImplementedException();
+    }
 }
