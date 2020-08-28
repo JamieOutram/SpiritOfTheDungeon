@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 7707211984112836893}
   - component: {fileID: 7707211984112837090}
   - component: {fileID: 1942625929}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hero_Healer
   m_TagString: Team
   m_Icon: {fileID: 0}
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9c9a46edce25c47a83e5b66cc56994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hiddenTypes: 
 --- !u!114 &7707211984112836895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,5 +269,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ce34da1d8e20043b0e01b1dd1be49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorAbilities:
-  - {fileID: 11400000, guid: d373d68d6cae6aa4ba8b4e4945de74b1, type: 2}
+  editorElements: []

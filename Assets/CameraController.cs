@@ -9,7 +9,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     //Place the camera to be moved in here
-    public static Camera selectedCamera { get; private set; }
+    public static Camera activeCamera { get; private set; }
 
     //Flag showing that the camera is moving
     public static bool isCameraZooming { get; private set; }
@@ -54,7 +54,7 @@ public class CameraController : MonoBehaviour
     {
         if (!isCameraZooming)
         {
-            selectedCamera = c;
+            activeCamera = c;
         }
     }
 
@@ -69,8 +69,8 @@ public class CameraController : MonoBehaviour
         }
 
         //Set Values and Flags for zoom 
-        originalSize = selectedCamera.orthographicSize;
-        originalPivot = selectedCamera.transform.position;
+        originalSize = activeCamera.orthographicSize;
+        originalPivot = activeCamera.transform.position;
         targetPivot = pivot;
         targetSize = size;
         transitionTime = time;
@@ -118,15 +118,15 @@ public class CameraController : MonoBehaviour
         if(remainingTime<=0)
         {
             //if at the end of transition skip calculations
-            selectedCamera.orthographicSize = targetSize;
-            selectedCamera.transform.position = new Vector3(targetPivot.x, targetPivot.y, -10);
+            activeCamera.orthographicSize = targetSize;
+            activeCamera.transform.position = new Vector3(targetPivot.x, targetPivot.y, -10);
             //set flag at end of transition
             isCameraZooming = false;
         }
         
         //Calculate the new zoom and position values
-        selectedCamera.orthographicSize = CalcRampedValue(originalSize, time, _sizeVmax);
-        selectedCamera.transform.position = CalcRampedValue(originalPivot, time, _pivotVmax);
+        activeCamera.orthographicSize = CalcRampedValue(originalSize, time, _sizeVmax);
+        activeCamera.transform.position = CalcRampedValue(originalPivot, time, _pivotVmax);
     }
     
     //Controls distance curve of zoom and position (t = 0 to transitiontime)

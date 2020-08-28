@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-public class PopupInfoBoxTrigger : MonoBehaviour
+public class PopupInfoBoxTrigger : CustomBehaviour
 {
-    private void OnMouseUpAsButton()
+    public override void MyOnMouseDown()
+    {
+        return;
+    }
+    public override void MyOnMouseUp()
     {
         
         if (!EventSystem.current.IsPointerOverGameObject()) {

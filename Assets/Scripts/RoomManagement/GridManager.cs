@@ -29,6 +29,7 @@ public class GridManager : MonoBehaviour
 
 
     private GridGraph pathGraph;
+    private RoomBehaviour selectedObj;
 
     //private Bounds gridBounds;
 
@@ -107,13 +108,23 @@ public class GridManager : MonoBehaviour
         {
             float size = obj.GetComponent<Collider2D>().bounds.size.y / 2;
             CameraController.ZoomCameraWithRampUpDown(obj.transform.position, size, 1.5f, 0.5f);
+            selectedObj = obj.GetComponent<RoomBehaviour>();
+
+            //Prevent further selection
+            selectedObj.SetSelectable(false);
         }
     }
     
     public void DeselectCell()
     {
-        ViewHeightIndex = 3;
-        CameraController.ZoomCameraWithRampUpDown(transform.position, ViewHeight, 1.5f, 0.5f);
+        if (!CameraController.isCameraZooming)
+        {
+            ViewHeightIndex = 3;
+
+            CameraController.ZoomCameraWithRampUpDown(transform.position, ViewHeight, 1.5f, 0.5f);
+            if(selectedObj!=null)
+                selectedObj.SetSelectable(true);
+        }
     }
     
     
