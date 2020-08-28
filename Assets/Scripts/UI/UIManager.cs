@@ -10,15 +10,14 @@ public class UIManager : MonoBehaviour
     
     [HideInInspector] public GameObject targetObj;
     //public Transform parent;
-    private Image screenOverlay;
     [SerializeField] private GameObject pauseObject;
-    
+    [SerializeField] private GameObject leftScrollObj;
+    [SerializeField] private GameObject rightScrollObj;
     public static PopupInfoBox infoBox;
 
     void Awake()
     {
         PopupInfoBox.LoadResources();
-        screenOverlay = GetComponent<Image>();
     }
     // Start is called before the first frame update
     void Start()
@@ -44,8 +43,9 @@ public class UIManager : MonoBehaviour
         pauseObject.SetActive(false);
     }
 
-    internal void ShowScroll(bool v1, bool v2)
+    internal void ShowScroll(bool left, bool right)
     {
-        throw new NotImplementedException();
+        rightScrollObj.SetActive(right);
+        leftScrollObj.SetActive(left);
     }
 }

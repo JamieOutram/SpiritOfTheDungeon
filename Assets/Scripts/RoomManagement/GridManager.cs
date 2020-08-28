@@ -30,6 +30,7 @@ public class GridManager : MonoBehaviour
 
     private GridGraph pathGraph;
     private RoomBehaviour selectedObj;
+    private RoomScroller scroller;
 
     //private Bounds gridBounds;
 
@@ -102,16 +103,20 @@ public class GridManager : MonoBehaviour
 
     public void SelectCell(GameObject obj, Vector2 index)
     {
+        
         //TODO: Cell Selection Code
         Debug.Log(string.Format("{0} selected at {1}",obj.name, index));
         if (!CameraController.isCameraZooming)
         {
+            if (!ReferenceEquals(selectedObj,null))
+                selectedObj.SetSelectable(true); //Re-enable previously selected
             float size = obj.GetComponent<Collider2D>().bounds.size.y / 2;
             CameraController.ZoomCameraWithRampUpDown(obj.transform.position, size, 1.5f, 0.5f);
             selectedObj = obj.GetComponent<RoomBehaviour>();
 
             //Prevent further selection
             selectedObj.SetSelectable(false);
+            selectedObj.gameObject.layer = LayerMask.NameToLayer("Popup Cancel");
         }
     }
     
@@ -122,11 +127,23 @@ public class GridManager : MonoBehaviour
             ViewHeightIndex = 3;
 
             CameraController.ZoomCameraWithRampUpDown(transform.position, ViewHeight, 1.5f, 0.5f);
-            if(selectedObj!=null)
+            if (selectedObj != null)
+            {
                 selectedObj.SetSelectable(true);
+                selectedObj.gameObject.layer = LayerMask.NameToLayer("Selection Panel");
+            }
         }
     }
-    
-    
+
+    public void ScrollRight()
+    {
+        scroller.ScrollRight();
+    }
+    public void ScrollLeft()
+    {
+        scroller.ScrollLeft();
+    }
+
+
 
 }

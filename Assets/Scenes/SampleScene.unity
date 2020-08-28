@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7522300392994472308, guid: 739df95580f01434fa1d793286fac434,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 7522300392994472315, guid: 739df95580f01434fa1d793286fac434,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1271,4 +1276,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseInteractables:
     serializedVersion: 2
-    m_Bits: 1537
+    m_Bits: 9729

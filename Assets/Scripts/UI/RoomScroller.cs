@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,13 +40,15 @@ public class RoomScroller
     //Move grid and track camera reference point when buttons pressed
     public void ScrollRight()
     {
-
+        //TODO
+        throw new NotImplementedException();
     }
 
     public void ScrollLeft()
     {
-
+        //TODO
+        throw new NotImplementedException();
     }
 
-    
+
 }
