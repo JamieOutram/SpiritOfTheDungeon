@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject leftScrollObj;
     [SerializeField] private GameObject rightScrollObj;
     public static PopupInfoBox infoBox;
+    public float speedUpSpeed;
 
     void Awake()
     {
@@ -47,5 +48,10 @@ public class UIManager : MonoBehaviour
     {
         rightScrollObj.SetActive(right);
         leftScrollObj.SetActive(left);
+    }
+
+    public void SpeedUp()
+    {
+        PauseControl.SetGameSpeed(speedUpSpeed);
     }
 }

@@ -3636,7 +3636,7 @@ MonoBehaviour:
   horizontalMove: 0
   turnMove: 0
   lookRadius: 3.99
-  speed: 200
+  speed: 300
   attackRange: 1
   attackInterval: 2
   turnRate: 40

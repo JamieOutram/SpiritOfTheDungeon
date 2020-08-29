@@ -20,4 +20,9 @@ public static class PauseControl
             isGamePaused = false;
         }
     }
+
+    public static void SetGameSpeed(float speed)
+    {
+        Time.timeScale = speed;
+    }
 }
