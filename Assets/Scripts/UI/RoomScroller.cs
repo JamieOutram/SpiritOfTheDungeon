@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RoomScroller
@@ -10,7 +11,6 @@ public class RoomScroller
 
     private Vector2 cameraPos;
     private int posIndex;
-    private float viewWidth;
 
     public RoomScroller(UIManager ui, GridManager grid)
     {
@@ -22,16 +22,17 @@ public class RoomScroller
     }
 
     //Check if can scroll, enable/disable buttons
-    public void Update(bool fast = true)
+    public void Update(float time = 0)
     {
 
-        if (grid.ViewWidthIndex > grid.Cols)
+        if (grid.ViewWidthIndex < grid.Cols)
         {
             cameraPos = posIndex * Vector2.right * grid.TileWidth + (Vector2)grid.transform.position;
-            if (fast) CameraController.SnapCamera(cameraPos, grid.ViewHeight);
-            else CameraController.ZoomCameraWithRampUpDown(cameraPos, grid.ViewHeight, 1.5f, 0.5f);
+            Debug.Log(cameraPos);
+            if (time == 0) CameraController.SnapCamera(cameraPos, grid.ViewHeight);
+            else CameraController.ZoomCameraWithRampUpDown(cameraPos, grid.ViewHeight, time, 0.5f);
             
-            ui.ShowScroll(-grid.Cols / 2 <= posIndex, grid.Cols / 2 >= posIndex);
+            ui.ShowScroll(-grid.Cols / 2 + 1 < posIndex, grid.Cols / 2 - 1 > posIndex);
 
         }
         
@@ -40,14 +41,15 @@ public class RoomScroller
     //Move grid and track camera reference point when buttons pressed
     public void ScrollRight()
     {
-        //TODO
-        throw new NotImplementedException();
+        posIndex++;
+        Update(0.5f);
+        Debug.Log("Called");
     }
 
     public void ScrollLeft()
     {
-        //TODO
-        throw new NotImplementedException();
+        posIndex--;
+        Update(0.5f);
     }
 
 

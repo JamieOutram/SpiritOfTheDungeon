@@ -27,6 +27,8 @@ public class CameraController : MonoBehaviour
     private static Vector2 _pivotVmax;
     private static float _sizeVmax;
 
+    private const int cameraZ = -10;
+
     private void Awake()
     {
         //Ensure the flag is initialized correctly
@@ -75,8 +77,9 @@ public class CameraController : MonoBehaviour
         targetSize = size;
         transitionTime = time;
         remainingTime = time;
-        rampTime = rampT;
+        rampTime = Mathf.Clamp(rampT, 0f, time / 2);
         isCameraZooming = true;
+        
 
         //Calculate Max speed
         _pivotVmax = CalcMaxSpeed(targetPivot - originalPivot, rampTime, transitionTime);
@@ -86,22 +89,14 @@ public class CameraController : MonoBehaviour
 
     public static void SnapCamera(Vector2 pivot, float size)
     {
-        ZoomCameraWithRampUpDown(pivot, size, 0, 0);
+        activeCamera.orthographicSize = size;
+        activeCamera.transform.position = new Vector3(pivot.x, pivot.y, cameraZ);
     }
 
     //Calculates the peak velocity of the camera
     private static float CalcMaxSpeed(float distance, float rampT, float transT)
     {
-        if (transT <= 2 * rampT)
-        {
-            //If the ramp time is too large there is no middle platau
-            //in this case the maximum speed reached is based on the total transition time i.e. rampTime = transitionTime/2
-            return (2 * distance / transT);
-        }
-        else
-        {
-            return (distance / (transT - rampT));
-        }
+       return (distance / (transT - rampT));
     }
     private static Vector2 CalcMaxSpeed(Vector2 distance, float rampT, float transT)
     {
@@ -119,7 +114,7 @@ public class CameraController : MonoBehaviour
         {
             //if at the end of transition skip calculations
             activeCamera.orthographicSize = targetSize;
-            activeCamera.transform.position = new Vector3(targetPivot.x, targetPivot.y, -10);
+            activeCamera.transform.position = new Vector3(targetPivot.x, targetPivot.y, cameraZ);
             //set flag at end of transition
             isCameraZooming = false;
         }

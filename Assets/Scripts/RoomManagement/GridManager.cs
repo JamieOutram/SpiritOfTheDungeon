@@ -31,6 +31,7 @@ public class GridManager : MonoBehaviour
     private GridGraph pathGraph;
     private RoomBehaviour selectedObj;
     private RoomScroller scroller;
+    private UIManager ui;
 
     //private Bounds gridBounds;
 
@@ -40,10 +41,14 @@ public class GridManager : MonoBehaviour
         RefInfo = GetBehaviour(RefObject);
         TileWidth = (int)RefInfo.cellSize.x;
         TileHeight = (int)RefInfo.cellSize.y;
+        ui = GameObject.Find("UICanvas").GetComponent<UIManager>();
+        
     }
 
     private void Start()
     {
+        scroller = new RoomScroller(ui, this);
+
         //Calling Astar related functions in Awake() clashes with Astar updates.
         //Update AStar graph size
         AstarData data = AstarPath.active.data;
@@ -108,6 +113,7 @@ public class GridManager : MonoBehaviour
         Debug.Log(string.Format("{0} selected at {1}",obj.name, index));
         if (!CameraController.isCameraZooming)
         {
+            ui.ShowScroll(false, false); // hide scroll options
             if (!ReferenceEquals(selectedObj,null))
                 selectedObj.SetSelectable(true); //Re-enable previously selected
             float size = obj.GetComponent<Collider2D>().bounds.size.y / 2;
@@ -125,8 +131,8 @@ public class GridManager : MonoBehaviour
         if (!CameraController.isCameraZooming)
         {
             ViewHeightIndex = 3;
-
-            CameraController.ZoomCameraWithRampUpDown(transform.position, ViewHeight, 1.5f, 0.5f);
+            scroller.Update(1.5f);
+            
             if (selectedObj != null)
             {
                 selectedObj.SetSelectable(true);
@@ -137,11 +143,13 @@ public class GridManager : MonoBehaviour
 
     public void ScrollRight()
     {
-        scroller.ScrollRight();
+        if(!CameraController.isCameraZooming)
+            scroller.ScrollRight();
     }
     public void ScrollLeft()
     {
-        scroller.ScrollLeft();
+        if (!CameraController.isCameraZooming)
+            scroller.ScrollLeft();
     }
 
 
