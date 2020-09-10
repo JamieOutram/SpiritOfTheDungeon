@@ -23,10 +23,10 @@ public class PopupInfoBox
     private GameObject target;
     private Unit_Items items;
     private Unit_Statistics stats;
-    private bool _isDirty = false;
+    //private bool _isDirty = false;
     private int statCount = 0;
     private int resourceCount = 0;
-    private int itemCount = 0;
+    //private int itemCount = 0;
 
     public static void LoadResources(bool force = false)
     {
@@ -187,7 +187,7 @@ public class PopupInfoBox
             text.text = string.Format("{0}\n{1}", itemList[i - j].aName, itemList[i - j].aDescription);
             icon.SwitchIcon(itemList[i - j].aIcon);
         }
-        itemCount = itemList.Count;
+        //itemCount = itemList.Count;
         itemList.Clear();
 
     }
