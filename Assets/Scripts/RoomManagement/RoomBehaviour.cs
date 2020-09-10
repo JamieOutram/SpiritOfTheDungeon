@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class RoomBehaviour : CustomBehaviour
@@ -9,13 +9,10 @@ public class RoomBehaviour : CustomBehaviour
     public Vector2 index;
     public Vector2 cellSize;
     private BoxCollider2D cellBox;
-    private GridManager grid;
-
-    private bool isSelectable;
+    public bool isSelectable { get; private set; }
 
     private void Awake()
     {
-        grid = GameObject.Find("Grid Manager").GetComponent<GridManager>();
         cellBox = GetComponent<BoxCollider2D>();
         cellBox.size = cellSize;
         SetSelectable(true);
@@ -23,18 +20,7 @@ public class RoomBehaviour : CustomBehaviour
 
     public override void MyOnMouseDown()
     {
-        
-        UIManager.infoBox.HideBox();
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            if (isSelectable) {
-                grid.SelectCell(gameObject, index);
-            }
-        }
-        else
-        {
-            Debug.Log("Cell Selection blocked");
-        }
+        UIManager.instance.TrainingPanel.OnCellMouseDown(this, index);
     }
 
     public void SetSelectable(bool selectable)

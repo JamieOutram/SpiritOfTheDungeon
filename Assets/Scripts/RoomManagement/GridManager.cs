@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-using System.IO;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject RefObject;
+    public static GridManager instance;
     
+    public GameObject RefObject;
 
     private RoomBehaviour RefInfo;
     [SerializeField] private int rows = 3;
@@ -29,26 +29,27 @@ public class GridManager : MonoBehaviour
 
 
     private GridGraph pathGraph;
-    private RoomBehaviour selectedObj;
-    private RoomScroller scroller;
-    private UIManager ui;
+    public RoomBehaviour selectedObj { get; private set; }
+
 
     //private Bounds gridBounds;
 
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogException(new Exception("Only One Static Instance of Grid Manager should exsist"));
+        }
+        instance = this;
+
         RefInfo = GetBehaviour(RefObject);
         TileWidth = (int)RefInfo.cellSize.x;
         TileHeight = (int)RefInfo.cellSize.y;
-        ui = GameObject.Find("UICanvas").GetComponent<UIManager>();
-        
     }
 
     private void Start()
     {
-        scroller = new RoomScroller(ui, this);
-
         //Calling Astar related functions in Awake() clashes with Astar updates.
         //Update AStar graph size
         AstarData data = AstarPath.active.data;
@@ -61,7 +62,6 @@ public class GridManager : MonoBehaviour
 
         //Calling imediatly after resizing performs scan first.
         Invoke("AStarScan", 0.0001f);
-
     }
 
     private void AStarScan()
@@ -106,52 +106,30 @@ public class GridManager : MonoBehaviour
         return new Vector2(middleX, middleY);
     }
 
-    public void SelectCell(GameObject obj, Vector2 index)
+    public void SelectCell(RoomBehaviour obj, Vector2 index)
     {
-        
-        //TODO: Cell Selection Code
         Debug.Log(string.Format("{0} selected at {1}",obj.name, index));
-        if (!CameraController.isCameraZooming)
-        {
-            ui.ShowScroll(false, false); // hide scroll options
-            if (!ReferenceEquals(selectedObj,null))
-                selectedObj.SetSelectable(true); //Re-enable previously selected
-            float size = obj.GetComponent<Collider2D>().bounds.size.y / 2;
-            CameraController.ZoomCameraWithRampUpDown(obj.transform.position, size, 1.5f, 0.5f);
-            selectedObj = obj.GetComponent<RoomBehaviour>();
 
-            //Prevent further selection
-            selectedObj.SetSelectable(false);
-            selectedObj.gameObject.layer = LayerMask.NameToLayer("Popup Cancel");
-        }
+        if (!ReferenceEquals(selectedObj,null))
+            selectedObj.SetSelectable(true); //Re-enable previously selected
+        
+        selectedObj = obj;
+
+        //Prevent further selection
+        selectedObj.SetSelectable(false);
+        selectedObj.gameObject.layer = LayerMask.NameToLayer("Popup Cancel");
+
     }
     
     public void DeselectCell()
     {
-        if (!CameraController.isCameraZooming)
+        ViewHeightIndex = 3;
+
+        if (selectedObj != null)
         {
-            ViewHeightIndex = 3;
-            scroller.Update(1.5f);
-            
-            if (selectedObj != null)
-            {
-                selectedObj.SetSelectable(true);
-                selectedObj.gameObject.layer = LayerMask.NameToLayer("Selection Panel");
-            }
+            selectedObj.SetSelectable(true);
+            selectedObj.gameObject.layer = LayerMask.NameToLayer("Selection Panel");
+            selectedObj = null;
         }
     }
-
-    public void ScrollRight()
-    {
-        if(!CameraController.isCameraZooming)
-            scroller.ScrollRight();
-    }
-    public void ScrollLeft()
-    {
-        if (!CameraController.isCameraZooming)
-            scroller.ScrollLeft();
-    }
-
-
-
 }

@@ -12,7 +12,8 @@ public class PopupInfoBox
     public bool isHidden { get; private set; }
     public static bool isLoaded { get; private set; } = false;
 
-    private static GameObject infoBox;
+    private GameObject infoBox;
+    private static GameObject infoBoxPrefab;
     private static GameObject itemPrefab;
     private static GameObject statPrefab;
     private static GameObject resourcePrefab;
@@ -37,7 +38,7 @@ public class PopupInfoBox
         }
 
         //TODO: May relocate in future;
-        infoBox = Resources.Load("UnitInfoPopup", typeof(GameObject)) as GameObject;
+        infoBoxPrefab = Resources.Load("UnitInfoPopup", typeof(GameObject)) as GameObject;
         itemPrefab = Resources.Load("UnitInfoPopupItem", typeof(GameObject)) as GameObject;
         statPrefab = Resources.Load("UnitInfoPopupStat", typeof(GameObject)) as GameObject;
         resourcePrefab = Resources.Load("UnitInfoPopupResource", typeof(GameObject)) as GameObject;
@@ -45,16 +46,16 @@ public class PopupInfoBox
 
     }
 
-    public PopupInfoBox(GameObject unitObj, Transform parent)
+    public PopupInfoBox(Transform parent)
     {
         Debug.Log("Spawning InfoBox...");
         CheckLoaded();
 
         //Create instance of popup info box here
-        infoBox = GameObject.Instantiate(infoBox, parent);
+        infoBox = GameObject.Instantiate(infoBoxPrefab, parent);
 
         prefabInstances = new List<GameObject>();
-        target = unitObj;
+        target = null;
 
         HideBox();
 
@@ -87,6 +88,12 @@ public class PopupInfoBox
         infoBox.SetActive(false);
     }
 
+    public void DestroyBox()
+    {
+        ClearClones();
+        GameObject.Destroy(infoBox);
+    }
+
     private void UpdatePosition()
     {
         //Ensure size fitter content is up to date
@@ -100,8 +107,6 @@ public class PopupInfoBox
         RectTransform canvasRect = (RectTransform)infoBox.transform.parent;
 
         UIUtils.ClampRectToRect(infoBoxRect, canvasRect);
-
-
 
     }
 
@@ -127,8 +132,6 @@ public class PopupInfoBox
             InvalidTarget();
             return;
         }
-
-
 
 
         List<UnitStat> statList = stats.GetAllStats();
@@ -217,6 +220,7 @@ public class PopupInfoBox
     //    }
     //}
 
+    //Clears List of prefabs within infobox
     private void ClearClones()
     {
         for (int i = prefabInstances.Count - 1; i >= 0; i--)

@@ -1,57 +1,56 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
+    public static UIManager instance;
+
+    [SerializeField] private Training_UIPanel trainingPanel = default;
+    public Training_UIPanel TrainingPanel { get { return trainingPanel; } }
     
-    [HideInInspector] public GameObject targetObj;
-    //public Transform parent;
-    [SerializeField] private GameObject pauseObject;
-    [SerializeField] private GameObject leftScrollObj;
-    [SerializeField] private GameObject rightScrollObj;
-    public static PopupInfoBox infoBox;
-    public float speedUpSpeed;
+    [SerializeField] private Base_UIPanel trainMenuPanel = default;
+    public Base_UIPanel TrainMenuPanel { get { return trainMenuPanel; } }
 
-    void Awake()
+    Base_UIPanel _currentPanel;
+
+    private void Awake()
     {
-        PopupInfoBox.LoadResources();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        infoBox = new PopupInfoBox(targetObj, gameObject.transform);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else { Destroy(gameObject); }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        TriggerOpenPanel(TrainMenuPanel);
     }
 
-    public void PauseGame()
+    private void Update()
     {
-        PauseControl.PauseGame(true);
-        pauseObject.SetActive(true);
+        if (_currentPanel) _currentPanel.UpdateBehavior();
     }
 
-    public void ResumeGame()
+    public void TriggerPanelTransition(Base_UIPanel panel)
     {
-        PauseControl.PauseGame(false);
-        pauseObject.SetActive(false);
+        TriggerOpenPanel(panel);
     }
 
-    internal void ShowScroll(bool left, bool right)
+    void TriggerOpenPanel(Base_UIPanel panel)
     {
-        rightScrollObj.SetActive(right);
-        leftScrollObj.SetActive(left);
+        if (_currentPanel != null) TriggerClosePanel(_currentPanel);
+        _currentPanel = panel;
+        _currentPanel.OpenBehavior();
+
     }
 
-    public void SpeedUp()
+    void TriggerClosePanel(Base_UIPanel panel)
     {
-        PauseControl.SetGameSpeed(speedUpSpeed);
+        panel.CloseBehavior();
     }
+
 }

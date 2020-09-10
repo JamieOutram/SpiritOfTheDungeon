@@ -6,17 +6,19 @@ using UnityEngine;
 
 public class RoomScroller
 {
-    private UIManager ui;
-    private GridManager grid;
-
     private Vector2 cameraPos;
     private int posIndex;
+    private Training_UIPanel ui;
 
-    public RoomScroller(UIManager ui, GridManager grid)
+    public RoomScroller()
     {
-        this.ui = ui;
-        this.grid = grid;
-        cameraPos = grid.transform.position;
+        if(GridManager.instance == null)
+        {
+            Debug.LogException(new Exception("Grid Manager should be instantiated in scene before the scroller object"));
+        }
+        ui = (Training_UIPanel)UIManager.instance.TrainingPanel;
+        cameraPos = GridManager.instance.transform.position;
+        
         posIndex = 0;
         Update();
     }
@@ -25,15 +27,14 @@ public class RoomScroller
     public void Update(float time = 0)
     {
 
-        if (grid.ViewWidthIndex < grid.Cols)
+        if (GridManager.instance.ViewWidthIndex < GridManager.instance.Cols)
         {
-            cameraPos = posIndex * Vector2.right * grid.TileWidth + (Vector2)grid.transform.position;
+            cameraPos = posIndex * Vector2.right * GridManager.instance.TileWidth + (Vector2)GridManager.instance.transform.position;
             Debug.Log(cameraPos);
-            if (time == 0) CameraController.SnapCamera(cameraPos, grid.ViewHeight);
-            else CameraController.ZoomCameraWithRampUpDown(cameraPos, grid.ViewHeight, time, 0.5f);
+            if (time == 0) CameraController.SnapCamera(cameraPos, GridManager.instance.ViewHeight);
+            else CameraController.ZoomCameraWithRampUpDown(cameraPos, GridManager.instance.ViewHeight, time, 0.5f);
             
-            ui.ShowScroll(-grid.Cols / 2 + 1 < posIndex, grid.Cols / 2 - 1 > posIndex);
-
+            ui.ShowScroll(-GridManager.instance.Cols / 2 + 1 < posIndex, GridManager.instance.Cols / 2 - 1 > posIndex);
         }
         
     }
