@@ -15,6 +15,7 @@ public class TrainMenu_UIPanel : Base_UIPanel
 
     void StartTrainingPressed()
     {
+        Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.TrainingPanel);
     }
 }

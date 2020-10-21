@@ -11,8 +11,8 @@ public static class UIUtils
         Vector2 apos = innerTransform.anchoredPosition;
         Vector2 max = containerDelta * (Vector2.one - containerTransfrom.pivot) - innerDelta * (Vector2.one - innerTransform.pivot);
         Vector2 min = innerDelta * innerTransform.pivot - containerDelta * containerTransfrom.pivot;
-        Debug.Log(string.Format("Min: {0}", min));
-        Debug.Log(string.Format("Max: {0}", max));
+        //Debug.Log(string.Format("Min: {0}", min));
+        //Debug.Log(string.Format("Max: {0}", max));
         apos.x = Mathf.Clamp(apos.x, min.x, max.x);
         apos.y = Mathf.Clamp(apos.y, min.y, max.y);
         innerTransform.anchoredPosition = apos;

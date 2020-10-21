@@ -30,8 +30,9 @@ public class Training_UIPanel : Base_UIPanel
     public override void OpenBehavior()
     {
         base.OpenBehavior();
-        scroller = new RoomScroller();
         infoBox = new PopupInfoBox(transform);
+        scroller = new RoomScroller();
+        
     }
 
     public override void CloseBehavior()

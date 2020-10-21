@@ -12,11 +12,13 @@ public class RoomScroller
 
     public RoomScroller()
     {
-        if(GridManager.instance == null)
+
+        ui = UIManager.instance.TrainingPanel;
+        if (GridManager.instance == null)
         {
             Debug.LogException(new Exception("Grid Manager should be instantiated in scene before the scroller object"));
         }
-        ui = (Training_UIPanel)UIManager.instance.TrainingPanel;
+        
         cameraPos = GridManager.instance.transform.position;
         
         posIndex = 0;
