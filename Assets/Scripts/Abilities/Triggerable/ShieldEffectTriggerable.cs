@@ -20,7 +20,7 @@ public class ShieldEffectTriggerable : MonoBehaviour
     {
         //Debug.Log("Shield called");
         float tempDamage = damage;
-        Debug.Log(string.Format("Relative angle:{0}", CalcRelativeAngleFromRight(parentTransform, source)));
+        //Debug.Log(string.Format("Relative angle:{0}", CalcRelativeAngleFromRight(parentTransform, source)));
         if (Math.Abs(CalcRelativeAngleFromRight(parentTransform, source)) <= protectionArc)
         {
             tempDamage -= flatReduction;
