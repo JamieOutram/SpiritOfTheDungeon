@@ -28,4 +28,9 @@ public class Base_UIPanel : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public virtual void OnCellMouseDown(RoomBehaviour target, Vector2 index)
+    {
+        Debug.Log("No on mouse down behaviour for this pannel");
+    }
 }

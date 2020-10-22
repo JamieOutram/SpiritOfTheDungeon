@@ -95,7 +95,7 @@ public class Training_UIPanel : Base_UIPanel
         }
     }
 
-    public void OnCellMouseDown(RoomBehaviour target, Vector2 index)
+    public override void OnCellMouseDown(RoomBehaviour target, Vector2 index)
     {
         if(!ReferenceEquals(infoBox,null))
             infoBox.HideBox();

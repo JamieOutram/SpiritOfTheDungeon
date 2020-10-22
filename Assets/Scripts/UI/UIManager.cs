@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-
     public static UIManager instance;
+
+    [SerializeField] private Fight_UIPanel fightPanel = default;
+    public Fight_UIPanel FightPanel { get { return fightPanel; } }
 
     [SerializeField] private Training_UIPanel trainingPanel = default;
     public Training_UIPanel TrainingPanel { get { return trainingPanel; } }
@@ -14,6 +16,9 @@ public class UIManager : MonoBehaviour
     public Base_UIPanel TrainMenuPanel { get { return trainMenuPanel; } }
 
     Base_UIPanel _currentPanel;
+    public Base_UIPanel CurrentPanel { get { return _currentPanel; } }
+
+    [SerializeField] private Fight_UIPanel startPanel = default;
 
     private void Awake()
     {
@@ -27,7 +32,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        TriggerOpenPanel(TrainMenuPanel);
+        TriggerOpenPanel(startPanel);
+        
     }
 
     private void Update()

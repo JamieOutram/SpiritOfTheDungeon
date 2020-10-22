@@ -20,7 +20,7 @@ public class RoomBehaviour : CustomBehaviour
 
     public override void MyOnMouseDown()
     {
-        UIManager.instance.TrainingPanel.OnCellMouseDown(this, index);
+        UIManager.instance.CurrentPanel.OnCellMouseDown(this, index);
     }
 
     public void SetSelectable(bool selectable)

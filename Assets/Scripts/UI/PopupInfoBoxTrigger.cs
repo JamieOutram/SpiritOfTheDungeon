@@ -14,7 +14,10 @@ public class PopupInfoBoxTrigger : CustomBehaviour
     {
         
         if (!EventSystem.current.IsPointerOverGameObject()) {
-            UIManager.instance.TrainingPanel.infoBox.ShowBox(gameObject, true);
+            if(!ReferenceEquals(UIManager.instance.TrainingPanel.infoBox,null))
+                UIManager.instance.TrainingPanel.infoBox.ShowBox(gameObject, true);
+            if (!ReferenceEquals(UIManager.instance.FightPanel.infoBox, null))
+                UIManager.instance.FightPanel.infoBox.ShowBox(gameObject, true);
             Debug.Log("showing popup");
         }
         else
