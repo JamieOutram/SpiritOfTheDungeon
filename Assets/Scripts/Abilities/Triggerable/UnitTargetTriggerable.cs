@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class UnitTargetTriggerable : MonoBehaviour
 {
-
     [HideInInspector] public float damageModifier;
     [HideInInspector] public float baseDelay;
     [HideInInspector] public float baseRange;
