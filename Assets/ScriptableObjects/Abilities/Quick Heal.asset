@@ -17,6 +17,10 @@ MonoBehaviour:
     type: 3}
   aSound: {fileID: 0}
   baseCooldown: 1
+  baseDamage: 0
+  dmgType: 2
+  dmgImpactType: 1
+  isHeal: 1
   damageMultiplier: 1
   baseDelay: 0
   baseRange: 3
