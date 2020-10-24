@@ -12,16 +12,15 @@ public enum UnitStatType
     Agi,
     Int,
     Str,
-    Def,
     Spd,
     PhysDmgAmp,
     MagiDmgAmp,
     PhysDmgFlat,
     MagiDmgFlat,
-    PhysDefAmp,
-    MagiDefAmp,
-    PhysDefFlat,
-    MagiDefFlat,
+    PhysArmour,
+    PhysBlock,
+    MagiArmour,
+    MagiBlock,
     MaxHealth,
     MaxMana,
     Health,
@@ -132,7 +131,8 @@ public class Unit_Statistics : MonoBehaviour
         //Base Stats
         //Agility
         AddStat(UnitStatType.Agi, 5f);
-        AddLinkedStat(UnitStatType.Agi, UnitStatType.Def, 0f);
+        AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysArmour, 0f);
+        AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysBlock, 0f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.Spd, 300f);
 
         //Intellegence
@@ -148,6 +148,8 @@ public class Unit_Statistics : MonoBehaviour
         AddLinkedResource(UnitStatType.MaxHealth, UnitStatType.Health);
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgAmp, 0f);
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgFlat, 0f);
+        AddLinkedStat(UnitStatType.Int, UnitStatType.MagiArmour, 0f);
+        AddLinkedStat(UnitStatType.Int, UnitStatType.MagiBlock, 0f);
 
         //Other
         AddStat(UnitStatType.AmmoCapcity, 10f);

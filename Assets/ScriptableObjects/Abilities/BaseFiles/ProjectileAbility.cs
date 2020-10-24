@@ -30,6 +30,6 @@ public class ProjectileAbility : Ability
 
     public override void TriggerAbility()
     {
-        projectileHit.Fire();
+        projectileHit.Fire(this);
     }
 }

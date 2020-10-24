@@ -19,6 +19,10 @@ public class DerivedUnitStat : UnitStat
         //Base class constructor is run first
         switch (base.statType)
         {
+            case UnitStatType.Spd: //Maximum Health formula
+                baseModifier = new StatModifier(unitStatValue * 10, StatModType.Flat);
+                break;
+
             case UnitStatType.MaxHealth: //Maximum Health formula
                 baseModifier = new StatModifier(unitStatValue * 10, StatModType.Flat);
                 break;
@@ -27,11 +31,11 @@ public class DerivedUnitStat : UnitStat
                 baseModifier = new StatModifier(unitStatValue * 10, StatModType.Flat);
                 break;
 
-            case UnitStatType.PhysDefAmp: //Physical Defence multiplier formula
+            case UnitStatType.PhysArmour: //Physical Defence multiplier formula
                 baseModifier = new StatModifier(1f - (unitStatValue * 0.1f) / (1f + unitStatValue * 0.1f), StatModType.PercentMult);
                 break;
 
-            case UnitStatType.PhysDefFlat: //Physical Defence bonus formula
+            case UnitStatType.PhysBlock: //Physical Defence bonus formula
                 baseModifier = new StatModifier(unitStatValue * 5f, StatModType.Flat);
                 break;
 
@@ -43,11 +47,11 @@ public class DerivedUnitStat : UnitStat
                 baseModifier = new StatModifier(unitStatValue * 10f, StatModType.Flat);
                 break;
 
-            case UnitStatType.MagiDefAmp: //Magical Defence multiplier formula
+            case UnitStatType.MagiArmour: //Magical Defence multiplier formula
                 baseModifier = new StatModifier(1f - (unitStatValue * 0.1f) / (1f + unitStatValue * 0.1f), StatModType.PercentMult);
                 break;
 
-            case UnitStatType.MagiDefFlat: //Magical Defence bonus formula
+            case UnitStatType.MagiBlock: //Magical Defence bonus formula
                 baseModifier = new StatModifier(unitStatValue * 5f, StatModType.Flat);
                 break;
 
@@ -60,7 +64,7 @@ public class DerivedUnitStat : UnitStat
                 break;
 
             default:
-                Debug.LogError("Invalid stat used with DerivedUnitStat class instance.");
+                Debug.LogError(string.Format("Invalid stat {0} used with DerivedUnitStat class instance.", statType.ToString()));
                 throw new ArgumentException("Invalid stat used with DerivedUnitStat class instance.");
         }
 

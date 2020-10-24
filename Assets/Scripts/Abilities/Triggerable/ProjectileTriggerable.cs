@@ -6,18 +6,22 @@ using UnityEngine;
 
 public class ProjectileTriggerable : MonoBehaviour
 {
-    
-    
+
     [HideInInspector] public float damageModifier;
     [HideInInspector] public float baseDelay;
     [HideInInspector] public float baseRange;
     [HideInInspector] public float baseSpeed;
     [HideInInspector] public float startForwardOffset;
     [HideInInspector] public GameObject abilityProjectile;
-    
-    
 
-    public void Fire()
+    Unit_Statistics stats;
+    private void Awake()
+    {
+        stats = GetComponent<Unit_Statistics>();
+    }
+
+
+    public void Fire(Ability ability)
     {
         //Debug.Log("Projectile Fired!");
         GameObject projectileObj = Instantiate(abilityProjectile) as GameObject;
@@ -28,7 +32,8 @@ public class ProjectileTriggerable : MonoBehaviour
         Projectile_Behavior objScript = projectileObj.GetComponent<Projectile_Behavior>();
         objScript.range = baseRange;
         objScript.speed = baseSpeed;
-        objScript.damage = 50; //temp
+        objScript.damage = Mathf.FloorToInt(DamageCalc.GetDamage(true, ability, stats) * damageModifier);  //temp
+        Debug.Log(string.Format("Firing projectile with {0} damage", Mathf.FloorToInt(DamageCalc.GetDamage(true, ability, stats))));
         objScript.initialized = true;
         objScript.casterObj = gameObject;
 

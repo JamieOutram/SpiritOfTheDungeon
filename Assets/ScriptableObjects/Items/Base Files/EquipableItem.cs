@@ -8,6 +8,9 @@ public abstract class EquipableItem : NamedScriptableObject
 {
     public Sprite aIcon;
     public string aDescription;
+    public bool isBasic = true;
+    public bool isOffensive = true;
+
     public abstract EquipableItemType itemType { get; }
 
 
@@ -27,4 +30,22 @@ public abstract class EquipableItem : NamedScriptableObject
         return damage;
     }
 
+    public virtual float GetSpecialFlatMod(
+        Unit_Items unitItems,
+        Ability ability,
+        Transform caster = null,
+        Transform target = null)
+    {
+        Debug.LogError(string.Format("No special flat modifier defined for {0}", aName)); //TODO
+        return 0f;
+    }
+    public virtual float GetSpecialPercentAddMod(
+        Unit_Items unitItems,
+        Ability ability,
+        Transform caster = null,
+        Transform target = null)
+    {
+        Debug.LogError(string.Format("No special amp modifier defined for {0}", aName)); //TODO
+        return 0f;
+    }
 }
