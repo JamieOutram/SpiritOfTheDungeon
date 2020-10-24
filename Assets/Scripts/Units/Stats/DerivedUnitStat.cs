@@ -8,10 +8,10 @@ public class DerivedUnitStat : UnitStat
 {
     private bool _isInitial = true;
 
-    public DerivedUnitStat(float bValue, UnitStatType sType, UnitResource lRes = null) : base(bValue, sType, null, lRes) {}
+    public DerivedUnitStat(float bValue, UnitStatType sType) : base(bValue, sType) {}
 
     private StatModifier baseModifier;
-    public void UpdateValue(UnitStat unitStat)
+    public void UpdateValue(float unitStatValue)
     {
         if (_isInitial == false) base.RemoveModifier(baseModifier);
         else _isInitial = false;
@@ -19,32 +19,19 @@ public class DerivedUnitStat : UnitStat
         //Base class constructor is run first
         switch (base.statType)
         {
-            case UnitStatType.MaxHealth:
-                //Check pairing valid
-                if (unitStat.statType != UnitStatType.Vit)
-                {
-                    Debug.LogWarning("Unexpected stat type pairing for derived stat.");
-                }
-
-                //Maximum Health formula
-                baseModifier = new StatModifier(unitStat.value * 10, StatModType.Flat);
-                base.AddModifier(baseModifier);
+            case UnitStatType.MaxHealth: //Maximum Health formula
+                baseModifier = new StatModifier(unitStatValue * 10, StatModType.Flat);
                 break;
-            case UnitStatType.MaxMana:
-                //Check pairing valid
-                if (unitStat.statType != UnitStatType.Int)
-                {
-                    Debug.LogWarning("Unexpected stat type pairing for derived stat.");
-                }
 
-                //Maximum Mana formula
-                baseModifier = new StatModifier(unitStat.value * 10, StatModType.Flat);
-                base.AddModifier(baseModifier);
+            case UnitStatType.MaxMana: //Maximum Mana formula
+                baseModifier = new StatModifier(unitStatValue * 10, StatModType.Flat);
                 break;
             default:
                 Debug.LogError("Invalid stat used with DerivedUnitStat class instance.");
                 throw new ArgumentException("Invalid stat used with DerivedUnitStat class instance.");
         }
+
+        base.AddModifier(baseModifier);
     }
 
 }

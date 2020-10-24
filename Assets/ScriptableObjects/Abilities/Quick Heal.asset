@@ -17,7 +17,6 @@ MonoBehaviour:
     type: 3}
   aSound: {fileID: 0}
   baseCooldown: 1
-  aRange: 30
   damageMultiplier: 1
   baseDelay: 0
   baseRange: 3

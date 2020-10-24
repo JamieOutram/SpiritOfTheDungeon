@@ -4,14 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum DamageType
-{
-    Point,
-    Directional,
-    Area,
-    Pure,
-}
-
 // Define a class to hold custom event info
 public class OnDamageArgs : EventArgs
 {

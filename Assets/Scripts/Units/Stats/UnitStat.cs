@@ -24,34 +24,36 @@ public class UnitStat
         {
             _linkedResource = value;
             if (value != null)
-                _linkedResource.UpdateLimits(this.value);
+                _linkedResource.UpdateLimits(this.Value);
         }
     }
-    public DerivedUnitStat _linkedDerivedStat;
-    public DerivedUnitStat LinkedDerivedStat
+
+    public List<DerivedUnitStat> _linkedDerivedStats;
+    public void AddDerivedStat(DerivedUnitStat dStat)
     {
-        get
+        if (!_linkedDerivedStats.Contains(dStat))
         {
-            return _linkedDerivedStat;
+            _linkedDerivedStats.Add(dStat);
+            dStat.UpdateValue(this.Value);
         }
-        set
+    }
+    public void RemoveDerivedStat(DerivedUnitStat dStat)
+    {
+        if (_linkedDerivedStats.Contains(dStat))
         {
-            _linkedDerivedStat = value;
-            if (value != null)  
-                _linkedDerivedStat.UpdateValue(this);
+            _linkedDerivedStats.Remove(dStat);
         }
     }
 
     public readonly UnitStatType statType;
     protected readonly List<StatModifier> statModifiers;
 
-    public UnitStat(float bValue, UnitStatType sType, DerivedUnitStat lDer = null, UnitResource lRes = null)
+    public UnitStat(float bValue, UnitStatType sType)
     {
         _baseValue = bValue;
         statType = sType;
         statModifiers = new List<StatModifier>();
-        if (lDer != null) LinkedDerivedStat = lDer;
-        if (lRes != null) LinkedResource = lRes;
+        _linkedDerivedStats = new List<DerivedUnitStat>();
         UpdateValues();
     }
     // public UnitStat() : this(10f) { }
@@ -70,7 +72,7 @@ public class UnitStat
             UpdateValues();
         }
     }
-    public int value { get; private set; }
+    public int Value { get; private set; }
 
     public void AddModifier(StatModifier mod)
     {
@@ -132,14 +134,17 @@ public class UnitStat
 
     private void UpdateValues()
     {
-        value = CalculateFinalValue();
-        if(_linkedDerivedStat != null)
+        Value = CalculateFinalValue();
+        if(_linkedDerivedStats != null)
         {
-            _linkedDerivedStat.UpdateValue(this);
+            foreach(DerivedUnitStat stat in _linkedDerivedStats)
+            {
+                stat.UpdateValue(this.Value);
+            }
         }
         if (_linkedResource != null)
         {
-            _linkedResource.UpdateLimits(this.value);
+            _linkedResource.UpdateLimits(this.Value);
         }
         //Debug.Log(string.Format("Stat {0} updated to {1}", statType, value));
     }

@@ -154,7 +154,7 @@ public class PopupInfoBox
         {
             //TODO: Set Values here
             Text text = prefabInstances[i].GetComponent<Text>();
-            text.text = string.Format("{0} : {1}", statList[i].statType.ToString(), statList[i].value);
+            text.text = string.Format("{0} : {1}", statList[i].statType.ToString(), statList[i].Value);
         }
         statCount = statList.Count;
         statList.Clear();
