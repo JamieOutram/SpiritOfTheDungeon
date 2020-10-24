@@ -27,7 +27,7 @@ public class ShieldEffectTriggerable : MonoBehaviour
             tempDamage *= (1 - percentReduction / 100);
             //Debug.Log("Damage Reduced by Shield");
         }
-
+        if (tempDamage < 0) tempDamage = 0;
         return (int)tempDamage;
     }
     private float CalcRelativeAngleFromRight(Transform A, Transform B)
