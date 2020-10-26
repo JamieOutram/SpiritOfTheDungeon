@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
@@ -138,6 +139,8 @@ public class PopupInfoBox
         List<UnitResource> resourceList = stats.GetAllResources();
         List<EquipableItem> itemList = items.GetAllItems();
 
+        
+
         //Remove exsisting children bar Title
         ClearClones();
         //TODO: CouldOnly Remove as many as nessecary
@@ -145,6 +148,16 @@ public class PopupInfoBox
         //Set UnitName
         Text UnitName = infoBox.GetComponentInChildren<Text>();
         UnitName.text = target.name;
+
+
+        //Filter off hidden stats
+        for (int i = statList.Count-1; i >= 0; i--)
+        {
+            if (Unit_Statistics.hiddenTypes.Contains(statList[i].statType))
+            {
+                statList.RemoveAt(i);
+            }
+        }
 
         //Spawn stat ui prefabs
         //Only Remove as many as nessecary

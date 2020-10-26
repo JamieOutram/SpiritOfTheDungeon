@@ -33,7 +33,21 @@ public enum UnitStatType
 
 public class Unit_Statistics : MonoBehaviour
 {
-    
+    //List of stats not shown to user, only hidden if isDebug = false
+    public static UnitStatType[] hiddenTypes = {
+        UnitStatType.MagiBlock,
+        UnitStatType.MagiDefMult,
+        UnitStatType.MagiDmgAmp,
+        UnitStatType.MagiDmgFlat,
+        UnitStatType.PhysBlock,
+        UnitStatType.PhysDefMult,
+        UnitStatType.PhysDmgAmp,
+        UnitStatType.PhysDmgFlat,
+        UnitStatType.MaxHealth,
+        UnitStatType.MaxMana,
+        UnitStatType.AmmoCapcity,
+    };
+
     public int StatCount
     {
         get
@@ -48,8 +62,6 @@ public class Unit_Statistics : MonoBehaviour
             return unit_resources.Count;
         }
     }
-
-    public List<UnitStatType> hiddenTypes;
 
     private Dictionary<UnitStatType, UnitStat> unit_stats;
 
@@ -165,6 +177,7 @@ public class Unit_Statistics : MonoBehaviour
     
     public void Awake()
     {
+        if (Constants.isDebug) hiddenTypes = new UnitStatType[0];
         unit_stats = new Dictionary<UnitStatType, UnitStat>();
         unit_resources = new Dictionary<UnitStatType, UnitResource>();
         PopulateStats();
