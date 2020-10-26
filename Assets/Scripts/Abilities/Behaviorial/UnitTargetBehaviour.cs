@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class UnitTargetEffect : MonoBehaviour
+public class UnitTargetBehaviour : MonoBehaviour
 {
     [HideInInspector] public GameObject target;
     [HideInInspector] public int damage;

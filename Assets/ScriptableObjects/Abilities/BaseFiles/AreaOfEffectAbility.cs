@@ -32,6 +32,6 @@ public class AreaOfEffectAbility : Ability
 
     public override void TriggerAbility()
     {
-        aoeHit.Fire();
+        aoeHit.Fire(this);
     }
 }

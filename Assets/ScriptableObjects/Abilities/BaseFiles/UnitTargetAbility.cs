@@ -28,7 +28,7 @@ public class UnitTargetAbility : Ability
 
     public override void TriggerAbility(GameObject target)
     {
-        unitTargetHit.Fire(target);
+        unitTargetHit.Fire(target, this);
     }
 }
 

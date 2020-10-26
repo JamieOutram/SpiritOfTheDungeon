@@ -34,11 +34,11 @@ public static class DamageCalc
         {
             case DamageType.Physical:
                 flatMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgFlat).Value : stats.GetStat(UnitStatType.PhysBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgAmp).Value : stats.GetStat(UnitStatType.PhysArmour).Value;
+                ampMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgAmp).Value / 100 : stats.GetStat(UnitStatType.PhysDefMult).Value / 100;
                 break;
             case DamageType.Magical:
                 flatMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgFlat).Value : stats.GetStat(UnitStatType.MagiBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgAmp).Value : stats.GetStat(UnitStatType.MagiArmour).Value;
+                ampMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgAmp).Value / 100 : stats.GetStat(UnitStatType.MagiDefMult).Value / 100;
                 break;
             case DamageType.Pure:
                 //No modifiers
@@ -48,7 +48,7 @@ public static class DamageCalc
                 break;
         }
 
-        damage = isOutgoing ? (ability.baseDamage + flatMod) * (1+ampMod) : ability.baseDamage * ampMod - flatMod;
+        damage = isOutgoing ? (ability.baseDamage + flatMod) * (1 + ampMod) : ability.baseDamage * ampMod - flatMod;
 
         if (damage < 0f) damage = 0f;
         return damage;
@@ -58,9 +58,9 @@ public static class DamageCalc
     public static float ApplySpecialItemModifiers(
         float damage,
         bool isOutgoing,
-        Unit_Items unitItems, 
-        Ability ability,  
-        Transform caster = null, 
+        Unit_Items unitItems,
+        Ability ability,
+        Transform caster = null,
         Transform target = null)
     {
         float flatMod = 0f;
@@ -72,7 +72,8 @@ public static class DamageCalc
         {
             if (!item.isBasic)
             {
-                if(item.isOffensive == isOutgoing) {
+                if (item.isOffensive == isOutgoing)
+                {
                     flatMod += item.GetSpecialFlatMod(unitItems, ability, caster, target);
                     ampMod += item.GetSpecialPercentAddMod(unitItems, ability, caster, target);
                 }

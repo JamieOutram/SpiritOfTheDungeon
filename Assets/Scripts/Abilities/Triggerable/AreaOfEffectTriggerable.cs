@@ -6,14 +6,14 @@ using UnityEngine;
 //This script defines what happens when the ability is triggered
 public class AreaOfEffectTriggerable : MonoBehaviour
 {
-    Unit_Statistics unitStats;
-
     [HideInInspector] public float baseDelay;
     [HideInInspector] public float damageModifier;
     [HideInInspector] public float baseRange;
     [HideInInspector] public GameObject abilityEffect; 
     [HideInInspector] public bool isInstantiateInWorldSpace;
 
+    Unit_Statistics unitStats;
+    
     public void Awake()
     {
         unitStats = gameObject.GetComponent<Unit_Statistics>();
@@ -26,13 +26,13 @@ public class AreaOfEffectTriggerable : MonoBehaviour
     }
 
     
-    public void Fire()
+    public void Fire(Ability ability)
     {
 
         //Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
         GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
         AoeBehaviour behaviourScript = effectObj.GetComponent<AoeBehaviour>();
-        behaviourScript.damage = (int)Math.Round(unitStats.GetStat(UnitStatType.Str).Value * damageModifier);
+        behaviourScript.damage = (int)Math.Round(DamageCalc.GetDamage(true, ability, unitStats) * damageModifier);
         behaviourScript.casterObj = gameObject;
     }
 }

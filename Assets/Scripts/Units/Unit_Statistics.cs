@@ -27,6 +27,8 @@ public enum UnitStatType
     Mana,
     Ammo,
     AmmoCapcity,
+    MagiDefMult,
+    PhysDefMult,
 }
 
 public class Unit_Statistics : MonoBehaviour
@@ -132,6 +134,7 @@ public class Unit_Statistics : MonoBehaviour
         //Agility
         AddStat(UnitStatType.Agi, 5f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysArmour, 0f);
+        AddLinkedStat(UnitStatType.PhysArmour, UnitStatType.PhysDefMult, 0f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysBlock, 0f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.Spd, 300f);
 
@@ -149,6 +152,7 @@ public class Unit_Statistics : MonoBehaviour
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgAmp, 0f);
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgFlat, 0f);
         AddLinkedStat(UnitStatType.Int, UnitStatType.MagiArmour, 0f);
+        AddLinkedStat(UnitStatType.MagiArmour, UnitStatType.MagiDefMult, 0f);
         AddLinkedStat(UnitStatType.Int, UnitStatType.MagiBlock, 0f);
 
         //Other

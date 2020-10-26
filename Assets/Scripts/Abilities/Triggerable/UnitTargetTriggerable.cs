@@ -9,12 +9,20 @@ public class UnitTargetTriggerable : MonoBehaviour
     [HideInInspector] public float baseDelay;
     [HideInInspector] public float baseRange;
     [HideInInspector] public string targetGroupTag;
-    [HideInInspector] public GameObject particleEffect; 
+    [HideInInspector] public GameObject particleEffect;
 
-    public void Fire(GameObject target)
+    Unit_Statistics unitStats;
+
+    public void Awake()
+    {
+        unitStats = gameObject.GetComponent<Unit_Statistics>();
+    }
+
+    public void Fire(GameObject target, Ability ability)
     {
         GameObject effectObj = Instantiate(particleEffect, target.transform, false);
-        effectObj.GetComponent<UnitTargetEffect>().target = target;
-        effectObj.GetComponent<UnitTargetEffect>().damage = (int)Math.Round(damageModifier);
+        UnitTargetBehaviour effect = effectObj.GetComponent<UnitTargetBehaviour>();
+        effect.target = target;
+        effect.damage = (int)Math.Round(DamageCalc.GetDamage(true, ability, unitStats) * damageModifier);
     }
 }
