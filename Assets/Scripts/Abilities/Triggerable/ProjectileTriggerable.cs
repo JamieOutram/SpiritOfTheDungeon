@@ -33,7 +33,7 @@ public class ProjectileTriggerable : MonoBehaviour
         objScript.range = baseRange;
         objScript.speed = baseSpeed;
         objScript.damage = Mathf.FloorToInt(DamageCalc.GetDamage(true, ability, stats) * damageModifier);  
-        Debug.Log(string.Format("Firing projectile with {0} damage", Mathf.FloorToInt(DamageCalc.GetDamage(true, ability, stats))));
+        Debug.Log(string.Format("Firing projectile with {0} damage", Mathf.FloorToInt(DamageCalc.GetDamage(true, ability, stats) * damageModifier)));
         objScript.initialized = true;
         objScript.casterObj = gameObject;
 

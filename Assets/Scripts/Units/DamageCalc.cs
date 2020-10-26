@@ -34,11 +34,11 @@ public static class DamageCalc
         {
             case DamageType.Physical:
                 flatMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgFlat).Value : stats.GetStat(UnitStatType.PhysBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgAmp).Value / 100 : stats.GetStat(UnitStatType.PhysDefMult).Value / 100;
+                ampMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgAmp).Value / 100f : stats.GetStat(UnitStatType.PhysDefMult).Value / 100f;
                 break;
             case DamageType.Magical:
                 flatMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgFlat).Value : stats.GetStat(UnitStatType.MagiBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgAmp).Value / 100 : stats.GetStat(UnitStatType.MagiDefMult).Value / 100;
+                ampMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgAmp).Value / 100f : stats.GetStat(UnitStatType.MagiDefMult).Value / 100f;
                 break;
             case DamageType.Pure:
                 //No modifiers
