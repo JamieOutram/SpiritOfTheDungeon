@@ -10,6 +10,7 @@ public abstract class Ability : NamedScriptableObject
     public AudioClip aSound;
     public float baseCooldown = 1f;
     public float baseDamage = 0f;
+    public int baseManaCost = 0;
     public DamageType dmgType = DamageType.None;
     public DamageImpactType dmgImpactType = DamageImpactType.None;
     public bool isHeal;

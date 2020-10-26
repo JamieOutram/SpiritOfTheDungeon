@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Unit_Abilities : ScriptableObjectManager<Ability>
 {
+    public event EventHandler<OnCastArgs> OnCastHandler;
+
     public class Cooldown
     {
         public float cooldownLeft;
@@ -21,6 +23,8 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
     
     private Dictionary<string, Cooldown> cooldowns;
 
+    private UnitResource mana;
+
     void Awake()
     {
         cooldowns = new Dictionary<string, Cooldown>();
@@ -28,7 +32,11 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
         InitializeCooldowns();
     }
 
-    
+    void Start()
+    {
+        mana = GetComponent<Unit_Statistics>().GetResource(UnitStatType.Mana);
+    }
+
 
     //Member functions for editing dictionary
     public void AddAbility(Ability ability)
@@ -107,15 +115,27 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
         Ability ability = GetElement(name);
         if(GetCooldownLeftSeconds(name) == 0f)
         {
-            StartCooldown(name);
-            if (target == null)
-            {
-                //Debug.Log(string.Format("Using {0}", abilities[name].aName));
-                ability.TriggerAbility();
-            }
-            else
-            {
-                ability.TriggerAbility(target);
+            if(mana.Value >= ability.baseManaCost) {
+                StartCooldown(name);
+                
+                if (target == null)
+                {
+                    //Debug.Log(string.Format("Using {0}", abilities[name].aName));
+                    ability.TriggerAbility();
+                }
+                else
+                {
+                    ability.TriggerAbility(target);
+                }
+
+                //Update mana for used ability
+                mana.Value -= ability.baseManaCost;
+
+                //Trigger any subscribed events (null if none)
+                if (OnCastHandler != null)
+                {
+                    OnCastHandler.Invoke(gameObject, new OnCastArgs(mana, ability));
+                }
             }
         }
     }

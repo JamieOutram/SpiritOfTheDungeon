@@ -7,19 +7,31 @@ public class HealthBarBehaviour : MonoBehaviour
 {
     private enum Child
     {
-        mask,
-        bar,
+        ManaBar,
+        HealthBar,
     }
-    SpriteMask mask;
-    SpriteRenderer barRenderer;
-    Vector3 startScale;
+
+    private enum ChildOfChild
+    {
+        Mask,
+        Top,
+    }
+
+    SpriteMask healthMask;
+    SpriteMask manaMask;
+    SpriteRenderer healthBarRenderer;
+    Vector3 startScaleHealth;
+    Vector3 startScaleMana;
     // Start is called before the first frame update
     void Awake()
     {
-        mask = transform.GetChild((int)Child.mask).GetComponent<SpriteMask>();
-        barRenderer = transform.GetChild((int)Child.bar).GetComponent<SpriteRenderer>();
-        startScale = mask.transform.localScale;
+        manaMask = transform.GetChild((int)Child.ManaBar).GetComponentInChildren<SpriteMask>();
+        healthMask = transform.GetChild((int)Child.HealthBar).GetComponentInChildren<SpriteMask>();
+        healthBarRenderer = transform.GetChild((int)Child.HealthBar).GetChild((int)ChildOfChild.Top).GetComponent<SpriteRenderer>();
+        startScaleHealth = healthMask.transform.localScale;
+        startScaleMana = manaMask.transform.localScale;
         transform.parent.gameObject.GetComponent<Unit_Actions>().OnDamageHandler += UpdateHealthBar;
+        transform.parent.gameObject.GetComponent<Unit_Abilities>().OnCastHandler += UpdateManaBar;
     }
 
 
@@ -27,17 +39,29 @@ public class HealthBarBehaviour : MonoBehaviour
     {
         
         //Calculate mask scale from max health and current health. 
-        Vector3 newScale = startScale;
+        Vector3 newScale = startScaleHealth;
         float healthRatio = (float)e.Health.Value / e.Health.maxValue;
         //Debug.Log(string.Format("Scale is {0}", newScale));
         //Debug.Log(string.Format("Health is {0}/{1}", e.Health.Value, e.Health.maxValue));
         //Debug.Log(string.Format("Health is {0}, {1}", e.Health.Value/e.Health.maxValue, startScale.x));
-        newScale.x = startScale.x * healthRatio;
+        newScale.x = startScaleHealth.x * healthRatio;
         //Debug.Log(string.Format("Setting scale to {0}", newScale));
-        mask.transform.localScale = newScale;
-
-        barRenderer.material.SetFloat("_Color", healthRatio);
+        healthMask.transform.localScale = newScale;
+        
+        healthBarRenderer.material.SetFloat("_Color", healthRatio); //Change colour
     }
-    // Update is called once per frame
-    
+
+    void UpdateManaBar(object sender, OnCastArgs e)
+    {
+
+        //Calculate mask scale from max health and current health. 
+        Vector3 newScale = startScaleMana;
+        float manaRatio = (float)e.Mana.Value / e.Mana.maxValue;
+        //Debug.Log(string.Format("Scale is {0}", newScale));
+        //Debug.Log(string.Format("Health is {0}/{1}", e.Health.Value, e.Health.maxValue));
+        //Debug.Log(string.Format("Health is {0}, {1}", e.Health.Value/e.Health.maxValue, startScale.x));
+        newScale.x = startScaleMana.x * manaRatio;
+        //Debug.Log(string.Format("Setting scale to {0}", newScale));
+        manaMask.transform.localScale = newScale;
+    }
 }

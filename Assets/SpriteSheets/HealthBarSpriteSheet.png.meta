@@ -4,22 +4,22 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -5749648908992594777
-    second: HealthBarSpriteSheet_0
+    second: HealthBarBase
   - first:
       213: -5638565156895887397
-    second: HealthBarSpriteSheet_1
+    second: HealthBarTop
   - first:
       213: -8686796232219509434
-    second: HealthBarSpriteSheet_0
+    second: HealthBarBase
   - first:
       213: 8133284650775950778
-    second: HealthBarSpriteSheet_1
+    second: HealthBarTop
   - first:
       213: 8030084193062605736
-    second: HealthBarSpriteSheet_2
+    second: ManaBarBase
   - first:
       213: -4076945049344396226
-    second: HealthBarSpriteSheet_3
+    second: ManaBarTop
   - first:
       213: 18800763313337046
     second: HealthBarSpriteSheet_4
@@ -94,9 +94,9 @@ TextureImporter:
     filterMode: 0
     aniso: -1
     mipBias: -100
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -155,15 +155,27 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HealthBarSpriteSheet_0
+      name: HealthBarBase
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 8
         width: 24
         height: 24
       alignment: 0
@@ -180,11 +192,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealthBarSpriteSheet_1
+      name: HealthBarTop
       rect:
         serializedVersion: 2
         x: 24
-        y: 0
+        y: 8
         width: 24
         height: 24
       alignment: 0
@@ -196,6 +208,48 @@ TextureImporter:
       bones: []
       spriteID: ab533a24c4b3fd070800000000000000
       internalID: 8133284650775950778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ManaBarBase
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 24
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 2, y: 1, z: 2, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a3d9f34707907f60800000000000000
+      internalID: 8030084193062605736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ManaBarTop
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 4
+        width: 24
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 2, y: 1, z: 2, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e343a050418cb67c0800000000000000
+      internalID: -4076945049344396226
       vertices: []
       indices: 
       edges: []

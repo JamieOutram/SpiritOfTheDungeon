@@ -4,24 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-// Define a class to hold custom event info
-public class OnDamageArgs : EventArgs
-{
-    public OnDamageArgs(UnitResource health, int damage)
-    {
-        Health = health;
-        Damage = damage;
-    }
-
-    public UnitResource Health { get; set; }
-    public int Damage { get; set; }
-}
-
 [RequireComponent(typeof(Unit_Statistics))]
 [RequireComponent(typeof(Animator))]
 public class Unit_Actions : MonoBehaviour
 {
     public event EventHandler<OnDamageArgs> OnDamageHandler;
+
     private HealthBarBehaviour healthBar;
     private Unit_Statistics unit_Stats;
     private Unit_Abilities unit_Abilities;
@@ -72,8 +60,6 @@ public class Unit_Actions : MonoBehaviour
                 }
             }
         }
-
-
 
         currentHealth.Value -= damage;
         //Trigger any subscribed events (null if none)
