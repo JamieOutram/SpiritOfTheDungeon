@@ -6,21 +6,18 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 //All Button Behaviour triggers and camera controls for the training interface
-public class Fight_UIPanel : Base_UIPanel
+public class Fight_UIPanel : Base_InfoBox_UIPanel
 {
-
-    public PopupInfoBox infoBox;
-    [SerializeField] private Button pause;
-    [SerializeField] private Text pauseText;
-    [SerializeField] private Button play;
-    [SerializeField] private Button back;
-    [SerializeField] private Button speedUp;
+    [SerializeField] private Button pause = default;
+    [SerializeField] private Text pauseText = default;
+    [SerializeField] private Button play = default;
+    [SerializeField] private Button back = default;
+    [SerializeField] private Button speedUp = default;
 
     private CycleImage speedUpCycler;
 
     void Awake()
     {
-        PopupInfoBox.LoadResources();
         speedUpCycler = speedUp.transform.GetComponent<CycleImage>();
     }
 
@@ -28,13 +25,11 @@ public class Fight_UIPanel : Base_UIPanel
     public override void OpenBehavior()
     {
         base.OpenBehavior();
-        infoBox = new PopupInfoBox(transform);
     }
 
     public override void CloseBehavior()
     {
         base.CloseBehavior();
-        infoBox.DestroyBox();
     }
 
     public void PauseGame()
@@ -60,9 +55,5 @@ public class Fight_UIPanel : Base_UIPanel
         
     }
 
-    public override void OnCellMouseDown(RoomBehaviour target, Vector2 index)
-    {
-        if (!ReferenceEquals(infoBox, null))
-            infoBox.HideBox();
-    }
+
 }

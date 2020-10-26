@@ -18,6 +18,7 @@ MonoBehaviour:
   aSound: {fileID: 0}
   baseCooldown: 1
   baseDamage: 0
+  baseManaCost: 60
   dmgType: 2
   dmgImpactType: 1
   isHeal: 1

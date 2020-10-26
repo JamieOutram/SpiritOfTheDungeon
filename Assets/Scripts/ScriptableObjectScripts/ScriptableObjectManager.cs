@@ -7,7 +7,7 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : Named
 {
     public int Count { get; private set; } = 0;
 
-    [SerializeField] private List<T> editorElements;
+    [SerializeField] private List<T> editorElements = default;
     private Dictionary<string, T> elements;
     
     //Converts serialisable list from editor into dictionary of instantiated elements

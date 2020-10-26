@@ -13,13 +13,13 @@ public class Training_UIPanel : Base_UIPanel
 
     RoomScroller scroller;
 
-    [SerializeField] private Button scrollLeft;
-    [SerializeField] private Button scrollRight;
-    [SerializeField] private Button pause;
-    [SerializeField] private Text pauseText;
-    [SerializeField] private Button play;
-    [SerializeField] private Button back;
-    [SerializeField] private Button speedUp;
+    [SerializeField] private Button scrollLeft = default;
+    [SerializeField] private Button scrollRight = default;
+    [SerializeField] private Button pause = default;
+    [SerializeField] private Text pauseText = default;
+    [SerializeField] private Button play = default;
+    [SerializeField] private Button back = default;
+    [SerializeField] private Button speedUp = default;
 
     void Awake()
     {

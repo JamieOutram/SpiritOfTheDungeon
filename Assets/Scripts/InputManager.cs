@@ -6,7 +6,7 @@ using System;
 public class InputManager : MonoBehaviour
 {
     //Define interactions in inspector
-    [SerializeField] LayerMask mouseInteractables;
+    [SerializeField] LayerMask mouseInteractables = default;
 
     // Update is called once per frame
     void Update()
