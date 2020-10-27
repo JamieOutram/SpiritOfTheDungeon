@@ -4,35 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //This script defines what happens when the ability is triggered
-public class AreaOfEffectTriggerable : MonoBehaviour
+public class AreaOfEffectTriggerable : BaseAbilityTriggerable
 {
-    [HideInInspector] public float baseDelay;
-    [HideInInspector] public float damageModifier;
-    [HideInInspector] public float baseRange;
-    [HideInInspector] public GameObject abilityEffect; 
-    [HideInInspector] public bool isInstantiateInWorldSpace;
-
-    Unit_Statistics unitStats;
-    
-    public void Awake()
+    public void Fire(AreaOfEffectAbility ability)
     {
-        unitStats = gameObject.GetComponent<Unit_Statistics>();
-    }
-
-    public void Start()
-    {
-        //Debug.Log(string.Format("This Object is {0}!", gameObject.name));
-
-    }
-
-    
-    public void Fire(Ability ability)
-    {
-
         //Debug.Log(string.Format("AoE Fired by {0}!", gameObject.name));
-        GameObject effectObj = Instantiate(abilityEffect, gameObject.transform, isInstantiateInWorldSpace);
+        GameObject effectObj = Instantiate(ability.abilityPrefab, gameObject.transform, !ability.isTrackPlayer);
         AoeBehaviour behaviourScript = effectObj.GetComponent<AoeBehaviour>();
-        behaviourScript.damage = (int)Math.Round(DamageCalc.GetAbilityDamage(true, ability.baseDamage, ability.dmgType, unitStats, ability.aName) * damageModifier);
+        behaviourScript.damage = (int)DamageCalc.GetAbilityDamage(ability, unitStats);
         behaviourScript.casterObj = gameObject;
     }
 }

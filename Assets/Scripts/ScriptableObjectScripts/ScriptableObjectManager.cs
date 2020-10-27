@@ -31,7 +31,7 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : Named
     {
         /*Instantiating a clone of the element allows multiple instances 
          *of the same scriptable object in the scene */
-        element = Instantiate(element);
+        //element = Instantiate(element);
         element.Initialize(gameObject);
         return element;
     }

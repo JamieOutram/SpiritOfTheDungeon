@@ -4,40 +4,25 @@ using Unity.Mathematics;
 using UnityEditor.Android;
 using UnityEngine;
 
-public class ProjectileTriggerable : MonoBehaviour
+public class ProjectileTriggerable : BaseAbilityTriggerable
 {
-
-    [HideInInspector] public float damageModifier;
-    [HideInInspector] public float baseDelay;
-    [HideInInspector] public float baseRange;
-    [HideInInspector] public float baseSpeed;
-    [HideInInspector] public float startForwardOffset;
-    [HideInInspector] public GameObject abilityProjectile;
-
-    Unit_Statistics stats;
-    private void Awake()
-    {
-        stats = GetComponent<Unit_Statistics>();
-    }
-
-
-    public void Fire(Ability ability)
+    public void Fire(ProjectileAbility ability)
     {
         //Debug.Log("Projectile Fired!");
-        GameObject projectileObj = Instantiate(abilityProjectile) as GameObject;
+        GameObject projectileObj = Instantiate(ability.abilityPrefab) as GameObject;
         projectileObj.transform.position = gameObject.transform.position;
         projectileObj.transform.rotation = gameObject.transform.rotation;
-        projectileObj.transform.position += startForwardOffset * projectileObj.transform.right;
+        projectileObj.transform.position += ability.startForwardOffset * projectileObj.transform.right;
         
         Projectile_Behavior objScript = projectileObj.GetComponent<Projectile_Behavior>();
-        objScript.range = baseRange;
-        objScript.speed = baseSpeed;
-        objScript.damage = Mathf.FloorToInt(DamageCalc.GetAbilityDamage(true, ability.baseDamage, ability.dmgType, stats, ability.aName) * damageModifier);  
+        objScript.range = ability.baseRange;
+        objScript.speed = ability.baseSpeed;
+        objScript.damage = (int)DamageCalc.GetAbilityDamage(ability, unitStats);  
         //Debug.Log(string.Format("Firing projectile with {0} damage", Mathf.FloorToInt(DamageCalc.GetAbilityDamage(true, ability, stats) * damageModifier)));
         objScript.initialized = true;
         objScript.casterObj = gameObject;
 
-        if (baseRange == 0)
+        if (baseRange == -1)
         {
             objScript.range = 999;
         }

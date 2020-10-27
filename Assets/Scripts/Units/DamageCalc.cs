@@ -25,33 +25,71 @@ public enum DamageType
 //Stat modifiers could be contained within derived stats but handled here
 public static class DamageCalc
 {
-    public static float GetAbilityDamage(bool isOutgoing, float baseDamage, DamageType dmgType, Unit_Statistics stats, string aName = "")
+    public static float GetAbilityDamage(Ability ability, Unit_Statistics stats)
     {
         float damage = 0f;
-        float flatMod = 0f;
-        float ampMod = 0f;
-        switch (dmgType)
+        float statFlatMod = 0f;
+        float statAmpMod = 0f;
+        switch (ability.dmgType)
         {
             case DamageType.Physical:
-                flatMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgFlat).Value : stats.GetStat(UnitStatType.PhysBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgAmp).Value / 100f : stats.GetStat(UnitStatType.PhysDefMult).Value / 100f;
+                statFlatMod = stats.GetStat(UnitStatType.PhysDmgFlat).Value;
+                statAmpMod = stats.GetStat(UnitStatType.PhysDmgAmp).Value / 100f;
                 break;
             case DamageType.Magical:
-                flatMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgFlat).Value : stats.GetStat(UnitStatType.MagiBlock).Value;
-                ampMod = isOutgoing ? stats.GetStat(UnitStatType.MagiDmgAmp).Value / 100f : stats.GetStat(UnitStatType.MagiDefMult).Value / 100f;
+                statFlatMod =  stats.GetStat(UnitStatType.MagiDmgFlat).Value;
+                statAmpMod = stats.GetStat(UnitStatType.MagiDmgAmp).Value / 100f;
                 break;
             case DamageType.Pure:
                 //No modifiers
                 break;
             default:
-                Debug.LogError(string.Format("No damage type specified for {0}", aName));
+                Debug.LogError(string.Format("No damage type specified for {0}", ability.aName));
                 break;
         }
 
-        damage = isOutgoing ? (baseDamage + flatMod) * (1 + ampMod) : baseDamage * ampMod - flatMod;
+        damage = CalcDamageAmplified(ability.baseDamage, statFlatMod, ability.damageMultiplier, statAmpMod);
 
         if (damage < 0f) damage = 0f;
         return damage;
+    }
+
+    public static float GetDamageReduced(float incomingDamage, DamageType dmgType, Unit_Statistics stats)
+    {
+        float damage = 0f;
+        float flatMod = 0f;
+        float statAmpMod = 0f;
+        switch (dmgType)
+        {
+            case DamageType.Physical:
+                flatMod = stats.GetStat(UnitStatType.PhysBlock).Value;
+                statAmpMod = stats.GetStat(UnitStatType.PhysDefPercent).Value / 100f;
+                break;
+            case DamageType.Magical:
+                flatMod = stats.GetStat(UnitStatType.MagiBlock).Value;
+                statAmpMod = stats.GetStat(UnitStatType.MagiDefPercent).Value / 100f;
+                break;
+            case DamageType.Pure:
+                //No modifiers
+                break;
+            default:
+                Debug.LogError(string.Format("No damage type specified for GetDamageReduced()"));
+                break;
+        }
+
+        damage = CalcDamageReduced(incomingDamage, flatMod, statAmpMod);
+
+        if (damage < 0f) damage = 0f;
+        return damage;
+    }
+
+    private static float CalcDamageAmplified(float abilityFlatDamage, float statFlatDamage, float abilityMultiplier, float statMultiplier)
+    {
+        return (abilityFlatDamage + statFlatDamage) * (1 + abilityMultiplier) * (1 + statMultiplier);
+    }
+    private static float CalcDamageReduced(float incomingDamage, float statFlatReduction, float statMultiplier)
+    {
+        return  incomingDamage * statMultiplier - statFlatReduction;
     }
 
     //TODO: For later use if special items added / shield adapted

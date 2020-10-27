@@ -12,6 +12,6 @@ public class UnitTargetTriggerable : BaseAbilityTriggerable
         GameObject effectObj = Instantiate(abilityPrefab, target.transform, false);
         UnitTargetBehaviour effect = effectObj.GetComponent<UnitTargetBehaviour>();
         effect.target = target;
-        effect.damage = (int)Math.Round(DamageCalc.GetAbilityDamage(true, ability.baseDamage, ability.dmgType, unitStats, ability.aName) * ability.damageMultiplier);
+        effect.damage = (int)DamageCalc.GetAbilityDamage(ability, unitStats);
     }
 }

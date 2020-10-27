@@ -36,7 +36,7 @@ public class DerivedUnitStat : UnitStat
                 baseModifier = new StatModifier(unitStatValue * 0.2f, StatModType.Flat);
                 break;
 
-            case UnitStatType.PhysDefMult: //Physical Defence multiplier formula
+            case UnitStatType.PhysDefPercent: //Physical Defence multiplier formula
                 value = (1f - (unitStatValue * 0.1f) / (1f + unitStatValue * 0.1f)) * 100f;
                 baseModifier = new StatModifier(Mathf.Clamp(value, 0f, 100f), StatModType.Flat);
                 break;
@@ -57,7 +57,7 @@ public class DerivedUnitStat : UnitStat
                 baseModifier = new StatModifier(unitStatValue * 0.2f, StatModType.Flat);
                 break;
 
-            case UnitStatType.MagiDefMult: //Magical Defence multiplier formula
+            case UnitStatType.MagiDefPercent: //Magical Defence multiplier formula
                 value = (1f - (unitStatValue * 0.1f) / (1f + unitStatValue * 0.1f)) * 100f;
                 baseModifier = new StatModifier(Mathf.Clamp(value, 0f , 100f), StatModType.Flat);
                 break;

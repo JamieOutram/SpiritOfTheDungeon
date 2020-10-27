@@ -27,8 +27,8 @@ public enum UnitStatType
     Mana,
     Ammo,
     AmmoCapcity,
-    MagiDefMult,
-    PhysDefMult,
+    MagiDefPercent,
+    PhysDefPercent,
 }
 
 public class Unit_Statistics : MonoBehaviour
@@ -36,11 +36,11 @@ public class Unit_Statistics : MonoBehaviour
     //List of stats not shown to user, only hidden if isDebug = false
     public static UnitStatType[] hiddenTypes = {
         UnitStatType.MagiBlock,
-        UnitStatType.MagiDefMult,
+        UnitStatType.MagiDefPercent,
         UnitStatType.MagiDmgAmp,
         UnitStatType.MagiDmgFlat,
         UnitStatType.PhysBlock,
-        UnitStatType.PhysDefMult,
+        UnitStatType.PhysDefPercent,
         UnitStatType.PhysDmgAmp,
         UnitStatType.PhysDmgFlat,
         UnitStatType.MaxHealth,
@@ -146,7 +146,7 @@ public class Unit_Statistics : MonoBehaviour
         //Agility
         AddStat(UnitStatType.Agi, 5f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysArmour, 0f);
-        AddLinkedStat(UnitStatType.PhysArmour, UnitStatType.PhysDefMult, 0f);
+        AddLinkedStat(UnitStatType.PhysArmour, UnitStatType.PhysDefPercent, 0f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.PhysBlock, 0f);
         AddLinkedStat(UnitStatType.Agi, UnitStatType.Spd, 300f);
 
@@ -164,7 +164,7 @@ public class Unit_Statistics : MonoBehaviour
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgAmp, 0f);
         AddLinkedStat(UnitStatType.Str, UnitStatType.PhysDmgFlat, 0f);
         AddLinkedStat(UnitStatType.Int, UnitStatType.MagiArmour, 0f);
-        AddLinkedStat(UnitStatType.MagiArmour, UnitStatType.MagiDefMult, 0f);
+        AddLinkedStat(UnitStatType.MagiArmour, UnitStatType.MagiDefPercent, 0f);
         AddLinkedStat(UnitStatType.Int, UnitStatType.MagiBlock, 0f);
 
         //Other
