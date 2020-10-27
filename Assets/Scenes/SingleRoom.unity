@@ -593,6 +593,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3165819103750458680, guid: 739df95580f01434fa1d793286fac434,
+        type: 3}
+      propertyPath: editorElements.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 498fa8374504cf0439f78fdad3ac43c4,
+        type: 2}
     - target: {fileID: 3165819104059255039, guid: 739df95580f01434fa1d793286fac434,
         type: 3}
       propertyPath: unitStatTypes.Array.size
@@ -606,7 +612,7 @@ PrefabInstance:
     - target: {fileID: 3165819104059255039, guid: 739df95580f01434fa1d793286fac434,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3165819104059255039, guid: 739df95580f01434fa1d793286fac434,
         type: 3}

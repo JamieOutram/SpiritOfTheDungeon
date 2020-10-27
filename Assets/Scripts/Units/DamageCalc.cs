@@ -25,12 +25,12 @@ public enum DamageType
 //Stat modifiers could be contained within derived stats but handled here
 public static class DamageCalc
 {
-    public static float GetDamage(bool isOutgoing, Ability ability, Unit_Statistics stats)
+    public static float GetAbilityDamage(bool isOutgoing, float baseDamage, DamageType dmgType, Unit_Statistics stats, string aName = "")
     {
         float damage = 0f;
         float flatMod = 0f;
         float ampMod = 0f;
-        switch (ability.dmgType)
+        switch (dmgType)
         {
             case DamageType.Physical:
                 flatMod = isOutgoing ? stats.GetStat(UnitStatType.PhysDmgFlat).Value : stats.GetStat(UnitStatType.PhysBlock).Value;
@@ -44,11 +44,11 @@ public static class DamageCalc
                 //No modifiers
                 break;
             default:
-                Debug.LogError(string.Format("No damage type specified for {0}", ability.aName));
+                Debug.LogError(string.Format("No damage type specified for {0}", aName));
                 break;
         }
 
-        damage = isOutgoing ? (ability.baseDamage + flatMod) * (1 + ampMod) : ability.baseDamage * ampMod - flatMod;
+        damage = isOutgoing ? (baseDamage + flatMod) * (1 + ampMod) : baseDamage * ampMod - flatMod;
 
         if (damage < 0f) damage = 0f;
         return damage;

@@ -7,7 +7,6 @@ using UnityEngine;
 //Template defining the basic requirements for an AoE ability and provides trigger 
 public class AreaOfEffectAbility : Ability
 {
-    public int damageMultiplier = 1;
     public float baseDelay = 0f;
     public float baseDuration = 3f;
     public float baseRange = 3f;
