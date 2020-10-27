@@ -48,7 +48,7 @@ public static class DamageCalc
                 break;
         }
 
-        damage = CalcDamageAmplified(ability.baseDamage, statFlatMod, ability.damageMultiplier, statAmpMod);
+        damage = CalcDamageAmplified(ability.baseDamage, statFlatMod, ability.damagePercentAmp/100f, statAmpMod);
 
         if (damage < 0f) damage = 0f;
         return damage;

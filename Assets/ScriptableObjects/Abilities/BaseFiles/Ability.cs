@@ -28,9 +28,9 @@ public abstract class Ability : NamedScriptableObject
     public GameObject abilityPrefab;
     public float baseCooldown = 1f;
     public float baseDamage = 0f;
+    public float damagePercentAmp = 0f;
     public float baseRange = 3f;
     public float baseDelay = 0f;
-    public float damageMultiplier = 0f;
     public int baseManaCost = 0;
     public DamageType dmgType = DamageType.None;
     public DamageImpactType dmgImpactType = DamageImpactType.None;

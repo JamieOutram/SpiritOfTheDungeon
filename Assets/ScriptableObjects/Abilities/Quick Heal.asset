@@ -16,15 +16,16 @@ MonoBehaviour:
   aSprite: {fileID: -7456276070652971970, guid: 4a72ac63aa6b41340b2ec572256a2993,
     type: 3}
   aSound: {fileID: 0}
-  baseCooldown: 1
+  castAnimation: 0
+  abilityPrefab: {fileID: 5338821984393791550, guid: dd8971b926f346845aa87b7509649c09,
+    type: 3}
+  baseCooldown: 3
   baseDamage: 0
+  baseRange: 3
+  baseDelay: 0
+  damageMultiplier: 1
   baseManaCost: 60
   dmgType: 2
   dmgImpactType: 1
   isHeal: 1
-  damageMultiplier: 1
-  baseDelay: 0
-  baseRange: 3
   targetGroupTag: any
-  particleEffect: {fileID: 5338821984393791550, guid: dd8971b926f346845aa87b7509649c09,
-    type: 3}

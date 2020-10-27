@@ -15,15 +15,17 @@ MonoBehaviour:
   aName: Melee Attack
   aSprite: {fileID: 21300000, guid: 15f5ef4eae2b7d24aaf120d92395bcdc, type: 3}
   aSound: {fileID: 0}
+  castAnimation: 0
+  abilityPrefab: {fileID: 4760703138918049388, guid: fe8b7266b1645054aa35ab9f3e6a4eae,
+    type: 3}
   baseCooldown: 1.5
   baseDamage: 0
+  damagePercentAmp: 0
+  baseRange: 0
+  baseDelay: 0
+  baseManaCost: 0
   dmgType: 1
   dmgImpactType: 3
   isHeal: 0
-  damageMultiplier: 1
-  baseDelay: 0
   baseDuration: 3
-  baseRange: 3
-  abilityEffectPrefab: {fileID: 4760703138918049388, guid: fe8b7266b1645054aa35ab9f3e6a4eae,
-    type: 3}
   isTrackPlayer: 1

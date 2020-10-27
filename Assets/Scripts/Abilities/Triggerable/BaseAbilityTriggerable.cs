@@ -4,16 +4,6 @@ using UnityEngine;
 
 public abstract class BaseAbilityTriggerable : MonoBehaviour
 {
-    [HideInInspector] public float damageModifier;
-    [HideInInspector] public float baseDelay;
-    [HideInInspector] public float baseRange;
-    [HideInInspector] public float baseDamage;
-    [HideInInspector] public GameObject abilityPrefab;
-    [HideInInspector] public UnitAnimation castAnimation;
-    [HideInInspector] public DamageType dmgType;
-    [HideInInspector] public DamageImpactType dmgImpactType;
-
-
     protected Unit_Statistics unitStats;
 
     public void Awake()

@@ -15,15 +15,17 @@ MonoBehaviour:
   aName: Shoot Arrow
   aSprite: {fileID: 21300000, guid: 70ec7afab10892e45b641df3ee308b9f, type: 3}
   aSound: {fileID: 0}
+  castAnimation: 0
+  abilityPrefab: {fileID: 4760703138918049388, guid: bab0e6a33be6b094b8b588ccdae4b509,
+    type: 3}
   baseCooldown: 2
   baseDamage: 0
+  baseRange: 3
+  baseDelay: 0
+  damageMultiplier: 1
+  baseManaCost: 0
   dmgType: 1
   dmgImpactType: 2
   isHeal: 0
-  damageMultiplier: 1
-  baseDelay: 0
-  baseRange: 3
   baseSpeed: 3
   startForwardOffset: 0.5
-  projectile: {fileID: 4760703138918049388, guid: bab0e6a33be6b094b8b588ccdae4b509,
-    type: 3}

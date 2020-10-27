@@ -16,16 +16,12 @@ public class ProjectileTriggerable : BaseAbilityTriggerable
         
         Projectile_Behavior objScript = projectileObj.GetComponent<Projectile_Behavior>();
         objScript.range = ability.baseRange;
+        if (ability.baseRange == -1)
+            objScript.range = 999;
         objScript.speed = ability.baseSpeed;
         objScript.damage = (int)DamageCalc.GetAbilityDamage(ability, unitStats);  
         //Debug.Log(string.Format("Firing projectile with {0} damage", Mathf.FloorToInt(DamageCalc.GetAbilityDamage(true, ability, stats) * damageModifier)));
         objScript.initialized = true;
         objScript.casterObj = gameObject;
-
-        if (baseRange == -1)
-        {
-            objScript.range = 999;
-        }
-
     }
 }

@@ -7,9 +7,9 @@ public class UnitTargetTriggerable : BaseAbilityTriggerable
 {
     [HideInInspector] public string targetGroupTag;
 
-    public void Fire(GameObject target, Ability ability)
+    public void Fire(GameObject target, UnitTargetAbility ability)
     {
-        GameObject effectObj = Instantiate(abilityPrefab, target.transform, false);
+        GameObject effectObj = Instantiate(ability.abilityPrefab, target.transform, false);
         UnitTargetBehaviour effect = effectObj.GetComponent<UnitTargetBehaviour>();
         effect.target = target;
         effect.damage = (int)DamageCalc.GetAbilityDamage(ability, unitStats);

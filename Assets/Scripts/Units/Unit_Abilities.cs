@@ -164,7 +164,7 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
     private void TriggerAbility(Ability ability, GameObject target = null)
     {
         Type T = ability.GetType();
-        if (T == typeof(UnitTargetAbility)) unitTargetTrigger.Fire(target, ability as UnitTargetAbility);
+        if (T == typeof(UnitTargetAbility)) unitTargetTrigger.Fire(target, (ability as UnitTargetAbility));
         else if (T == typeof(ProjectileAbility)) projectileTrigger.Fire(ability as ProjectileAbility);
         else if (T == typeof(AreaOfEffectAbility)) aoeTrigger.Fire(ability as AreaOfEffectAbility);
     }
