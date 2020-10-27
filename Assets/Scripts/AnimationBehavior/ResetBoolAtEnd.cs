@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ResetBoolAtEnd : StateMachineBehaviour
 {
-    [SerializeField] private string boolVariableName;
-    [SerializeField] private bool isResetTo;
+    [SerializeField] private string boolVariableName = default;
+    [SerializeField] private bool isResetTo = default;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{

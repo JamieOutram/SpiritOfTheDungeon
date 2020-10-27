@@ -35,7 +35,7 @@ public class Unit_Movement : MonoBehaviour
         }
 
         //set speed of character to direction pressed
-        rb.AddForce(new Vector2(ctr.horizontalMove * speed.value * Time.deltaTime, ctr.verticalMove * speed.value * Time.deltaTime));
+        rb.AddForce(new Vector2(ctr.horizontalMove * speed.Value * Time.deltaTime, ctr.verticalMove * speed.Value * Time.deltaTime));
 
         //rotate character in direction pressed
         rb.AddTorque(-ctr.turnMove * turnRate * Time.deltaTime);

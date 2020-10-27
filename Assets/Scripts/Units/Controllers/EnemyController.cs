@@ -44,6 +44,10 @@ public class EnemyController : Unit_Control_Base
                 seeker.StartPath(rb.position, target.position, OnPathComplete);
             }
         }
+        else
+        {
+            Debug.LogWarning("Previous path update incomplete");
+        }
     }
 
     Transform GetClosestOpposition()

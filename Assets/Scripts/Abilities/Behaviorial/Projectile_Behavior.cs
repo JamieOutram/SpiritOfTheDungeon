@@ -7,10 +7,10 @@ using UnityEngine;
 public class Projectile_Behavior : MonoBehaviour
 {
     [HideInInspector] public int damage;
-    public float speed;
-    public float range;
-    public bool initialized;
-    public GameObject casterObj;
+    [HideInInspector] public float speed;
+    [HideInInspector] public float range;
+    [HideInInspector] public bool initialized;
+    [HideInInspector] public GameObject casterObj;
 
     private float distanceTraveled;
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class Projectile_Behavior : MonoBehaviour
         }
         else if (InteractionManager.IsDamaged(casterObj, otherObj.gameObject))
         {
-            otherObj.GetComponent<Unit_Actions>().Damage(damage, casterObj.transform);
+            otherObj.GetComponent<Unit_Actions>().Damage(damage, transform);
             Destroy(gameObject);
         }
         else if (InteractionManager.IsBlocked(casterObj, otherObj.gameObject))

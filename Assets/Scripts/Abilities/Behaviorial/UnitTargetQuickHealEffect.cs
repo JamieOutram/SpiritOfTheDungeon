@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitTargetQuickHealEffect : UnitTargetEffect
+public class UnitTargetQuickHealEffect : UnitTargetBehaviour
 {   
     private Unit_Statistics unitStats;
 

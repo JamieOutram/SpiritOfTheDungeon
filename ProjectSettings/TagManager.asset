@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Team
   - Enemy
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -17,11 +18,11 @@ TagManager:
   - 
   - 
   - Obstacle
+  - Selection Panel
+  - Clickable Character
   - 
   - 
-  - 
-  - 
-  - 
+  - Popup Cancel
   - 
   - 
   - 
@@ -55,4 +56,7 @@ TagManager:
     locked: 0
   - name: Lights
     uniqueID: 1522445221
+    locked: 0
+  - name: UI
+    uniqueID: 1832560609
     locked: 0
