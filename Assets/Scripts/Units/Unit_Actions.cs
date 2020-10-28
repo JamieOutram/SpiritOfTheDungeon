@@ -30,9 +30,13 @@ public class Unit_Actions : MonoBehaviour
         if (ability == null)
             return;
 
+        
+
         if (unit_Abilities.GetCooldownLeftSeconds(ability.aName) == 0f)
         {
-            anim.SetBool("Attack", true);
+            if(ability.IsMelee) anim.SetBool("Attack", true);
+            else anim.SetBool("Cast", true);
+
             if (ability.GetType() == typeof(UnitTargetAbility))
             {
                 unit_Abilities.TryUseAbility(ability.aName, Targeting.GetClosestUnitTarget(this.transform, ability));

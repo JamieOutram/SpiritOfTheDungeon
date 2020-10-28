@@ -28,6 +28,8 @@ public abstract class Ability : NamedScriptableObject
     public DamageImpactType dmgImpactType = DamageImpactType.None;
     public bool isHeal;
 
+    public virtual bool IsMelee { get { return false; } }
+
     public virtual void Initialise()
     {
         Debug.LogWarning("No Override for initialize() in Ability.cs");

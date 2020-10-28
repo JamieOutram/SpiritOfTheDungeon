@@ -7,8 +7,8 @@ using UnityEngine;
 //Template defining the basic requirements for an AoE ability and provides trigger 
 public class MeleeAbility : Ability
 {
-    public const bool isMelee = true;
-    
+    public override bool IsMelee { get { return true; } }
+
     public override void Initialize(GameObject obj)
     {
 
