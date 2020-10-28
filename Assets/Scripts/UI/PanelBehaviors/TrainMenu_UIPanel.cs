@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TrainMenu_UIPanel : Base_UIPanel
 {
+    public override UIPanelId Id { get { return UIPanelId.TrainMenu; } }
     public Button startButton;
     public override void OpenBehavior()
     {

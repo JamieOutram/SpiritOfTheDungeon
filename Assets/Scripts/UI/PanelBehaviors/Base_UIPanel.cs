@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base_UIPanel : MonoBehaviour
+public abstract class Base_UIPanel : MonoBehaviour
 {
     public bool isOpen = false;
+
+    public abstract UIPanelId Id { get; }
 
     public virtual void OpenBehavior()
     {

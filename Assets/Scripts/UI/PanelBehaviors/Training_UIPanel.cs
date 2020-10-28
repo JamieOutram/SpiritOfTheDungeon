@@ -6,11 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 //All Button Behaviour triggers and camera controls for the training interface
-public class Training_UIPanel : Base_UIPanel
+public class Training_UIPanel : Base_InfoBox_UIPanel
 {
-    
-    public PopupInfoBox infoBox;
-
+    public override UIPanelId Id { get { return UIPanelId.TrainMenu; } }
     RoomScroller scroller;
 
     [SerializeField] private Button scrollLeft = default;
@@ -21,24 +19,12 @@ public class Training_UIPanel : Base_UIPanel
     [SerializeField] private Button back = default;
     [SerializeField] private Button speedUp = default;
 
-    void Awake()
-    {
-        PopupInfoBox.LoadResources();
-    }
-
     // Start is called before the first frame update
     public override void OpenBehavior()
     {
         base.OpenBehavior();
-        infoBox = new PopupInfoBox(transform);
         scroller = new RoomScroller();
         
-    }
-
-    public override void CloseBehavior()
-    {
-        base.CloseBehavior();
-        infoBox.DestroyBox();
     }
 
     public void ScrollRightTrigger()
@@ -97,9 +83,8 @@ public class Training_UIPanel : Base_UIPanel
 
     public override void OnCellMouseDown(RoomBehaviour target, Vector2 index)
     {
-        if(!ReferenceEquals(infoBox,null))
-            infoBox.HideBox();
-
+        base.OnCellMouseDown(target, index);
+  
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             

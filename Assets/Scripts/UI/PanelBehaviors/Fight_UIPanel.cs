@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 //All Button Behaviour triggers and camera controls for the training interface
 public class Fight_UIPanel : Base_InfoBox_UIPanel
 {
+    public override UIPanelId Id { get { return UIPanelId.Fight; } }
     [SerializeField] private Button pause = default;
     [SerializeField] private Text pauseText = default;
     [SerializeField] private Button play = default;

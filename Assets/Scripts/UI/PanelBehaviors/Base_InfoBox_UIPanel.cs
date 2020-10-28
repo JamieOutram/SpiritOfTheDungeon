@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 //All Button Behaviour triggers and camera controls for the training interface
-public class Base_InfoBox_UIPanel : Base_UIPanel
+public abstract class Base_InfoBox_UIPanel : Base_UIPanel
 {
 
     public PopupInfoBox infoBox;
