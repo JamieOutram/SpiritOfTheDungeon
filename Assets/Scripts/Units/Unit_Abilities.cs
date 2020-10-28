@@ -5,9 +5,11 @@ using System.Linq;
 using UnityEngine;
 using System.Reflection;
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(UnitTargetTriggerable))]
 [RequireComponent(typeof(AreaOfEffectTriggerable))]
 [RequireComponent(typeof(ProjectileTriggerable))]
+[RequireComponent(typeof(Unit_Statistics))]
 public class Unit_Abilities : ScriptableObjectManager<Ability>
 {
     public event EventHandler<OnCastArgs> OnCastHandler;
@@ -34,12 +36,15 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
     private ProjectileTriggerable projectileTrigger;
     private AreaOfEffectTriggerable aoeTrigger;
 
+    private Animator anim;
+
     void Awake()
     {
         cooldowns = new Dictionary<string, Cooldown>();
         unitTargetTrigger = GetComponent<UnitTargetTriggerable>();
         projectileTrigger = GetComponent<ProjectileTriggerable>();
         aoeTrigger = GetComponent<AreaOfEffectTriggerable>();
+        anim = GetComponent<Animator>();
         InitializeObjects();
         InitializeCooldowns();
     }
@@ -164,9 +169,12 @@ public class Unit_Abilities : ScriptableObjectManager<Ability>
     private void TriggerAbility(Ability ability, GameObject target = null)
     {
         Type T = ability.GetType();
-        if (T == typeof(UnitTargetAbility)) unitTargetTrigger.Fire(target, (ability as UnitTargetAbility));
-        else if (T == typeof(ProjectileAbility)) projectileTrigger.Fire(ability as ProjectileAbility);
-        else if (T == typeof(AreaOfEffectAbility)) aoeTrigger.Fire(ability as AreaOfEffectAbility);
+        if (T == typeof(UnitTargetAbility)) 
+            unitTargetTrigger.Fire(target, (ability as UnitTargetAbility));
+        else if (T == typeof(ProjectileAbility)) 
+            projectileTrigger.Fire(ability as ProjectileAbility);
+        else if (T == typeof(AreaOfEffectAbility)) 
+            aoeTrigger.Fire(ability as AreaOfEffectAbility);
     }
 
 }

@@ -655,6 +655,11 @@ PrefabInstance:
       propertyPath: newBaseStats.Array.data[2]
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7340271794356371572, guid: 739df95580f01434fa1d793286fac434,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7522300392994472308, guid: 739df95580f01434fa1d793286fac434,
         type: 3}
       propertyPath: m_Name

@@ -10,14 +10,6 @@ public enum UnitAnimation
     Melee,
 }
 
-public enum AbilityTargetType
-{
-    None,
-    UnitTarget,
-    AreaOfEffect,
-    Projectile,
-}
-
 //The base class for all abilities
 public abstract class Ability : NamedScriptableObject
 {
