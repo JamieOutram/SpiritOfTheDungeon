@@ -12,6 +12,7 @@ public enum UIPanelId
     Fight,
     Training,
     TrainMenu,
+    BattleSummary,
 }
 
 public class UIManager : MonoBehaviour
@@ -29,6 +30,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Fight_UIPanel fightPanel = default;
     public Fight_UIPanel FightPanel { get { return fightPanel; } }
+
+    [SerializeField] private BattleSummary_UIPanel battleSummaryPanel = default;
+    public BattleSummary_UIPanel BattleSummaryPanel { get { return battleSummaryPanel; } }
 
     [SerializeField] private Training_UIPanel trainingPanel = default;
     public Training_UIPanel TrainingPanel { get { return trainingPanel; } }
