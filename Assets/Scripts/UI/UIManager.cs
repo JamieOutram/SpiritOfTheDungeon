@@ -44,8 +44,12 @@ public class UIManager : MonoBehaviour
     public Base_UIPanel CurrentPanel { get { return _currentPanel; } }
 
     [SerializeField] private Base_UIPanel startPanel = default;
-
     
+    //TransitionVariables
+    [SerializeField] private GameObject blackoutImage = default;
+    private Animator transitionAnim = default;
+    private IEnumerator transitionCoroutine;
+    private bool isCrRunning = false;
 
     private void Awake()
     {
@@ -55,6 +59,8 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
+
+        transitionAnim = blackoutImage.GetComponent<Animator>();
     }
 
     private void Start()
@@ -68,9 +74,22 @@ public class UIManager : MonoBehaviour
         if (_currentPanel) _currentPanel.UpdateBehavior();
     }
 
-    public void TriggerPanelTransition(Base_UIPanel panel)
+    public void TriggerPanelTransition(Base_UIPanel panel, bool useFadeTransition = false)
     {
-        TriggerOpenPanel(panel);
+        if (useFadeTransition) {
+            if (!isCrRunning)
+            {
+                Debug.Log("called");
+                Debug.Log(transitionAnim);
+                transitionAnim.SetTrigger("Fade");
+                transitionCoroutine = WaitTransitionComplete(panel);
+                StartCoroutine(transitionCoroutine);
+            }
+        }
+        else
+        {
+            TriggerOpenPanel(panel);
+        }
     }
 
     public void TriggerBackPanelTransition()
@@ -101,6 +120,20 @@ public class UIManager : MonoBehaviour
     void TriggerClosePanel(Base_UIPanel panel)
     {
         panel.CloseBehavior();
+    }
+
+    private IEnumerator WaitTransitionComplete(Base_UIPanel panel)
+    {
+        isCrRunning = true;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+
+            if (transitionAnim.GetBool("isFaded")) break;
+        }
+        TriggerOpenPanel(panel);
+        transitionAnim.SetTrigger("UnFade");
+        isCrRunning = false;
     }
 
 }
