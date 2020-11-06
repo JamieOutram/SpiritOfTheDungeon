@@ -70,13 +70,13 @@ public class ButtonAnimator : MonoBehaviour
         }
         else
         {
-            Invoke("TriggerFadeIn", 1f); //call again after 1 second if currently fading out
+            Invoke("TriggerFadeIn", 0.1f); //call again after 1 second if currently fading out
         }
     }
 
     private void initializeForFade()
     {
-        finalPosition = initialPosition + distance * Vector2.up.Rotate(angle);
+        finalPosition = initialPosition + distance * Vector2.up.Rotate(-angle);
         timeElapsed = 0f;
         button.interactable = false;
     }

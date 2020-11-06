@@ -403,8 +403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: -90
-  distance: 2
-  time: 1
+  distance: 0.6
+  time: 0.1
 --- !u!1 &1104875467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1005061227126126972, guid: 13271395ee031bf40bad648f7c2b38d3,
