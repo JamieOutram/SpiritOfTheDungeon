@@ -54,8 +54,7 @@ public class Fight_UIPanel : Base_InfoBox_UIPanel
 
     public void BackTrigger()
     {
-        back.GetComponent<ButtonAnimator>().TriggerFadeOut();
-        back.GetComponent<ButtonAnimator>().TriggerFadeIn();
+        UIManager.instance.TriggerPanelTransition(UIManager.instance.MainMenuPanel);
     }
 
 

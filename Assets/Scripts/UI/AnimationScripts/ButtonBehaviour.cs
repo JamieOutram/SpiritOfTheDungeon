@@ -4,24 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonAnimator : MonoBehaviour
+public class ButtonBehaviour : MonoBehaviour
 {
 
     Button button = default;
+    Image image = default;
 
-    [SerializeField][Range(-180,180)] float angle = default;
+    [SerializeField] [Range(-180, 180)] float angle = default;
     [SerializeField] float distance = default;
-    [SerializeField] float time = default;
+    [SerializeField] float time = 0.1f;
 
     Vector2 finalPosition = default;
     Vector2 initialPosition = default;
     bool isFadingOut = false;
+    public bool IsFading
+    {
+        get { return isFadingOut || isFadingIn; }
+    }
     bool isFadingIn = false;
     float timeElapsed = 0f;
     // Start is called before the first frame update
     void Awake()
     {
+
         button = GetComponent<Button>();
+        if (button != null) image = button.image;
+        else image = GetComponent<Image>();
+
+        if (time == 0f) time = 0.1f;
         initialPosition = transform.position;
     }
 
@@ -35,50 +45,51 @@ public class ButtonAnimator : MonoBehaviour
         else if (isFadingIn)
         {
             isFadingIn = UpdateFade(isFadingIn, FadeIn);
-            button.interactable = !isFadingIn; //enable button at end of fade in
+            if (button != null) button.interactable = !isFadingIn; //enable button at end of fade in
         }
     }
 
-    public void ResetButton()
+    public void ResetButton(bool isFaded = false)
     {
-        transform.position = initialPosition;
-        var tempColor = button.image.color;
-        tempColor.a = 1f;
-        button.image.color = tempColor;
-        button.interactable = true;
+        isFadingIn = false;
+        isFadingOut = false;
+
+        var tempColor = image.color;
+        if (!isFaded)
+        {
+            transform.position = initialPosition;
+            tempColor.a = 1f;
+            if (button != null) button.interactable = true;
+        }
+        else
+        {
+            initializeForFade();
+            transform.position = finalPosition;
+            tempColor.a = 0f;
+            if (button != null) button.interactable = false;
+        }
+        image.color = tempColor;
     }
 
     public void TriggerFadeOut()
     {
-        if (!isFadingIn)
-        {
-            initializeForFade();
-            isFadingOut = true;
-        }
-        else
-        {
-            Invoke("TriggerFadeOut", 1f); //call again after 1 second if currently fading in
-        }
+        ResetButton(false);
+        initializeForFade();
+        isFadingOut = true;
     }
 
     public void TriggerFadeIn()
     {
-        if (!isFadingOut)
-        {
-            initializeForFade();
-            isFadingIn = true;
-        }
-        else
-        {
-            Invoke("TriggerFadeIn", 0.1f); //call again after 1 second if currently fading out
-        }
+        ResetButton(true);
+        initializeForFade();
+        isFadingIn = true;
     }
 
     private void initializeForFade()
     {
         finalPosition = initialPosition + distance * Vector2.up.Rotate(-angle);
         timeElapsed = 0f;
-        button.interactable = false;
+        if (button != null) button.interactable = false;
     }
 
     private bool UpdateFade(bool isFading, Action updateMethod)
@@ -101,18 +112,18 @@ public class ButtonAnimator : MonoBehaviour
     void FadeOut()
     {
         transform.position = Vector2.Lerp(initialPosition, finalPosition, timeElapsed / time);
-        var tempColor = button.image.color;
+        var tempColor = image.color;
         tempColor.a = Mathf.Lerp(1, 0, timeElapsed / time);
-        button.image.color = tempColor;
+        image.color = tempColor;
     }
 
     void FadeIn()
     {
         transform.position = Vector2.Lerp(finalPosition, initialPosition, timeElapsed / time);
-        var tempColor = button.image.color;
+        var tempColor = image.color;
         tempColor.a = Mathf.Lerp(0, 1, timeElapsed / time);
-        button.image.color = tempColor;
+        image.color = tempColor;
     }
 
-    
+
 }

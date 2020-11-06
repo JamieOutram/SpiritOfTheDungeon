@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -36,22 +37,37 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Training_UIPanel trainingPanel = default;
     public Training_UIPanel TrainingPanel { get { return trainingPanel; } }
-    
+
     [SerializeField] private Base_UIPanel trainMenuPanel = default;
     public Base_UIPanel TrainMenuPanel { get { return trainMenuPanel; } }
+
+    //Panel Awake initialization calls
+    private void InitializePanels()
+    {
+        if (MainMenuPanel != null) MainMenuPanel.AwakeBehavior();
+        if (SettingsPanel!=null) SettingsPanel.AwakeBehavior();
+        if (EscMenuPanel != null) EscMenuPanel.AwakeBehavior();
+        if (FightPanel != null) FightPanel.AwakeBehavior();
+        if (BattleSummaryPanel != null) BattleSummaryPanel.AwakeBehavior();
+        if (TrainingPanel != null) TrainingPanel.AwakeBehavior();
+        if (TrainMenuPanel != null) TrainMenuPanel.AwakeBehavior();
+    }
+
 
     Base_UIPanel _currentPanel;
     public Base_UIPanel CurrentPanel { get { return _currentPanel; } }
 
     [SerializeField] private Base_UIPanel startPanel = default;
-    
+
     //TransitionVariables
     [SerializeField] private GameObject blackoutImage = default;
     private Animator transitionAnim = default;
     private IEnumerator transitionCoroutine;
     private bool isCrRunning = false;
 
-    private void Awake()
+
+
+    void Awake()
     {
         if (instance == null)
         {
@@ -63,10 +79,12 @@ public class UIManager : MonoBehaviour
         transitionAnim = blackoutImage.GetComponent<Animator>();
     }
 
+    
+
     private void Start()
     {
+        InitializePanels();
         TriggerOpenPanel(startPanel);
-        
     }
 
     private void Update()
@@ -76,7 +94,8 @@ public class UIManager : MonoBehaviour
 
     public void TriggerPanelTransition(Base_UIPanel panel, bool useFadeTransition = false)
     {
-        if (useFadeTransition) {
+        if (useFadeTransition)
+        {
             if (!isCrRunning)
             {
                 transitionAnim.SetTrigger("Fade");
@@ -94,7 +113,7 @@ public class UIManager : MonoBehaviour
     {
         switch (_currentPanel.Id)
         {
-            case UIPanelId.Settings: 
+            case UIPanelId.Settings:
                 break;
             case UIPanelId.Fight:
                 break;
