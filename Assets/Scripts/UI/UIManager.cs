@@ -79,8 +79,6 @@ public class UIManager : MonoBehaviour
         if (useFadeTransition) {
             if (!isCrRunning)
             {
-                Debug.Log("called");
-                Debug.Log(transitionAnim);
                 transitionAnim.SetTrigger("Fade");
                 transitionCoroutine = WaitTransitionComplete(panel);
                 StartCoroutine(transitionCoroutine);
@@ -114,7 +112,6 @@ public class UIManager : MonoBehaviour
         if (_currentPanel != null) TriggerClosePanel(_currentPanel);
         _currentPanel = panel;
         _currentPanel.OpenBehavior();
-
     }
 
     void TriggerClosePanel(Base_UIPanel panel)

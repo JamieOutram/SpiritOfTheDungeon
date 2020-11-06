@@ -17,6 +17,7 @@ public class Fight_UIPanel : Base_InfoBox_UIPanel
 
     private CycleImage speedUpCycler;
 
+
     void Awake()
     {
         speedUpCycler = speedUp.transform.GetComponent<CycleImage>();
@@ -53,7 +54,8 @@ public class Fight_UIPanel : Base_InfoBox_UIPanel
 
     public void BackTrigger()
     {
-        
+        back.GetComponent<ButtonAnimator>().TriggerFadeOut();
+        back.GetComponent<ButtonAnimator>().TriggerFadeIn();
     }
 
 
