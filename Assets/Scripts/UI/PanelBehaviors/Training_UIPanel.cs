@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Training_UIPanel : Base_InfoBox_UIPanel
 {
     public override UIPanelId Id { get { return UIPanelId.TrainMenu; } }
+    public override bool IsPopup { get { return false; } }
     RoomScroller scroller;
 
     [SerializeField] private Button scrollLeft = default;

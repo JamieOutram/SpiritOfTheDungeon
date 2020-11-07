@@ -6,8 +6,10 @@ using UnityEngine;
 public class EscMenu_UIPanel : Base_UIPanel
 {
     public override UIPanelId Id { get { return UIPanelId.EscMenu; } }
+    public override bool IsPopup { get { return true; } }
     public Button backButton;
     
+
     public override void OpenBehavior()
     {
         base.OpenBehavior();
@@ -17,7 +19,7 @@ public class EscMenu_UIPanel : Base_UIPanel
     void BackClicked()
     {
         Debug.Log("Button Pressed");
-        UIManager.instance.TriggerPanelTransition(UIManager.instance.FightPanel);
+        UIManager.instance.TriggerPanelTransitionBack();
     }
 
     void SettingsClicked()

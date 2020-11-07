@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Base_UIPanel : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public abstract class Base_UIPanel : MonoBehaviour
 
     [HideInInspector] public bool isOpen = false;
     
-    private ButtonBehaviour[] animatedButtons = default;
+    protected ButtonBehaviour[] animatedButtons = default;
+
+    protected Button[] allButtons = default;
 
     public abstract UIPanelId Id { get; }
+    public abstract bool IsPopup { get; }
 
     public virtual void OpenBehavior()
     {
@@ -31,6 +35,7 @@ public abstract class Base_UIPanel : MonoBehaviour
     public virtual void AwakeBehavior()
     {
         animatedButtons = GetComponentsInChildren<ButtonBehaviour>();
+        allButtons = GetComponentsInChildren<Button>();
     }
 
     public virtual void UpdateBehavior()
@@ -50,9 +55,8 @@ public abstract class Base_UIPanel : MonoBehaviour
             isOpen = false;
             Invoke("TryDeactivate", 0.1f);
         }
-
-        
     }
+    
     private void TryDeactivate()
     {
         bool canDeactivate = true;
@@ -62,11 +66,19 @@ public abstract class Base_UIPanel : MonoBehaviour
         }
         if (canDeactivate) gameObject.SetActive(false);
         else Invoke("TryDeactivate", 0.1f);
-
     }
 
     public virtual void OnCellMouseDown(RoomBehaviour target, Vector2 index)
     {
         Debug.Log("No on mouse down behaviour for this pannel");
     }
+
+    public void SetPanelInput(bool enable)
+    {
+        foreach(Button button in allButtons)
+        {
+            button.interactable = enable;
+        }
+    }
+
 }

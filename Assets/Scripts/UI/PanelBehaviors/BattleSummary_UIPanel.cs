@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BattleSummary_UIPanel : Base_UIPanel
 {
     public override UIPanelId Id { get { return UIPanelId.BattleSummary; } }
+    public override bool IsPopup { get { return true; } }
     public Button backButton;
 
     public override void OpenBehavior()

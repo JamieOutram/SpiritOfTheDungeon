@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Fight_UIPanel : Base_InfoBox_UIPanel
 {
     public override UIPanelId Id { get { return UIPanelId.Fight; } }
+    public override bool IsPopup { get { return false; } }
     [SerializeField] private Button pause = default;
     [SerializeField] private Text pauseText = default;
     [SerializeField] private Button play = default;
