@@ -17,13 +17,11 @@ public class BattleSummary_UIPanel : Base_UIPanel
     }
     void BackClicked()
     {
-        Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.FightPanel);
     }
 
     void SettingsClicked()
     {
-        Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.SettingsPanel);
     }
 }

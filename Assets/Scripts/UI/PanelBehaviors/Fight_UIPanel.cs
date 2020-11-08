@@ -55,6 +55,9 @@ public class Fight_UIPanel : Base_InfoBox_UIPanel
 
     public void BackTrigger()
     {
+        ResumeGame();
+        TimeControl.GameSpeed = 1f;
+        speedUpCycler.Set(TimeControl.Index);
         UIManager.instance.TriggerPanelTransition(UIManager.instance.MainMenuPanel);
     }
 

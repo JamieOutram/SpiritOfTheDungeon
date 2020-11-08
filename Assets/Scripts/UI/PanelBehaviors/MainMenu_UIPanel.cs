@@ -21,14 +21,12 @@ public class MainMenu_UIPanel : Base_UIPanel
     }
     void StartGameClicked()
     {
-        Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.FightPanel);
         //UIManager.instance.TriggerPanelTransition(UIManager.instance.FightPanel,true);
     }
 
     void SettingsClicked()
     {
-        Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.SettingsPanel);
     }
 

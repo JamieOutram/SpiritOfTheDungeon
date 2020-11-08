@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Attempted to open panel that's already open.");
+            Debug.LogWarning("Attempted to open panel that's already open. (Ignore if popup closed)");
         }
     }
 

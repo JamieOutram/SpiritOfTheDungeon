@@ -18,13 +18,13 @@ public class EscMenu_UIPanel : Base_UIPanel
     }
     void BackClicked()
     {
-        Debug.Log("Button Pressed");
+        //Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransitionBack();
     }
 
     void SettingsClicked()
     {
-        Debug.Log("Button Pressed");
+        //Debug.Log("Button Pressed");
         UIManager.instance.TriggerPanelTransition(UIManager.instance.SettingsPanel);
     }
 }
