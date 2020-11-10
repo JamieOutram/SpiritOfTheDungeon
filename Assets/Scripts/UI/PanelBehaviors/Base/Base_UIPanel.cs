@@ -9,7 +9,7 @@ public abstract class Base_UIPanel : MonoBehaviour
 
     [HideInInspector] public bool isOpen = false;
     
-    protected ButtonBehaviour[] animatedButtons = default;
+    protected FadeBase[] animatedUIElements = default;
 
     protected Button[] allButtons = default;
 
@@ -25,16 +25,16 @@ public abstract class Base_UIPanel : MonoBehaviour
             if (IsInvoking("TryDeactivate")) CancelInvoke("TryDeactivate"); 
         }
 
-        foreach(ButtonBehaviour button in animatedButtons)
+        foreach(FadeBase element in animatedUIElements)
         {
-            button.TriggerFadeIn();
+            element.TriggerFadeIn();
         }
 
     }
 
     public virtual void AwakeBehavior()
     {
-        animatedButtons = GetComponentsInChildren<ButtonBehaviour>();
+        animatedUIElements = GetComponentsInChildren<FadeBase>();
         allButtons = GetComponentsInChildren<Button>();
     }
 
@@ -45,7 +45,7 @@ public abstract class Base_UIPanel : MonoBehaviour
 
     public virtual void CloseBehavior()
     {
-        foreach (ButtonBehaviour button in animatedButtons)
+        foreach (FadeBase button in animatedUIElements)
         {
             button.TriggerFadeOut();
         }
@@ -60,9 +60,9 @@ public abstract class Base_UIPanel : MonoBehaviour
     private void TryDeactivate()
     {
         bool canDeactivate = true;
-        foreach(ButtonBehaviour button in animatedButtons)
+        foreach(FadeBase element in animatedUIElements)
         {
-            if (button.IsFading) canDeactivate = false;
+            if (element.IsFading) canDeactivate = false;
         }
         if (canDeactivate) gameObject.SetActive(false);
         else Invoke("TryDeactivate", 0.1f);
