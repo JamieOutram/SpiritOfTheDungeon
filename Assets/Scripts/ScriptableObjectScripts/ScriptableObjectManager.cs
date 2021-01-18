@@ -5,7 +5,7 @@ using System.Linq;
 
 public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : NamedScriptableObject
 {
-    public int Count { get; private set; } = 0;
+    public int Count { get { return elements.Count; } }
 
     [SerializeField] private List<T> editorElements = default;
     private Dictionary<string, T> elements;
@@ -43,7 +43,6 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : Named
         {
             element = InstantiateElement(element);
             elements.Add(element.aName, element);
-            Count++;
             return true;
         }
         else
@@ -58,7 +57,6 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : Named
         {
             Destroy(elements[element]);
             elements.Remove(element);
-            Count--;
             return true;
         }
         else
@@ -89,6 +87,7 @@ public abstract class ScriptableObjectManager<T> : MonoBehaviour where T : Named
     {
         return elements.Keys.Contains(name);
     }
+
     public void CleanObjects()
     {
         foreach(var key in elements.Keys)

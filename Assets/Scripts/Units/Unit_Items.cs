@@ -20,7 +20,10 @@ public class Unit_Items : ScriptableObjectManager<EquipableItem>
         InitializeObjects();
     }
 
-
+    public bool AddItem(EquipableItem item)
+    {
+        return AddElement(item);
+    }
 
     public EquipableItem GetItem(string name)
     {
@@ -44,14 +47,14 @@ public class Unit_Items : ScriptableObjectManager<EquipableItem>
     //returns list of name, icon, description for each item.
     public List<EquipableItem> GetAllItems()
     {
-        List<EquipableItem> itemAttributes = new List<EquipableItem>();
+        List<EquipableItem> itemList = new List<EquipableItem>();
         EquipableItem item;
         for (int i = 0; i<Count; i++)
         {
             item = GetElement(i);
-            itemAttributes.Add(item);
+            itemList.Add(item);
         }
-        return itemAttributes;
+        return itemList;
     }
 
 }
